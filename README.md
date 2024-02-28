@@ -23,7 +23,7 @@ DB_HOST=localhost
 DB_USER=your_mysql_username
 DB_PASSWORD=your_mysql_password
 DB_NAME=your_database_name
-PORT=3000
+PORT=3306
 ```
 Replace your_mysql_username, your_mysql_password, and your_database_name with your MySQL database credentials and database name.
 ## Running the application
