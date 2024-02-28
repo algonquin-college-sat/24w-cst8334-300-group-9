@@ -8,8 +8,9 @@
 ## Prerequisites
 Before running the application, ensure you have the following installed:
 
-Node.js and npm: [Install Node.js](https://nodejs.org/en/download/)
-MySQL Server: [Install MySQL](https://dev.mysql.com/downloads/installer/)
+Node.js: [Node.js](https://nodejs.org/en/download/)
+
+MySQL Server: [MySQL](https://dev.mysql.com/downloads/installer/)
 
 ## Setting up the local environment
 ### Set up Environment Variables:
