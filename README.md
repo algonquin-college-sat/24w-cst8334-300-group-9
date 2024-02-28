@@ -27,6 +27,9 @@ PORT=3306
 ```
 Replace your_mysql_username, your_mysql_password, and your_database_name with your MySQL database credentials and database name.
 ## Running the application
+Backend: `node index.js`
+
+Frontend: `npm start`
 
 ## Future Recommendations
 
