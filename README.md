@@ -30,5 +30,3 @@ Replace your_mysql_username, your_mysql_password, and your_database_name with yo
 
 ## Future Recommendations
 
-## Badges
-![GitHub last commit](https://img.shields.io/github/last-commit/algonquin-college-sat/24w-cst8334-300-group-9)
