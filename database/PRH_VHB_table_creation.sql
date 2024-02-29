@@ -6,7 +6,7 @@ USE PRHDatabank;
 CREATE TABLE DEPARTMENTS (
   department_id INT PRIMARY KEY,
   department_name VARCHAR(255),
-  display_board VARCHAR(255)  -- why do we need a display board?
+  display_board BOOLEAN
 );
 
 -- create the CATEGORIES table
@@ -16,7 +16,6 @@ CREATE TABLE CATEGORIES (
 );
 
 -- Create the IMPROVEMENT_TICKETS table
--- Where is the tracking info?
 CREATE TABLE IMPROVEMENT_TICKETS (
   ticket_id INT PRIMARY KEY,
   name VARCHAR(255),
@@ -65,7 +64,6 @@ CREATE TABLE TICKET_UPDATES (
 );
 
 -- Create the IMPROVEMENT_DEPARTMENT table
--- why do we have improvement_department table?
 CREATE TABLE IMPROVEMENT_DEPARTMENT (
   ticket_id INT,
   department_id INT,
