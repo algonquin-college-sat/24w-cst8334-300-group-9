@@ -1,5 +1,5 @@
 import express from 'express';
-import mysql2 from 'mysql2';
+import mssql from 'mssql';
 import dotenv from 'dotenv';
 
 dotenv.config(); // Load environment variables from .env file
@@ -7,21 +7,30 @@ dotenv.config(); // Load environment variables from .env file
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// MySQL connection
-const connection = mysql2.createConnection({
-  host: process.env.DB_HOST,
+// SQL Server connection pool configuration
+const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
+  server: process.env.DB_HOST,
   database: process.env.DB_NAME,
-});
+  options: {
+    encrypt: true, // For SQL Server Azure
+    trustServerCertificate: true, // For development only
+  },
+};
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-    return;
-  }
-  console.log('Connected to MySQL database');
-});
+// Create a new instance of mssql.ConnectionPool
+const pool = new mssql.ConnectionPool(config);
+
+// Connect to the database
+pool
+  .connect()
+  .then(() => {
+    console.log('Connected to SQL Server database');
+  })
+  .catch((err) => {
+    console.error('Error connecting to SQL Server:', err);
+  });
 
 // Define your routes and other backend logic here
 
