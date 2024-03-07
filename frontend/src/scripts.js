@@ -12,6 +12,6 @@ const navigateToDashBoard = (url) => {
   window.location.href = url;
 };
 dashboard1.addEventListener('click', () => {
-  navigateToDashBoard('../pages/overview/index.js');
+  navigateToDashBoard('./pages/overview/index.html');
   console.log('clicked!');
 });
