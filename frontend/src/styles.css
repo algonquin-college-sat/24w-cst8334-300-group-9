@@ -6,14 +6,49 @@
 @import url('./tickets/improvement/index.js');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato&display=swap');
 
-/* Global styles */
-
-/* reset styles of the pages */
 html,
 body {
   height: 100%;
   width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
   font-family: 'Inter', sans-serif;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.container {
+  border-radius: 16px;
+  flex-wrap: wrap;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-/* Additional global styles... */
+.dashboard {
+  transition: transform 0.2s ease;
+}
+.dashboard:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+.dashboard.clicked {
+  transform: scale(1);
+}
+.logo {
+  max-width: 12rem;
+  height: auto;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  margin: 10px;
+}
