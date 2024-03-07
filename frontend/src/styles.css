@@ -6,9 +6,6 @@
 @import url('./tickets/improvement/index.js');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato&display=swap');
 
-/* Global styles */
-
-/* reset styles of the pages */
 html,
 body {
   height: 100%;
@@ -32,10 +29,8 @@ body {
   align-items: center;
   padding: 20px;
 }
-/* Additional global styles... */
 
 .logo {
-  /* position: absolute; */
   max-width: 12rem;
   height: auto;
 }
