@@ -30,6 +30,16 @@ body {
   padding: 20px;
 }
 
+.dashboard {
+  transition: transform 0.2s ease;
+}
+.dashboard:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+.dashboard.clicked {
+  transform: scale(1);
+}
 .logo {
   max-width: 12rem;
   height: auto;
