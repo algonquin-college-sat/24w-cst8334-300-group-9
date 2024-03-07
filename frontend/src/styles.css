@@ -13,22 +13,37 @@ html,
 body {
   height: 100%;
   width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
   font-family: 'Inter', sans-serif;
 }
-.container {
-  /* max-width: 800px; */
-  margin: 50px auto;
+.wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.container {
+  border-radius: 16px;
   flex-wrap: wrap;
-  /* gap: 20px; */
-}
-.card {
-  width: calc(50% - 10px);
-}
-.card {
-  transition: transform 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-5px);
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 /* Additional global styles... */
+
+.logo {
+  /* position: absolute; */
+  max-width: 12rem;
+  height: auto;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  margin: 10px;
+}
