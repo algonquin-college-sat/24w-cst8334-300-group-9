@@ -1,0 +1,11 @@
+{
+  "name": "24w-cst8334-300-group-9",
+  "version": "1.0.0",
+  "description": "Before running the application, ensure you have the following installed:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
