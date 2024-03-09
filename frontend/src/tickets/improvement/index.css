@@ -1,0 +1,75 @@
+  body {
+    background-color: #e9ecef;
+  }
+  .improvement-ticket-container {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .improvement-ticket-header {
+    color: #004d40;
+    margin-bottom: 20px;
+  }
+  .progress-notes-header {
+    color: #004d40;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    font-weight: bold;
+  }
+  .form-group textarea {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+  .form-check-label {
+  vertical-align: middle;
+  }
+  .form-check-input {
+  vertical-align: middle;
+  margin-top: 0;
+  margin-right: 0.3rem;
+  }
+  .note {
+    font-size: 0.8rem;
+    background-color: #e7f4f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 3px solid #009688;
+  }
+  .btn-section {
+    text-align: right;
+  }
+  .header-row {
+    align-items: center;
+  }
+  .logo {
+    max-height: 100px;
+  }
+  .header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .header-title h2 {
+    margin: 0;
+    padding: 0;
+    color: #004d40;
+  }
+  .ticket-details {
+    text-align: right;
+  }
+  .ticket-details div {
+    margin-bottom: 0.5rem;
+  }
+  .table td {
+    max-width: 160px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  

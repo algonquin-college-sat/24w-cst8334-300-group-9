@@ -21,3 +21,8 @@ function openModal() {
     document.querySelector('.button').addEventListener('click', openModal);
 });
 
+// Jeremy Wang adds a function on 2024-03-09
+function addImprovement() {
+  // Redirects to the Improvement Ticket page
+  window.location.href = "../../tickets/improvement/index.html";
+}
