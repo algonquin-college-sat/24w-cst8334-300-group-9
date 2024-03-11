@@ -1,26 +1,36 @@
 // index.js文件内容
 function openModal() {
     document.getElementById("ticketModal").style.display = "block";
-  }
+}
   
-  function closeModal() {
-    document.getElementById("ticketModal").style.display = "none";
-  }
+function closeModal() {
+  document.getElementById("ticketModal").style.display = "none";
+}
+
+function addImprovement() {
+  console.log("Adding an Improvement Ticket...");
+  closeModal();
+}
+
+function addCelebration() {
+  console.log("Adding a Celebration Ticket...");
+  closeModal();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('.button').addEventListener('click', openModal);
+  document.querySelector('#demoTicket').addEventListener('click', viewImprovement);
   
-  function addImprovement() {
-    console.log("Adding an Improvement Ticket...");
-    closeModal();
-  }
-  
-  function addCelebration() {
-    console.log("Adding a Celebration Ticket...");
-    closeModal();
-  }
-  
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.button').addEventListener('click', openModal);
-    document.querySelector('#demoTicket').addEventListener('click', viewImprovement);
 });
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('#demoTicketTwo').addEventListener('click', viewCelebration);
+});
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('#demoTicketThree').addEventListener('click', viewCelebrationTwo);
+});
+
 
 // Jeremy Wang adds a function on 2024-03-09
 function addImprovement() {
@@ -38,3 +48,10 @@ function viewImprovement(){
   window.location.href="../../tickets/improvement/filled-ticket.html";
 }
 
+function viewCelebration(){
+  window.location.href="../../tickets/celebration/filled-ticket-two.html";
+}
+
+function viewCelebrationTwo(){
+  window.location.href="../../tickets/celebration/filled-ticket-three.html";
+}

@@ -28,18 +28,27 @@
         <div class="col-md-6">
           <div class="card mb-4">
             <form> <!--Celebration Ticket Form 3-->
-              <h3 class="mb-3">Celebration Ticket</h3>
+              <div class="row">
+                <div class="col-md-9">
+                  <h3 class="mb-3">Celebration Ticket</h3>
+                </div>
+                <div class="col-md-3">
+                  <button type="button" class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#modalArchive">
+                    Archive
+                  </button>
+                </div>
+              </div>
               <p><strong>Date:</strong> 2024/03/11</p>
           
               <div class="mb-2">
                 <label for="whoWhat" class="form-label"><strong>Who / What:</strong></label>
-                <input type="text" id="whoWhat" class="ms-2">
+                <span>Byte Busters</span>
               </div>
 
               <!-- List of PRH departments -->
               <div>
                 <label for="department" class="form-label"><strong>Department:</strong></label>
-                <input type="text" id="department" class="ms-2">
+                <span>Algonquin College</span>
               </div>
               <!-- <select class="form-select">
                 <option value="department1">Community and Mental Health</option>
@@ -53,68 +62,64 @@
               <label for="details"><strong>Details:</strong></label>
 
               <!-- Details of who/what are entered here-->
-              <textarea id="details" class="form-control" row="20" cols="50" placeholder="Enter the details of who/what here"></textarea>
+              <p>We're having fun!</p>
           
               <br>
               <!-- PRH Values -->
               <h4>Link to our PRH Values</h4>
               <!--Compassion and Caring-->
-              <input type="checkbox" id="value1" name="value1" value="value1">
+              <input type="checkbox" id="value1" name="value1" value="value1" disabled>
               <label for="compassion_and_caring">Compassion and Caring</label><br>
           
               <!--Sacredness of Life-->
-              <input type="checkbox" id="value2" name="value2" value="value2">
+              <input type="checkbox" id="value2" name="value2" value="value2" disabled>
               <label for="sacredness_of_life">Sacredness of Life</label><br>
     
               <!--Community Spirit-->
-              <input type="checkbox" id="value3" name="value3" value="value3">
+              <input type="checkbox" id="value3" name="value3" value="value3" disabled checked>
               <label for="community_spirit">Community Spirit</label><br>
           
               <!--Excellence and Innovation-->
-              <input type="checkbox" id="value4" name="value4" value="value4">
+              <input type="checkbox" id="value4" name="value4" value="value4" disabled checked>
               <label for="excellence_and_innovation">Excellence and Innovation</label><br>
     
               <!--Mutual Respect-->
-              <input type="checkbox" id="value5" name="value5" value="value5">
+              <input type="checkbox" id="value5" name="value5" value="value5" disabled checked>
               <label for="mutual_respect">Mutual Respect</label><br>
     
               <!--Social and Fiscal Responsibility-->
-              <input type="checkbox" id="value6" name="value6" value="value6">
+              <input type="checkbox" id="value6" name="value6" value="value6" disabled>
               <label for="social_and_fiscalresponsibility">Social and Fiscal Responsibility</label><br>
               
               <br>
 
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <!-- <a class="btn btn-primary me-md-2" href="../../pages/overview/hboard-cmh3.html">Submit</a> -->
-                <button type="button" class="btn btn-primary me-md-2" data-bs-toggle="modal" data-bs-target="#modalCelebrationSubmit">
-                  Submit
-                </button>
-                <a class="btn btn-danger" href="../../pages/overview/hboard-cmh.html">Cancel</a>
+                <a class="btn btn-primary me-md-2" href="../../pages/overview/hboard-cmh4.html">Move to Celebrations</a>
+                <a class="btn btn-secondary" href="../../pages/overview/hboard-cmh3.html">Back</a>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>      
-    <div class="modal" id="modalCelebrationSubmit">
+    <div class="modal" id="modalArchive">
       <div class="modal-dialog">
         <div class="modal-content">
     
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Submit Celebration Ticket</h4>
+            <h4 class="modal-title">Archive Ticket</h4>
           </div>
     
           <!-- Modal body -->
           <div class="modal-body">
-            <p>Are you sure you want to submit this ticket?</p>
-            <p><strong>Celebration tickets cannot be edited after submission.</strong></p>
-            <p>Select Cancel to return to editing the ticket.</p>
+            <p>Are you sure you want to archive this ticket?</p>
+            <p><strong>Archived tickets are no longer visible on the huddle-board.</strong></p>
             <div class="row">
               <div class="col-sm-3"></div>
               <div class="col-sm-3">
                 <!-- Change the "action" part of the id to match the action the button performs -->
-                <a class="btn btn-success" id="celebrationTrigger" href="../../pages/overview/hboard-cmh3.html">Submit</a>
+                <a class="btn btn-success" id="archiveTrigger" href="../../pages/overview/hboard-cmh.html">Archive</a>
               </div>
               <div class="col-sm-3">
                 <button class="btn btnBasic" data-bs-dismiss="modal">Cancel</button>

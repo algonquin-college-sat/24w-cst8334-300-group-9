@@ -53,4 +53,20 @@ Celebration Tickets
     background-color: #f1f1f1;
 }
 
-
+.btnBasic {
+    background-color: gainsboro!important;
+  }
+  
+  button.btn-close {
+    color: #ffffff!important;
+  }
+  
+  .modal-header {
+    padding: 0.5em!important;
+    background-color: #006bd7;
+  }
+  
+  .modal-header h4 {
+    font-size: 1em;
+    color: #ffffff;
+  }
