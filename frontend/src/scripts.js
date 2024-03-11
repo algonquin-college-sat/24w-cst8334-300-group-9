@@ -18,7 +18,7 @@ const dashboard3 = document.querySelector('.dashboard-3');
 
 // Adding click listeners to each dashboard element
 // NOTE: Separate these events for now. Refactor and clean up later
-addClickListenerToDashboard(dashboard1, './pages/overview/index.html');
+addClickListenerToDashboard(dashboard1, './pages/overview/hboard-cmh.html');
 addClickListenerToDashboard(dashboard2, './pages/overview/index.html');
 // addClickListenerToDashboard(dashboard3, './pages/overview/index.html');
 

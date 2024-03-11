@@ -2,17 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Back button functionality
     const backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function() {
-      window.location.href = "../../pages/overview/index.html";
+      window.location.href = "../../pages/overview/hboard-cmh.html";
     });
-    
+
     // Save button functionality
-    const saveButton = document.querySelector('.btn-primary');
+    const saveButton = document.querySelector('#saveTicket');
     saveButton.addEventListener('click', function() {
+      window.location.href="../../pages/overview/hboard-cmh2.html";
       // Placeholder for save functionality
       // Perform form validation
       // Possibly, submit the form data via AJAX to a server endpoint
   
-      alert('Form data saved.');
+      // alert('Form data saved.');
     });
 
     // Add note functionality
