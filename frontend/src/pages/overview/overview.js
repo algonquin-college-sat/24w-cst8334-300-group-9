@@ -30,7 +30,7 @@ function addImprovement() {
 
 //Similar to the Improvement Ticket page, it will redirect the user to the Celebration Ticket page
 function addCelebration() {
-  window.location.href = "../../tickets/celebration/index.html";
+  window.location.href = "../../tickets/celebration/add-celebration.html";
 }
 
 //For demo 2

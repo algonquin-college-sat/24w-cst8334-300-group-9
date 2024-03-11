@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // alert('Form data saved.');
     });
 
+
     // Add note functionality
     const addProgressNoteButton = document.getElementById('addProgressNote');
     addProgressNoteButton.addEventListener('click', function() {
