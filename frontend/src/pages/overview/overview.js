@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelector('#demoTicketThree').addEventListener('click', viewCelebrationTwo);
 });
 
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('#demoTicketFive').addEventListener('click', viewImprovementFive);
+});
+
 
 // Jeremy Wang adds a function on 2024-03-09
 function addImprovement() {
@@ -46,6 +50,10 @@ function addCelebration() {
 //For demo 2
 function viewImprovement(){
   window.location.href="../../tickets/improvement/filled-ticket.html";
+}
+
+function viewImprovementFive(){
+  window.location.href="../../tickets/improvement/filled-ticket-five.html";
 }
 
 function viewCelebration(){
