@@ -19,15 +19,14 @@ Under `backend` folder, reate a .env file in the project root directory.
 Add the following environment variables to the .env file:
 
 ```
-DB_HOST=localhost
-DB_USER=your_mysql_username
-DB_PASSWORD=your_mysql_password
-DB_NAME=your_database_name
-PORT=3306
+DB_NAME=PRHDatabank
+DB_SERVER=localhost
+
+PORT=1433
 ```
-Replace your_mysql_username, your_mysql_password, and your_database_name with your MySQL database credentials and database name.
+
 ## Running the application
-Backend: `node index.js`
+Backend: `nodemon index.js`
 
 Frontend: `npm start`  
 
