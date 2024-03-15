@@ -12,7 +12,7 @@ Node.js: [Node.js](https://nodejs.org/en/download/)
 
 MySQL Server: [MySQL](https://dev.mysql.com/downloads/installer/)
 
-## Setting up the local environment
+## Setting up the local environment (Still in development)
 ### Set up Environment Variables:
 
 Under `backend` folder, create a .env file in the project root directory.
