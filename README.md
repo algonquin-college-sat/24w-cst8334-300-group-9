@@ -15,7 +15,7 @@ MySQL Server: [MySQL](https://dev.mysql.com/downloads/installer/)
 ## Setting up the local environment
 ### Set up Environment Variables:
 
-Under `backend` folder, reate a .env file in the project root directory.
+Under `backend` folder, create a .env file in the project root directory.
 Add the following environment variables to the .env file:
 
 ```
