@@ -141,3 +141,25 @@ INSERT INTO DEPARTMENTS (department_id, department_name) VALUES
 (2, 'Infection Prevention and Control'),
 (3, 'Patient Records');
 
+-- Insert sample data into IMPROVEMENT_TICKETS
+INSERT INTO IMPROVEMENT_TICKETS (ticket_id, name, date, problem, improve_idea, category_id) VALUES
+(1, 'Reducing ER Wait Times', '2024-03-18', 'Long wait times in the Emergency Room', 'Hiring more triage nurses', 1),
+(2, 'Improving Patient Feedback', '2024-03-17', 'Low patient satisfaction scores', 'Implementing regular patient surveys', 1),
+(3, 'Enhancing Surgical Efficiency', '2024-03-16', 'Operational delays in surgery department', 'Optimizing pre-operative procedures', 1);
+
+-- Insert sample data into CELEBRATION_TICKET
+INSERT INTO CELEBRATION_TICKET (c_ticket_id, i_ticket_id, department_id, date, who_what, details) VALUES
+(1, 1, 1, '2024-03-18', 'ER Wait Times Reduced', 'Successfully reduced ER wait times by 30%'),
+(2, 2, 2, '2024-03-17', 'Improved Patient Feedback', 'Received positive feedback from patients');
+
+-- Insert sample data into TICKET_UPDATES
+INSERT INTO TICKET_UPDATES (update_id, i_ticket_id, date, update_note, owner) VALUES
+(1, 1, '2024-03-18', 'Hired 3 new triage nurses', 'Manager A'),
+(2, 1, '2024-03-19', 'Implemented new triage system', 'Manager B'),
+(3, 2, '2024-03-17', 'Conducted patient survey', 'Manager C');
+
+-- Inserting into IMPROVEMENT_DEPARTMENT
+INSERT INTO IMPROVEMENT_DEPARTMENT (ticket_id, department_id, display_ticket) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1);
