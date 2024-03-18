@@ -26,3 +26,8 @@ function addImprovement() {
   // Redirects to the Improvement Ticket page
   window.location.href = "../../tickets/improvement/index.html";
 }
+
+//Similar to the Improvement Ticket page, it will redirect the user to the Celebration Ticket page
+function addCelebration() {
+  window.location.href = "../../tickets/celebration/index.html";
+}
