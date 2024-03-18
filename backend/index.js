@@ -2,27 +2,17 @@ import express from 'express';
 import sql from 'mssql/msnodesqlv8.js'; //msnodesqlv8 driver is a Node.js module that provides support for connecting to Microsoft SQL Server using the Microsoft ODBC Driver for SQL Server.
 import dotenv from 'dotenv';
 import { json } from 'sequelize';
+import { dbConfig } from './dbConfig.js';
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// SQL Server connection pool configuration
-const config = {
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
-  driver: 'msnodesqlv8',
-  connectionString: `Server=${process.env.DB_SERVER};Database=${process.env.DB_NAME};Driver={SQL Server}`,
-  options: {
-    encrypt: true, // For SQL Server Azure
-    trustServerCertificate: true, // For development only
-  },
-};
+const { DB_PORT } = process.env;
+const PORT = DB_PORT || 3000;
 
 const queryString = 'Select * from dbo.DEPARTMENTS';
 
-sql.connect(config, (err) => {
+sql.connect(dbConfig, (err) => {
   if (err) console.log(err);
 
   // create Request object
