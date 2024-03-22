@@ -44,6 +44,36 @@
     </div>
 
 
+    <div class="modal" id="modalCreateBoard">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Create Huddle-Board</h4>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p>Are you sure you want to create this huddle-board?</p>
+            <p><strong>There currently is not a way to remove a huddle-board after creation.</strong></p>
+            <p>Select Cancel to return to return to the huddle-board form.</p>
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-3">
+                <!-- Change the "action" part of the id to match the action the button performs -->
+                <a class="btn btn-success" id="createBoardTrigger" href="index.html">Create Board</a>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btnBasic" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
     <script src="./index.js"></script>
   </body>
 </html>
