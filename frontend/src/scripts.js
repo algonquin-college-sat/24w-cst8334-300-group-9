@@ -31,5 +31,3 @@ document.querySelectorAll('.dashboard').forEach((dashboard) => {
     }, 300);
   });
 });
-
-
