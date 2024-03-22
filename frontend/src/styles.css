@@ -52,3 +52,15 @@ body {
 .card {
   margin: 10px;
 }
+
+/****************/
+/* Create Board */
+/****************/
+
+.createContainer {
+  border-radius: 16px;
+  background-color: #f8f9fa;
+  padding: 1em;
+  width: 60%;
+}
+
