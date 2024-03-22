@@ -52,3 +52,40 @@ body {
 .card {
   margin: 10px;
 }
+
+/****************/
+/* Create Board */
+/****************/
+
+.createContainer {
+  border-radius: 16px;
+  background-color: #f8f9fa;
+  padding: 1em;
+  width: 60%;
+}
+
+.manageContainer {
+  border-radius: 16px;
+  background-color: #f8f9fa;
+  padding: 1em;
+  width: 80%;
+}
+
+.btnBasic {
+  background-color: gainsboro!important;
+}
+
+button.btn-close {
+  color: #ffffff!important;
+}
+
+.modal-header {
+  padding: 0.5em!important;
+  background-color: #006bd7;
+}
+
+.modal-header h4 {
+  font-size: 1em;
+  color: #ffffff;
+}
+

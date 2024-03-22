@@ -1,16 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Improvement ticket</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="stylesheet"
-      href="../../../node_modules/bootstrap/dist/css/bootstrap.css"
-    />
-  </head>
-  <body>
-    <script src="./index.js"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Improvement Ticket</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="container improvement-ticket-container">
+  <div class="row header-row">
+    <div class="col-md-2">
+      <img src="../../assets/images/pembroke-hospital-logo.jpg" alt="PRH Logo" class="logo">
+    </div>
+    <div class="col-md-10 header-title">
+      <h2>Improvement Ticket</h2>
+      <div class="ticket-details">
+        <div><strong>Name:</strong> Yun Wang(Jeremy)</div>
+        <div><strong>Date created:</strong> 2024-03-02</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <form id="improvementForm">
+        <!-- Form content goes here -->
+        <div class="form-group">
+          <label for="problemDescription">1. Describe the Problem (what, when, how often, impact):</label>
+          <textarea id="problemDescription" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="sourceIssue">2. What is causing the problem?</label>
+          <textarea id="sourceIssue" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="proposedSolution">3. Idea to make it better:</label>
+          <textarea id="proposedSolution" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <p>4. Input needed from?</p>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="patientFamily">
+            <label class="form-check-label" for="patientFamily">
+              Patient or Family
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="communityPartner">
+            <label class="form-check-label" for="communityPartner">
+              Community Partner
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="otherDepartments">
+            <label class="form-check-label" for="otherDepartments">
+              Other Department(s)
+            </label>
+          </div>
+        </div>
+        <div class="note">
+          *Note: If you choose "Other Department(s)," please specify which departments below.
+        </div>
+        <div class="form-group">
+          <textarea id="specifyDepartments" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <p>5. Safety issue?</p>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="occupationalHealthSafety">
+            <label class="form-check-label" for="occupationalHealthSafety">
+              Occupational Health & Safety
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="patientSafety">
+            <label class="form-check-label" for="patientSafety">
+              Patient Safety
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p>6. Link to our Quadruple Aim?</p>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="patientExperience">
+            <label class="form-check-label" for="patientExperience">
+              Patient & Family Experience
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="bestHealthOutcome">
+            <label class="form-check-label" for="bestHealthOutcome">
+              Best Possible Health Outcome
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="providerExperience">
+            <label class="form-check-label" for="providerExperience">
+              Provider Experience
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="valueEfficiency">
+            <label class="form-check-label" for="valueEfficiency">
+              Value & Efficiency
+            </label>
+          </div>
+        </div>
+
+        <div class="note">
+          *Note: The following section needs to be completed at huddle with input from Team.
+        </div>
+        <div class="form-group">
+          <label for="groupDiscussionOutcome">Group Discussion Outcome: Team-Ratified Solution</label>
+          <textarea id="groupDiscussionOutcome" rows="2"></textarea>
+        </div>
+      </form>
+	  
+      <div class="btn-section">
+          <button type="button" class="btn btn-primary">Save</button>
+          <button type="button" id="backButton" class="btn btn-secondary">Back</button>
+      </div>
+    </div>
+	
+    <div class="col-4">
+      <!-- Progress Notes Section -->
+	  <div class="progress-notes-header">
+        <h3>Progress Notes and Tracking</h3>
+      </div>
+      <div class="form-group">
+        <input type="text" id="updateInput" class="form-control mb-2" placeholder="Update on the improvement work">
+        <input type="text" id="ownerInput" class="form-control mb-2" placeholder="Owner">
+        <input type="date" id="dateInput" class="form-control mb-2" placeholder="Date">
+        <button type="button" id="addProgressNote" class="btn btn-primary">Add Note</button>
+      </div>
+      <table class="table table-bordered" id="progressNotesTable">
+        <thead>
+          <tr>
+            <th scope="col">Update on the improvement work</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>        
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="index.js"></script>
+</body>
 </html>

@@ -1,37 +1,28 @@
 import express from 'express';
-import mssql from 'mssql';
+import sql from 'mssql/msnodesqlv8.js'; //msnodesqlv8 driver is a Node.js module that provides support for connecting to Microsoft SQL Server using the Microsoft ODBC Driver for SQL Server.
 import dotenv from 'dotenv';
+import { dbConfig } from './dbConfig.js';
+import improvementTicketRoute from './routes/improvementTicketRoute.js';
+import { IMPROVEMENTTICKETS } from './routes/routePaths.js';
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const { DB_PORT } = process.env;
+const PORT = DB_PORT || 3000;
 
-// SQL Server connection pool configuration
-const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  options: {
-    encrypt: true, // For SQL Server Azure
-    trustServerCertificate: true, // For development only
-  },
-};
+app.use(express.json()); // Parse JSON bodies
 
-// Create a new instance of mssql.ConnectionPool
-const pool = new mssql.ConnectionPool(config);
+sql.connect(dbConfig, (err) => {
+  if (err) console.log(err);
+  console.log('Connected to the database');
 
-// Connect to the database
-pool
-  .connect()
-  .then(() => {
-    console.log('Connected to SQL Server database');
-  })
-  .catch((err) => {
-    console.error('Error connecting to SQL Server:', err);
-  });
+  // create Request object
+});
 
+// Use the improvement ticket route
+app.use(IMPROVEMENTTICKETS, improvementTicketRoute);
+// app.get('/improvement-ticket', getAllImprovementTickets);
 // Define your routes and other backend logic here
 
 app.listen(PORT, () => {
