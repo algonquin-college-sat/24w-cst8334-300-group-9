@@ -1,17 +1,19 @@
+USE master;
+GO
+ALTER DATABASE PRHDatabank
+SET SINGLE_USER 
+WITH ROLLBACK IMMEDIATE;
+GO
 -- Create the database PRHDatabank and use it
-
 IF EXISTS (SELECT * FROM sys.databases WHERE name = 'PRHDatabank')
     DROP DATABASE PRHDatabank;
 GO
-
 
 CREATE DATABASE PRHDatabank;
 GO
 
 USE PRHDatabank;
 GO
-
-
 
 -- Drop the IMPROVEMENT_TICKETS table if it exists
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'IMPROVEMENT_TICKETS')
@@ -41,8 +43,6 @@ BEGIN
 END
 GO
 
-
-
 -- Drop the IMPROVEMENT_DEPARTMENT table if it exists
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'IMPROVEMENT_DEPARTMENT')
 BEGIN
@@ -50,31 +50,22 @@ BEGIN
 END
 GO
 
--- Drop the DEPARTMENTS table if it exists
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'DEPARTMENTS')
-BEGIN
-    DROP TABLE DEPARTMENTS;
-END
-GO
-
-
-
 -- Create the DEPARTMENTS table
 CREATE TABLE DEPARTMENTS (
-  department_id INT PRIMARY KEY,
-  department_name VARCHAR(255),
+  department_id INT PRIMARY KEY IDENTITY,
+  department_name VARCHAR(255) UNIQUE,
   display_board BIT
 );
 
 -- create the CATEGORIES table
 CREATE TABLE CATEGORIES (
-  category_id INT PRIMARY KEY,
+  category_id INT PRIMARY KEY IDENTITY,
   category_name VARCHAR(255)
 );
 
 -- Create the IMPROVEMENT_TICKETS table
 CREATE TABLE IMPROVEMENT_TICKETS (
-  ticket_id INT PRIMARY KEY,
+  ticket_id INT PRIMARY KEY IDENTITY,
   name VARCHAR(255),
   date DATE,
   problem TEXT,
@@ -94,7 +85,7 @@ CREATE TABLE IMPROVEMENT_TICKETS (
 
 -- Create the CELEBRATION_TICKET table
 CREATE TABLE CELEBRATION_TICKET (
-  c_ticket_id INT PRIMARY KEY,
+  c_ticket_id INT PRIMARY KEY IDENTITY,
   i_ticket_id INT,
   department_id INT,
   date DATE,
@@ -112,7 +103,7 @@ CREATE TABLE CELEBRATION_TICKET (
 
 -- Create the TICKET_UPDATES table
 CREATE TABLE TICKET_UPDATES (
-  update_id INT PRIMARY KEY,
+  update_id INT PRIMARY KEY IDENTITY,
   i_ticket_id INT,
   date DATE,
   update_note TEXT,
@@ -131,13 +122,79 @@ CREATE TABLE IMPROVEMENT_DEPARTMENT (
 );
 
 -- Inserting into CATEGORIES
-INSERT INTO CATEGORIES (category_id, category_name) VALUES
-(1, 'Improvement'),
-(2, 'Celebration');
+INSERT INTO CATEGORIES (category_name) VALUES
+('Improvement'),
+('Celebration');
 
 -- Inserting into DEPARTMENTS
-INSERT INTO DEPARTMENTS (department_id, department_name) VALUES
-(1, 'Community Mental Health'),
-(2, 'Infection Prevention and Control'),
-(3, 'Patient Records');
+INSERT INTO DEPARTMENTS (department_name, display_board) VALUES
+('Community Mental Health', 1),
+('Infection Prevention and Control', 1),
+('Patient Records', 1);
 
+-- Inserting into IMPROVEMENT_TICKETS
+INSERT INTO IMPROVEMENT_TICKETS (
+  name, 
+  date, 
+  problem, 
+  improve_idea, 
+  improve_how, 
+  safety_ohs, 
+  safety_patient, 
+  aim_patient_family, 
+  aim_outcome, 
+  aim_provider, 
+  aim_value_efficiency, 
+  input_patient_family, 
+  input_community_partner, 
+  category_id
+) 
+VALUES
+(
+  'Ticket 1', 
+  '2024-03-22', 
+  'Problem description for Ticket 1', 
+  'Improvement idea for Ticket 1', 
+  'Improvement plan for Ticket 1', 
+  1, 
+  1, 
+  1, 
+  1, 
+  1, 
+  1, 
+  1, 
+  1, 
+  1
+),
+(
+  'Ticket 2', 
+  '2024-03-21', 
+  'Problem description for Ticket 2', 
+  'Improvement idea for Ticket 2', 
+  'Improvement plan for Ticket 2', 
+  1, 
+  0, 
+  1, 
+  1, 
+  1, 
+  1, 
+  1, 
+  0, 
+  1
+),
+(
+  'Ticket 3', 
+  '2024-03-20', 
+  'Problem description for Ticket 3', 
+  'Improvement idea for Ticket 3', 
+  'Improvement plan for Ticket 3', 
+  0, 
+  0, 
+  1, 
+  0, 
+  0, 
+  1, 
+  1, 
+  1, 
+  1
+);
