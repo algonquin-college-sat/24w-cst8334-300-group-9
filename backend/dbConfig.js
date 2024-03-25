@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import sql from 'mssql/msnodesqlv8.js';
 
 dotenv.config(); // Load environment variables from .env file
 const { DB_SERVER, DB_DATABASE, DB_DRIVER, DB_USERNAME, DB_PASSWORD } =
