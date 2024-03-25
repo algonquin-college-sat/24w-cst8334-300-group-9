@@ -1,18 +1,5 @@
 import sql from 'mssql/msnodesqlv8.js';
-import { dbConfig } from '../dbConfig.js';
-
-/**
- * Create a database connection pool
- */
-async function connectToDatabase() {
-  try {
-    const pool = sql.connect(dbConfig);
-    return pool;
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-    throw new Error('Failed to connect to the database');
-  }
-}
+import { dbConfig, getConnection } from '../dbConfig.js';
 
 /**
  * Create Improvement ticket
@@ -26,7 +13,7 @@ export const createImprovementTicket = async (req, res) => {
 `;
 
   try {
-    const pool = await connectToDatabase();
+    const pool = await getConnection();
     const request = pool
       .request()
       .input('name', sql.NVarChar, req.body.name)
@@ -52,27 +39,27 @@ export const createImprovementTicket = async (req, res) => {
   }
 };
 
-// export const createDepartment = async (req, res) => {
-//   const query = `
-//     INSERT INTO DEPARTMENTS
-//     (department_name, display_board)
-//     VALUES
-//     (@department_name, @display_board);
-// `;
-//   try {
-//     const pool = await connectToDatabase();
-//     const request = pool
-//       .request()
-//       .input('department_name', sql.VarChar, req.body.department_name)
-//       .input('display_board', sql.Bit, req.body.display_board);
+export const createDepartment = async (req, res) => {
+  const query = `
+    INSERT INTO DEPARTMENTS 
+    (department_name, display_board)
+    VALUES 
+    (@department_name, @display_board);
+`;
+  try {
+    const pool = await getConnection();
+    const request = pool
+      .request()
+      .input('department_name', sql.VarChar, req.body.department_name)
+      .input('display_board', sql.Bit, req.body.display_board);
 
-//     const result = await request.query(query);
-//     res.status(201).json({ success: true, data: result.recordset });
-//   } catch (error) {
-//     console.error('Error creating department:', error);
-//     res.status(500).json({ error: 'Failed to create department' });
-//   }
-// };
+    const result = await request.query(query);
+    res.status(201).json({ success: true, data: result.recordset });
+  } catch (error) {
+    console.error('Error creating department:', error);
+    res.status(500).json({ error: 'Failed to create department' });
+  }
+};
 
 /**
  * Get all improvement tickets
@@ -81,7 +68,7 @@ export const getAllImprovementTickets = async (req, res) => {
   const queryString = `SELECT * FROM dbo.IMPROVEMENT_TICKETS;`;
 
   try {
-    const pool = await connectToDatabase();
+    const pool = await getConnection();
     const result = await pool.request().query(queryString);
     // res.status(200).json(result.recordset);
     res.json({ msg: ' Fetch tickets successfully', data: result.recordset });
@@ -98,7 +85,7 @@ export const getImprovementTicketById = async (req, res) => {
   const query = `SELECT * FROM IMPROVEMENT_TICKETS WHERE ticket_id = @ticketId;`;
 
   try {
-    const pool = await connectToDatabase();
+    const pool = await getConnection();
     const result = await pool
       .request()
       .input('ticketId', sql.Int, req.params.id)
@@ -128,7 +115,7 @@ export const updateImprovementTicket = async (req, res) => {
     `;
 
   try {
-    const pool = await connectToDatabase();
+    const pool = await getConnection();
     const result = await pool
       .request()
       .input('name', sql.NVarChar, req.body.name)
@@ -174,7 +161,7 @@ export const deleteImprovementTicket = async (req, res) => {
   const query = `DELETE FROM IMPROVEMENT_TICKETS WHERE ticket_id = @ticketId;`;
 
   try {
-    const pool = await connectToDatabase();
+    const pool = await getConnection();
     const result = await pool
       .request()
       .input('ticketId', sql.Int, req.params.id)
