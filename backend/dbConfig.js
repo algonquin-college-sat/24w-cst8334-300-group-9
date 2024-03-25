@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize';
 import sql from 'mssql/msnodesqlv8.js';
 
 dotenv.config(); // Load environment variables from .env file
-const { DB_SERVER, DB_DATABASE, DB_DRIVER, DB_USERNAME, DB_PASSWORD } =
-  process.env;
+const { DB_SERVER, DB_DATABASE, DB_DRIVER } = process.env;
 
+/**
+ * Database configuration for SQL Server using mssql/msnodesqlv8 driver.
+ */
 export const dbConfig = {
   server: DB_SERVER,
   database: DB_DATABASE,
@@ -17,6 +18,10 @@ export const dbConfig = {
   },
 };
 
+/**
+ * Establishes a connection to the database using the configured dbConfig.
+ * Returns a pool object for executing queries.
+ */
 export const getConnection = async () => {
   try {
     const pool = sql.connect(dbConfig);
@@ -26,13 +31,3 @@ export const getConnection = async () => {
     throw new Error('Failed to connect to the database');
   }
 };
-export const sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
-  host: DB_SERVER,
-  dialect: 'mssql',
-  dialectOptions: {
-    options: {
-      encrypt: true, // For SQL Server Azure
-      trustServerCertificate: true, // For development only
-    },
-  },
-});

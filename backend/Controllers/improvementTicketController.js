@@ -1,10 +1,19 @@
-import sql from 'mssql/msnodesqlv8.js';
-import { dbConfig, getConnection } from '../dbConfig.js';
-
 /**
- * Create Improvement ticket
+ * Handles CRUD operations for improvement tickets in a web application.
+ * Uses SQL queries to interact with the database.
+ *
+ * - createImprovementTicket: Creates a new improvement ticket.
+ * - getAllImprovementTickets: Retrieves all improvement tickets.
+ * - getImprovementTicketById: Retrieves an improvement ticket by its ID.
+ * - updateImprovementTicket: Updates an existing improvement ticket.
+ * - deleteImprovementTicket: Deletes an improvement ticket.
  */
+import sql from 'mssql/msnodesqlv8.js';
+import { getConnection } from '../dbConfig.js';
+
+// Create Improvement ticket
 export const createImprovementTicket = async (req, res) => {
+  // SQL query for inserting data into the IMPROVEMENT_TICKETS table
   const query = `
     INSERT INTO IMPROVEMENT_TICKETS 
     (name, date, problem, improve_idea, improve_how, safety_ohs, safety_patient, aim_patient_family, aim_outcome, aim_provider, aim_value_efficiency, input_patient_family, input_community_partner, category_id)
@@ -13,9 +22,12 @@ export const createImprovementTicket = async (req, res) => {
 `;
 
   try {
+    // Establish connection to the database
     const pool = await getConnection();
+    // Create a request object
     const request = pool
       .request()
+      // Bind input parameters
       .input('name', sql.NVarChar, req.body.name)
       .input('date', sql.Date, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
@@ -31,72 +43,61 @@ export const createImprovementTicket = async (req, res) => {
       .input('input_community_partner', req.body.input_community_partner)
       .input('category_id', sql.Int, req.body.category_id);
 
+    // Execute the query
     const result = await request.query(query);
+    // Respond with success message and inserted data
     res.status(201).json({ success: true, data: result.recordset });
   } catch (error) {
+    // Handle errors
     console.error('Error creating improvement ticket:', error);
     res.status(500).json({ error: 'Failed to create improvement ticket' });
   }
 };
 
-export const createDepartment = async (req, res) => {
-  const query = `
-    INSERT INTO DEPARTMENTS 
-    (department_name, display_board)
-    VALUES 
-    (@department_name, @display_board);
-`;
-  try {
-    const pool = await getConnection();
-    const request = pool
-      .request()
-      .input('department_name', sql.VarChar, req.body.department_name)
-      .input('display_board', sql.Bit, req.body.display_board);
-
-    const result = await request.query(query);
-    res.status(201).json({ success: true, data: result.recordset });
-  } catch (error) {
-    console.error('Error creating department:', error);
-    res.status(500).json({ error: 'Failed to create department' });
-  }
-};
-
-/**
- * Get all improvement tickets
- */
+// Get all improvement tickets
 export const getAllImprovementTickets = async (req, res) => {
+  // SQL query for retrieving all improvement tickets
   const queryString = `SELECT * FROM dbo.IMPROVEMENT_TICKETS;`;
 
   try {
+    // Establish connection to the database
     const pool = await getConnection();
+    // Execute the query
     const result = await pool.request().query(queryString);
-    // res.status(200).json(result.recordset);
+    // Respond with retrieved data
     res.json({ msg: ' Fetch tickets successfully', data: result.recordset });
   } catch (error) {
+    // Handle errors
     console.error('Error retrieving improvement tickets:', error);
     res.status(500).json({ error: 'Failed to retrieve improvement tickets' });
   }
 };
 
-/**
- * Get improvement ticket by ID
- */
+// Get improvement ticket by ID
 export const getImprovementTicketById = async (req, res) => {
+  // SQL query for retrieving an improvement ticket by its ID
   const query = `SELECT * FROM IMPROVEMENT_TICKETS WHERE ticket_id = @ticketId;`;
 
   try {
+    // Establish connection to the database
     const pool = await getConnection();
+    // Create a request object
     const result = await pool
       .request()
+      // Bind input parameter
       .input('ticketId', sql.Int, req.params.id)
       .query(query);
 
+    // Check if a record was found
     if (result.recordset.length > 0) {
+      // Respond with the retrieved data
       res.status(200).json(result.recordset[0]);
     } else {
+      // Respond with error message if no record found
       res.status(404).json({ error: 'Improvement ticket not found' });
     }
   } catch (error) {
+    // Handle errors
     console.error('Error retrieving improvement ticket by ID:', error);
     res
       .status(500)

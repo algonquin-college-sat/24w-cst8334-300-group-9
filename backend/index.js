@@ -3,15 +3,17 @@ import sql from 'mssql/msnodesqlv8.js'; //msnodesqlv8 driver is a Node.js module
 import dotenv from 'dotenv';
 import { dbConfig } from './dbConfig.js';
 import improvementTicketRoute from './routes/improvementTicketRoute.js';
-import { IMPROVEMENTTICKETS } from './routes/routePaths.js';
+import departmentRoute from './routes/departmentRoute.js';
+import { DEPARTMENTS, IMPROVEMENTTICKETS } from './routes/routePaths.js';
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
+
 const { DB_PORT } = process.env;
 const PORT = DB_PORT || 3000;
 
-app.use(express.json()); // Parse JSON bodies
+app.use(express.json()); //Middleware to parse JSON bodies in incoming requests
 
 sql.connect(dbConfig, (err) => {
   if (err) console.log(err);
@@ -22,6 +24,8 @@ sql.connect(dbConfig, (err) => {
 
 // Use the improvement ticket route
 app.use(IMPROVEMENTTICKETS, improvementTicketRoute);
+app.use(DEPARTMENTS, departmentRoute);
+
 // app.get('/improvement-ticket', getAllImprovementTickets);
 // Define your routes and other backend logic here
 
