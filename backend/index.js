@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { dbConfig } from './dbConfig.js';
 import improvementTicketRoute from './routes/improvementTicketRoute.js';
 import departmentRoute from './routes/departmentRoute.js';
+import cors from 'cors';
 import {
   CATEGORIES,
   CELEBRATIONTICKETS,
@@ -21,6 +22,9 @@ const { DB_PORT } = process.env;
 const PORT = DB_PORT || 3000;
 
 app.use(express.json()); //Middleware to parse JSON bodies in incoming requests
+
+// Enable CORS
+app.use(cors());
 
 sql.connect(dbConfig, (err) => {
   if (err) console.log(err);
