@@ -174,23 +174,26 @@ export const updateCelebrationTicket = async (req, res) => {
       value_respect,
       value_responsibility,
     } = req.body;
+
     // Check if the provided i_ticket_id exists in the ImprovementTicket table
-    // const improvementTicketExists = await getImprovementTicketById(i_ticket_id);
+    const improvementTicketExists = await checkImprovementTicketExists(
+      i_ticket_id
+    );
 
-    // if (!improvementTicketExists) {
-    //   return res.status(400).json({
-    //     error: `Improvement ticket with ID ${i_ticket_id} does not exist.`,
-    //   });
-    // }
+    if (!improvementTicketExists) {
+      return res.status(400).json({
+        error: `Improvement ticket with ID ${i_ticket_id} does not exist.`,
+      });
+    }
 
-    // // Check if the provided department_id exists in the ImprovementTicket table
-    // const departmentExists = await getImprovementTicketById(department_id);
+    // Check if the provided department_id exists in the ImprovementTicket table
+    const departmentExists = await getImprovementTicketById(department_id);
 
-    // if (!departmentExists) {
-    //   return res.status(400).json({
-    //     error: `Department with ID ${i_ticket_id} does not exist.`,
-    //   });
-    // }
+    if (!departmentExists) {
+      return res.status(400).json({
+        error: `Department with ID ${i_ticket_id} does not exist.`,
+      });
+    }
 
     const result = await pool
       .request()

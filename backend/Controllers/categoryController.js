@@ -12,7 +12,7 @@ import { getConnection } from '../dbConfig.js';
 
 // Create a category
 export const createCategory = async (req, res) => {
-  const { category_name, display_board } = req.body;
+  const { category_name } = req.body;
 
   const query = `
     INSERT INTO CATEGORIES (category_name)
