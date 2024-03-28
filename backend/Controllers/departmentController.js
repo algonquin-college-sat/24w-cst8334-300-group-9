@@ -108,7 +108,7 @@ export const deleteDepartment = async (req, res) => {
     const request = pool.request().input('departmentId', sql.Int, id);
 
     const result = await request.query(query);
-    res.status(204).send(); // No content
+    res.status(200).json({ success: true, data: result.recordset });
   } catch (error) {
     console.error('Error deleting department:', error);
     res.status(500).json({ error: 'Failed to delete department' });

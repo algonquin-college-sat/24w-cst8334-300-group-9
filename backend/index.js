@@ -4,7 +4,14 @@ import dotenv from 'dotenv';
 import { dbConfig } from './dbConfig.js';
 import improvementTicketRoute from './routes/improvementTicketRoute.js';
 import departmentRoute from './routes/departmentRoute.js';
-import { DEPARTMENTS, IMPROVEMENTTICKETS } from './routes/routePaths.js';
+import {
+  CATEGORIES,
+  CELEBRATIONTICKETS,
+  DEPARTMENTS,
+  IMPROVEMENTTICKETS,
+} from './routes/routePaths.js';
+import categoryRoute from './routes/categoryRoute.js';
+import celebrationTicketRoute from './routes/celebrationTicketRoute.js';
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -21,11 +28,11 @@ sql.connect(dbConfig, (err) => {
 
   // create Request object
 });
-
-// Use the improvement ticket route
+//Access to all the route paths
 app.use(IMPROVEMENTTICKETS, improvementTicketRoute);
 app.use(DEPARTMENTS, departmentRoute);
-
+app.use(CATEGORIES, categoryRoute);
+app.use(CELEBRATIONTICKETS, celebrationTicketRoute);
 // app.get('/improvement-ticket', getAllImprovementTickets);
 // Define your routes and other backend logic here
 
