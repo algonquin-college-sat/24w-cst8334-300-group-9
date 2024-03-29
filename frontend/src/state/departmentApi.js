@@ -13,7 +13,7 @@ export const createDepartment = async (departmentData) => {
 
 export const getAllDepartments = async () => {
   try {
-    const response = await baseAPI.get('/department');
+    const response = await baseAPI.get(departmentAPI);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch departments');
@@ -22,9 +22,7 @@ export const getAllDepartments = async () => {
 
 export const getDepartmentById = async (departmentId) => {
   try {
-    const response = await departmentAPI.get(
-      `${departmentAPI}/${departmentId}`
-    );
+    const response = await baseAPI.get(`${departmentAPI}/${departmentId}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch department');

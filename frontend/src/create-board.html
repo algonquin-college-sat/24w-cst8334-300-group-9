@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pembroke Regional Hospital Huddle-Board Application</title>
     <link rel="stylesheet" href="./styles.css" />
-    <!-- <link
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="../node_modules/bootstrap/dist/css/bootstrap.css"
-    /> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="manage-board.js" defer></script>
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "axios": "https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -24,58 +35,75 @@
         <h1 class="text-center">Create New Huddle-Board</h1>
         <form>
           <div class="mb-2">
-            <label for="deptName">Department Name: </label><br>
-            <input type="text" id="deptName">
+            <label for="deptName">Department Name: </label><br />
+            <input type="text" id="deptName" />
           </div>
           <div class="mb-2">
-            <label for="deptSummary">Department Summary: </label><br>
-            <input type="text" id="deptSummary">
+            <label for="deptSummary">Department Summary: </label><br />
+            <input type="text" id="deptSummary" />
           </div>
           <div class="mb-2">
-            <label for="huddleTime">Huddle Time: </label><br>
-            <input type="text" id="huddleTime" hint="24-hour format ##:##">
+            <label for="huddleTime">Huddle Time: </label><br />
+            <input type="text" id="huddleTime" hint="24-hour format ##:##" />
           </div>
           <div class="mb-2">
-            <label for="huddleDay">Huddle Day(s): </label><br>
-            <input type="text" id="huddleDay" hint="Day(s) of the week">
+            <label for="huddleDay">Huddle Day(s): </label><br />
+            <input type="text" id="huddleDay" hint="Day(s) of the week" />
           </div>
-          <button type="button" class="btn btn-success" id="createBoardBtn" data-bs-toggle="modal" data-bs-target="#modalCreateBoard">Create Board</button>
-          <a class="btn btn-danger" id="cancelBoardBtn" role="button" href="index.html">Cancel</a>
+          <button
+            type="button"
+            class="btn btn-success"
+            id="createBoardBtn"
+            data-bs-toggle="modal"
+            data-bs-target="#modalCreateBoard"
+          >
+            Create Board
+          </button>
+          <a
+            class="btn btn-danger"
+            id="cancelBoardBtn"
+            role="button"
+            href="./index.html"
+            >Cancel</a
+          >
         </form>
       </div>
     </div>
 
-
     <div class="modal" id="modalCreateBoard">
       <div class="modal-dialog">
         <div class="modal-content">
-    
-          <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Create Huddle-Board</h4>
           </div>
-    
-          <!-- Modal body -->
           <div class="modal-body">
             <p>Are you sure you want to create this huddle-board?</p>
-            <p><strong>There currently is not a way to remove a huddle-board after creation.</strong></p>
+            <p>
+              <strong
+                >There currently is not a way to remove a huddle-board after
+                creation.</strong
+              >
+            </p>
             <p>Select Cancel to return to return to the huddle-board form.</p>
             <div class="row">
               <div class="col-sm-4">
-                <!-- Change the "action" part of the id to match the action the button performs -->
-                <a class="btn btn-success" id="createBoardTrigger" href="javascript:;">Create Board</a>
+                <a
+                  class="btn btn-success"
+                  id="createBoardTrigger"
+                  href="javascript:;"
+                  >Create Board</a
+                >
               </div>
               <div class="col-sm-4">
-                <button class="btn btnBasic" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btnBasic" data-bs-dismiss="modal">
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
-    
         </div>
       </div>
     </div>
-
-    <!-- <script src="./index.js"></script> -->
-    
+    <script type="module" src="./create-board.js"></script>
   </body>
 </html>
