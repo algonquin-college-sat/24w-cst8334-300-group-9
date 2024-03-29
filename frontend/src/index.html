@@ -9,6 +9,13 @@
       rel="stylesheet"
       href="../node_modules/bootstrap/dist/css/bootstrap.css"
     />
+    <script type="importmap">
+      {
+        "imports": {
+          "axios": "https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm"
+        }
+      }
+    </script>
   </head>
 
   <body>
@@ -20,48 +27,19 @@
       />
       <div class="container">
         <h1 class="mb-4">Select Dashboard</h1>
-        <div class="row">
-          <div class="col-md-6 mb-4 dashboard dashboard-1">
-            <div class="card h-100 shadow">
-              <div class="card-body">
-                <h5 class="card-title">Dashboard 1</h5>
-                <p class="card-text">Description of Dashboard 1.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4 dashboard dashboard-2">
-            <div class="card h-100 shadow">
-              <div class="card-body">
-                <h5 class="card-title">Dashboard 2</h5>
-                <p class="card-text">Description of Dashboard 2.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4 dashboard dashboard-3">
-            <div class="card h-100 shadow">
-              <div class="card-body">
-                <h5 class="card-title">Dashboard 3</h5>
-                <p class="card-text">Description of Dashboard 3.</p>
-              </div>
-            </div>
+        <div class="row" id="dashboardContainer">
+          <!-- Dynamic dashboard elements will be appended here -->
         </div>
         <div class="row">
-          <a class="btn btn-success" role="button" href="create-board.html">Create New Huddle-Board</a>
-        </div>
-          <!-- <div class="col-md-6 mb-4">
-            <div class="card h-100 shadow">
-              <div class="card-body">
-                <h5 class="card-title">Dashboard 4</h5>
-                <p class="card-text">Description of Dashboard 4.</p>
-              </div>
-            </div>
-          </div> -->
+          <a class="btn btn-success" role="button" href="./create-board.html"
+            >Create New Huddle-Board</a
+          >
         </div>
       </div>
     </div>
 
     <!-- Include JavaScript -->
     <!-- "type" attribute: -->
-    <script type="text/javascript" src="scripts.js"></script>
+    <script type="module" src="./scripts.js"></script>
   </body>
 </html>
