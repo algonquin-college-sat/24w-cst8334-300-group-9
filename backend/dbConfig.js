@@ -11,7 +11,7 @@ export const dbConfig = {
   server: DB_SERVER,
   database: DB_DATABASE,
   driver: DB_DRIVER,
-  connectionString: `Server=${DB_SERVER};Database=${DB_DATABASE};Driver={SQL Server}`,
+  connectionString: `Server=.;Database=${DB_DATABASE};Driver={SQL Server}`,
   options: {
     encrypt: true, // For SQL Server Azure
     trustServerCertificate: true, // For development only
