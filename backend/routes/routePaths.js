@@ -3,3 +3,4 @@ export const IMPROVEMENTTICKETS = '/improvement-ticket'; // Base path for improv
 export const DEPARTMENTS = '/department'; // Base path for departments
 export const CELEBRATIONTICKETS = '/celebration-ticket';
 export const CATEGORIES = '/category';
+export const QUADRUPLE_AIM = '/quadruple-aim';
