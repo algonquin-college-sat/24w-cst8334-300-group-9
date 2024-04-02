@@ -140,8 +140,16 @@ CREATE TABLE IMPROVEMENT_DEPARTMENT (
 
 -- Inserting into CATEGORIES
 INSERT INTO CATEGORIES (category_name) VALUES
-('Improvement'),
-('Celebration');
+('New Ideas'),
+('Work in Progress'),
+('Almost Done'),
+('Implement'),
+('Challenge'),
+('Possible'),
+('Kibosh'),
+('Celebration'),
+('Our Success!');
+
 
 -- Inserting into DEPARTMENTS
 INSERT INTO DEPARTMENTS (department_name, display_board) VALUES
