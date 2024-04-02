@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const improvementTicketData = {
           name: ticketName, // Use the value from the ticket name textarea
           problem: problemDescription,
-          improve_idea: proposedSolution,e
+          improve_idea: proposedSolution,
           source_issue: sourceIssue,
           input_needed_from: inputNeededFromValue,
           safety_issue: safetyIssueValue,
