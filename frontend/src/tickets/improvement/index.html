@@ -39,6 +39,11 @@
       <div class="row">
         <div class="col-8">
           <form id="improvementForm">
+            <!-- New textarea for ticket name -->
+            <div class="form-group">
+              <label for="ticketName">Ticket Name:</label>
+              <textarea id="ticketName" rows="1"></textarea>
+            </div>
             <!-- Form content goes here -->
             <div class="form-group">
               <label for="problemDescription"
@@ -95,13 +100,6 @@
                   >Other Department(s)</label
                 >
               </div>
-            </div>
-            <div class="note">
-              *Note: If you choose "Other Department(s)," please specify which
-              departments below.
-            </div>
-            <div class="form-group">
-              <textarea id="specifyDepartments" rows="2"></textarea>
             </div>
 
             <div class="form-group">
@@ -183,7 +181,13 @@
                 >
               </div>
             </div>
-
+            <!-- Dropdown for category section -->
+            <div class="form-group">
+              <label for="categorySelect">7. Category:</label>
+              <select id="categorySelect" class="form-control">
+                <!-- Options will be added dynamically using JavaScript -->
+              </select>
+            </div>
             <div class="note">
               *Note: The following section needs to be completed at huddle with
               input from Team.
