@@ -148,7 +148,7 @@ INSERT INTO CATEGORIES (category_name) VALUES
 ('Possible'),
 ('Kibosh'),
 ('Celebration'),
-('Our Success!');
+('Complete');
 
 
 -- Inserting into DEPARTMENTS
