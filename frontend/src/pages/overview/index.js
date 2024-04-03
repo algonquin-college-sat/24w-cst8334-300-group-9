@@ -1,33 +1,161 @@
-// index.js文件内容
+import { getDepartmentById } from '../../state/departmentApi.js';
+import {
+  getAllImprovementTickets,
+  deleteImprovementTicket,
+} from '../../state/improvementTicketApi.js';
+
+const categoryMapping = {
+  'New Ideas': 1,
+  'Work in Progress': 2,
+  'Almost Done': 3,
+  Implement: 4,
+  Challenge: 5,
+  Possible: 6,
+  Kibosh: 7,
+  Celebration: 8,
+  Complete: 9,
+};
+
+const fetchAndDisplayImprovementTicket = async () => {
+  try {
+    // Fetch improvement ticket data from the backend
+    const improvementTicketData = await getAllImprovementTickets();
+    const improvementTickets = improvementTicketData.data;
+
+    // Loop through each category and display corresponding tickets
+    for (const category in categoryMapping) {
+      const categoryId = categoryMapping[category];
+      const categoryTickets = improvementTickets.filter(
+        (ticket) => ticket.category_id === categoryId
+      );
+      displayTicketsByCategory(category, categoryTickets);
+    }
+  } catch (error) {
+    console.error('Error fetching improvement tickets:', error);
+  }
+};
+
+const displayTicketsByCategory = (category, tickets) => {
+  const formattedCategoryName = category.toLowerCase().replace(/\s/g, '-');
+  const panelElement = document.querySelector(
+    `.${formattedCategoryName}-tickets`
+  );
+  if (!panelElement) {
+    console.error(
+      `Element with class '${formattedCategoryName}-tickets' not found.`
+    );
+    return;
+  }
+  panelElement.innerHTML = ''; // Clear previous content
+
+  tickets.forEach((ticket) => {
+    const ticketElement = document.createElement('div');
+    ticketElement.classList.add(
+      'card',
+      'h-100',
+      'shadow',
+      'improvement-ticket'
+    );
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = ticket.name;
+
+    const cardDescription = document.createElement('div');
+    cardDescription.classList.add('card-description'); // Add a class for description
+    cardDescription.textContent = ticket.problem;
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardDescription);
+
+    ticketElement.appendChild(cardBody);
+
+    // Event listener to prompt user to update or delete the ticket
+    ticketElement.addEventListener('click', () => {
+      const confirmAction = window.confirm(
+        'Do you want to update or delete this ticket?'
+      );
+      if (confirmAction) {
+        const updateAction = window.prompt(
+          'Type "update" to edit the ticket or "delete" to remove it.'
+        );
+        if (updateAction === 'update') {
+          window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+        } else if (updateAction === 'delete') {
+          deleteTicket(ticket.ticket_id);
+        } else {
+          alert('Invalid action. Please type "update" or "delete".');
+        }
+      }
+    });
+
+    panelElement.appendChild(ticketElement);
+  });
+};
+
+// Function to delete the ticket
+const deleteTicket = async (ticketId) => {
+  try {
+    await deleteImprovementTicket(ticketId);
+    alert('Ticket deleted successfully.');
+    // Reload the page to reflect the changes
+    location.reload();
+  } catch (error) {
+    console.error('Error deleting ticket:', error);
+    alert('Failed to delete ticket.');
+  }
+};
+
+// Function to fetch department details and update the department name in the HTML
+async function updateDepartmentName(departmentId) {
+  try {
+    const department = await getDepartmentById(departmentId);
+    const departmentName = department.data.department_name;
+    document.querySelector('.department-name').textContent = departmentName;
+  } catch (error) {
+    console.error('Error fetching department:', error);
+  }
+}
+
+const modal = document.getElementById('ticketModal');
+
+// Function to open the modal
 function openModal() {
-    document.getElementById("ticketModal").style.display = "block";
-  }
-  
-  function closeModal() {
-    document.getElementById("ticketModal").style.display = "none";
-  }
-  
-  function addImprovement() {
-    console.log("Adding an Improvement Ticket...");
-    closeModal();
-  }
-  
-  function addCelebration() {
-    console.log("Adding a Celebration Ticket...");
-    closeModal();
-  }
-  
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.button').addEventListener('click', openModal);
-});
+  modal.style.display = 'block';
+}
 
-// Jeremy Wang adds a function on 2024-03-09
+// Function to close the modal
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+// Function to handle adding an improvement ticket
 function addImprovement() {
-  // Redirects to the Improvement Ticket page
-  window.location.href = "../../tickets/improvement/index.html";
+  window.location.href = '../../tickets/improvement/index.html';
 }
 
-//Similar to the Improvement Ticket page, it will redirect the user to the Celebration Ticket page
+// Function to handle adding a celebration ticket
 function addCelebration() {
-  window.location.href = "../../tickets/celebration/index.html";
+  window.location.href = '../../tickets/celebration/index.html';
 }
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.button').addEventListener('click', openModal);
+  document.querySelector('.close-button').addEventListener('click', closeModal);
+  document
+    .getElementById('improvementButton')
+    .addEventListener('click', addImprovement);
+  document
+    .getElementById('celebrationButton')
+    .addEventListener('click', addCelebration);
+
+  // Fetch and display improvement tickets by category
+  fetchAndDisplayImprovementTicket();
+
+  // Update department name
+  updateDepartmentName(1); // Replace 1 with the actual department ID
+});

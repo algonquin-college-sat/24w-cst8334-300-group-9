@@ -6,6 +6,7 @@ import {
   createImprovementTicket,
   deleteImprovementTicket,
   getAllImprovementTickets,
+  getImprovementTicketByCategoryId,
   getImprovementTicketById,
   updateImprovementTicket,
 } from '../Controllers/improvementTicketController.js';
@@ -17,6 +18,7 @@ const improvementTicketRoute = express.Router();
 improvementTicketRoute.post('/', createImprovementTicket);
 improvementTicketRoute.get('/', getAllImprovementTickets);
 improvementTicketRoute.get('/:id', getImprovementTicketById);
+improvementTicketRoute.get('/category/:id', getImprovementTicketByCategoryId);
 improvementTicketRoute.patch('/:id', updateImprovementTicket);
 improvementTicketRoute.delete('/:id', deleteImprovementTicket);
 
