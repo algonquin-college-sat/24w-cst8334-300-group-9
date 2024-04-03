@@ -150,8 +150,11 @@ html {
   flex: 0 1 calc(50% - 10px); /* Adjust card width to fit two cards per row with gap */
 }
 
-.improvement-ticket .card .card-body {
-  background-color: #ececec;
+.card-body {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  background-color: #e0dddd;
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
@@ -159,6 +162,6 @@ html {
   transition: opacity 0.3s ease; /* Added transition effect for hover */
 }
 
-.improvement-ticket .card .card-body:hover {
+.card-body:hover {
   opacity: 0.7;
 }
