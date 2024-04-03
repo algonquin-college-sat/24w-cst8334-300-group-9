@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         );
         quadrupleAimRadios.forEach((radio, index) => {
           if (radio.checked) {
-            quadrupleAimIndex = index;
+            quadrupleAimIndex = index + 1;
           }
         });
 
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Alert the user or perform any other actions
         alert('Improvement ticket created successfully!');
+        window.location.href = '../../pages/overview/index.html';
       } catch (error) {
         console.error('Frontend: Error creating improvement ticket:', error);
         alert('Failed to create improvement ticket. Please try again.');
