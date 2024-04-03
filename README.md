@@ -50,8 +50,8 @@ Frontend:
 ```
 cd frontend
 npm start
-or utilize `Go Live` VSCode extension
 ```
+or utilize `Go Live` VSCode extension
 
 **NOTE**: You may need to install the http-server if you receive an error message when you run the npm start. This npm start script can be found on the package.json under scripts. You can install http-server using npm (Node.js package manager) by typing this on the terminal/console: *npm install -g http-server*. Once it is installed, ensure that you are in the right directory before running npm start. A browser should pop up after running the npm start script. 
 
