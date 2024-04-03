@@ -9,8 +9,10 @@
 Before getting started, ensure you have the following installed:
 
 Node.js: [Node.js](https://nodejs.org/en/download/)
-[SQL Server 2022 Developer](https://www.microsoft.com/en-us/sql-server/sql-server-downloads?ocid=ORSEARCH_Bing)
-[SQL Server Mangement Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms)
+
+SQL Server: [SQL Server 2022 Developer](https://www.microsoft.com/en-us/sql-server/sql-server-downloads?ocid=ORSEARCH_Bing)
+
+SQL Server GUI: [SQL Server Mangement Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms)
 
 Pull the project to your local machine, navigate to the backend dir using `cd backend`, run the following command to install neccessary packages:
 ```
@@ -30,7 +32,8 @@ DB_SERVER=
 DB_DRIVER=msnodesqlv8
 DB_PORT=3000
 ```
-Note: the `DB_SERVER` value should be your local machine's server name of SQL Server
+**NOTE**: the `DB_SERVER` value should be your local machine's server name of SQL Server
+
 To find server name, refer to this [link](https://stackoverflow.com/questions/16088151/how-to-find-server-name-of-sql-server-management-studio)
 
 ### Run the script
@@ -47,10 +50,10 @@ Frontend:
 ```
 cd frontend
 npm start
-```
 or utilize `Go Live` VSCode extension
+```
 
-Note: You may need to install the http-server if you receive an error message when you run the npm start. This npm start script can be found on the package.json under scripts. You can install http-server using npm (Node.js package manager) by typing this on the terminal/console: *npm install -g http-server*. Once it is installed, ensure that you are in the right directory before running npm start. A browser should pop up after running the npm start script. 
+**NOTE**: You may need to install the http-server if you receive an error message when you run the npm start. This npm start script can be found on the package.json under scripts. You can install http-server using npm (Node.js package manager) by typing this on the terminal/console: *npm install -g http-server*. Once it is installed, ensure that you are in the right directory before running npm start. A browser should pop up after running the npm start script. 
 
 
 ## Future Recommendations
