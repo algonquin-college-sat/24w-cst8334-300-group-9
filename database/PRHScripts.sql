@@ -140,8 +140,16 @@ CREATE TABLE IMPROVEMENT_DEPARTMENT (
 
 -- Inserting into CATEGORIES
 INSERT INTO CATEGORIES (category_name) VALUES
-('Improvement'),
-('Celebration');
+('New Ideas'),
+('Work in Progress'),
+('Almost Done'),
+('Implement'),
+('Challenge'),
+('Possible'),
+('Kibosh'),
+('Celebration'),
+('Complete');
+
 
 -- Inserting into DEPARTMENTS
 INSERT INTO DEPARTMENTS (department_name, display_board) VALUES
@@ -175,8 +183,8 @@ VALUES
   'Problem description for Ticket 1', 
   'Improvement idea for Ticket 1', 
   'Improvement plan for Ticket 1', 
-  'Patient & Family Experience, Best Possible Health Outcome, Provider Experience, Value & Efficiency', 
-  'Occupational Health & Safety, Patient Safety', 
+  'Value & Efficiency', 
+  'OtherDepartments', 
   1, 
   'Solution outcome for Ticket 1', 
   1
@@ -187,11 +195,11 @@ VALUES
   'Problem description for Ticket 2', 
   'Improvement idea for Ticket 2', 
   'Improvement plan for Ticket 2', 
-  'Best Possible Health Outcome, Provider Experience, Value & Efficiency', 
-  'Occupational Health & Safety', 
+  'CommunityPartner', 
+  'OccupationalHealthSafety', 
   2, 
   'Solution outcome for Ticket 2', 
-  1
+  2
 ),
 (
   'Ticket 3', 
@@ -199,9 +207,9 @@ VALUES
   'Problem description for Ticket 3', 
   'Improvement idea for Ticket 3', 
   'Improvement plan for Ticket 3', 
-  'Patient & Family Experience, Provider Experience, Value & Efficiency', 
-  'None', 
+  'PatientFamily', 
+  'PatientSafety', 
   3, 
   'Solution outcome for Ticket 3', 
-  1
+  3
 );

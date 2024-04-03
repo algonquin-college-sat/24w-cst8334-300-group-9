@@ -1,57 +1,111 @@
-// Import the getDepartmentById function from departmentApi.js
 import { getDepartmentById } from '../../state/departmentApi.js';
-import { getAllImprovementTickets } from '../../state/improvementTicketApi.js';
+import {
+  getAllImprovementTickets,
+  deleteImprovementTicket,
+} from '../../state/improvementTicketApi.js';
+
+const categoryMapping = {
+  'New Ideas': 1,
+  'Work in Progress': 2,
+  'Almost Done': 3,
+  Implement: 4,
+  Challenge: 5,
+  Possible: 6,
+  Kibosh: 7,
+  Celebration: 8,
+  Complete: 9,
+};
+
 const fetchAndDisplayImprovementTicket = async () => {
   try {
     // Fetch improvement ticket data from the backend
-    const improvementTicketData = await getAllImprovementTickets(); // Implement this function to fetch data from the backend
+    const improvementTicketData = await getAllImprovementTickets();
     const improvementTickets = improvementTicketData.data;
-    console.log(improvementTickets);
 
-    // Select the improvement ticket element
-    const improvementTicketElement = document.querySelector(
-      '.improvement-ticket'
+    // Loop through each category and display corresponding tickets
+    for (const category in categoryMapping) {
+      const categoryId = categoryMapping[category];
+      const categoryTickets = improvementTickets.filter(
+        (ticket) => ticket.category_id === categoryId
+      );
+      displayTicketsByCategory(category, categoryTickets);
+    }
+  } catch (error) {
+    console.error('Error fetching improvement tickets:', error);
+  }
+};
+
+const displayTicketsByCategory = (category, tickets) => {
+  const formattedCategoryName = category.toLowerCase().replace(/\s/g, '-');
+  const panelElement = document.querySelector(
+    `.${formattedCategoryName}-tickets`
+  );
+  if (!panelElement) {
+    console.error(
+      `Element with class '${formattedCategoryName}-tickets' not found.`
+    );
+    return;
+  }
+  panelElement.innerHTML = ''; // Clear previous content
+
+  tickets.forEach((ticket) => {
+    const ticketElement = document.createElement('div');
+    ticketElement.classList.add(
+      'card',
+      'h-100',
+      'shadow',
+      'improvement-ticket'
     );
 
-    // Clear previous content
-    improvementTicketElement.innerHTML = '';
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
 
-    // Loop through improvement tickets and create HTML elements for each ticket
-    improvementTickets.forEach((improvementTicket) => {
-      // Create card element
-      const ticketElement = document.createElement('div');
-      ticketElement.classList.add('card', 'h-100', 'shadow');
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = ticket.name;
 
-      // Create card body
-      const cardBody = document.createElement('div');
-      cardBody.classList.add('card-body');
+    const cardDescription = document.createElement('div');
+    cardDescription.classList.add('card-description'); // Add a class for description
+    cardDescription.textContent = ticket.problem;
 
-      // Create card title
-      const cardTitle = document.createElement('h5');
-      cardTitle.classList.add('card-title');
-      cardTitle.textContent = improvementTicket.name;
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardDescription);
 
-      // Create card description
-      const cardDescription = document.createElement('div');
-      cardDescription.textContent = improvementTicket.problem;
+    ticketElement.appendChild(cardBody);
 
-      // Append title and description to card body
-      cardBody.appendChild(cardTitle);
-      cardBody.appendChild(cardDescription);
-
-      // Append card body to card
-      ticketElement.appendChild(cardBody);
-
-      // Add click event listener
-      ticketElement.addEventListener('click', () => {
-        console.log(`Ticket ${improvementTicket.ticket_id} clicked!`);
-      });
-
-      // Append card to improvement ticket element
-      improvementTicketElement.appendChild(ticketElement);
+    // Event listener to prompt user to update or delete the ticket
+    ticketElement.addEventListener('click', () => {
+      const confirmAction = window.confirm(
+        'Do you want to update or delete this ticket?'
+      );
+      if (confirmAction) {
+        const updateAction = window.prompt(
+          'Type "update" to edit the ticket or "delete" to remove it.'
+        );
+        if (updateAction === 'update') {
+          window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+        } else if (updateAction === 'delete') {
+          deleteTicket(ticket.ticket_id);
+        } else {
+          alert('Invalid action. Please type "update" or "delete".');
+        }
+      }
     });
+
+    panelElement.appendChild(ticketElement);
+  });
+};
+
+// Function to delete the ticket
+const deleteTicket = async (ticketId) => {
+  try {
+    await deleteImprovementTicket(ticketId);
+    alert('Ticket deleted successfully.');
+    // Reload the page to reflect the changes
+    location.reload();
   } catch (error) {
-    console.error('Error fetching improvement ticket:', error);
+    console.error('Error deleting ticket:', error);
+    alert('Failed to delete ticket.');
   }
 };
 
@@ -65,7 +119,9 @@ async function updateDepartmentName(departmentId) {
     console.error('Error fetching department:', error);
   }
 }
+
 const modal = document.getElementById('ticketModal');
+
 // Function to open the modal
 function openModal() {
   modal.style.display = 'block';
@@ -96,6 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .getElementById('celebrationButton')
     .addEventListener('click', addCelebration);
-  updateDepartmentName(1); // Replace 1 with the actual department ID
+
+  // Fetch and display improvement tickets by category
   fetchAndDisplayImprovementTicket();
+
+  // Update department name
+  updateDepartmentName(1); // Replace 1 with the actual department ID
 });
