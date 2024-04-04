@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         const sourceIssue = document.getElementById('sourceIssue').value;
         const proposedSolution =
           document.getElementById('proposedSolution').value;
+        // Get the value of the date input
+        const ticketDate = document.getElementById('ticketDate').value;
 
         // Get the selected value from the radio buttons for input needed from
         let inputNeededFromValue = null;
@@ -75,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Prepare improvement ticket data object
         const improvementTicketData = {
           name: ticketName, // Use the value from the ticket name textarea
+          date: ticketDate, // Add the date to the ticket data
           problem: problemDescription,
           improve_idea: proposedSolution,
           source_issue: sourceIssue,
