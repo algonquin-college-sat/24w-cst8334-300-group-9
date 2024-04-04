@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Add click listener to navigate to the dashboard page
       dashboardDiv.addEventListener('click', () => {
         // navigateToPage(`./dashboard/${department.department_id}`); // Assuming department_id is used in the URL
-        navigateToPage('./pages/overview/index.html');
+        navigateToDashboardPage(department.department_id);
       });
       dashboardContainer.appendChild(dashboardDiv);
     });
@@ -42,14 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// Navigate to a specific page URL
-const navigateToPage = (pageUrl) => {
+// Function to navigate to the department's index.html page with department ID
+const navigateToDashboardPage = (departmentId) => {
+  // Construct the URL with the department ID as a query parameter
+  const pageUrl = `./pages/overview/index.html?departmentId=${departmentId}`;
+  // Navigate to the URL
   window.location.href = pageUrl;
-};
-
-// Add a click listener to a dashboard element
-const addClickListenerToDashboard = (dashboard, pageUrl) => {
-  dashboard.addEventListener('click', () => {
-    navigateToPage(pageUrl);
-  });
 };
