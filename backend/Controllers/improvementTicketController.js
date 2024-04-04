@@ -38,7 +38,7 @@ export const createImprovementTicket = async (req, res) => {
     const request = pool
       .request()
       .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.Date, req.body.date)
+      .input('date', sql.NVarChar, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
       .input('improve_idea', sql.NVarChar, req.body.improve_idea)
       .input('source_issue', sql.NVarChar, req.body.source_issue)

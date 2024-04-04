@@ -87,7 +87,7 @@ CREATE TABLE CATEGORIES (
 CREATE TABLE IMPROVEMENT_TICKETS (
   ticket_id INT PRIMARY KEY IDENTITY,
   name VARCHAR(255),
-  date DATETIME,
+  date TEXT,
   problem TEXT,
   source_issue TEXT,
   improve_idea TEXT,
@@ -105,7 +105,7 @@ CREATE TABLE CELEBRATION_TICKET (
   c_ticket_id INT PRIMARY KEY IDENTITY,
   i_ticket_id INT,
   department_id INT,
-  date DATETIME,
+  date TEXT,
   who_what TEXT,
   details TEXT,
   value_compassion BIT,
@@ -122,7 +122,7 @@ CREATE TABLE CELEBRATION_TICKET (
 CREATE TABLE TICKET_UPDATES (
   update_id INT PRIMARY KEY IDENTITY,
   i_ticket_id INT,
-  date DATETIME,
+  date TEXT,
   update_note TEXT,
   owner VARCHAR(255),
   FOREIGN KEY (i_ticket_id) REFERENCES IMPROVEMENT_TICKETS(ticket_id)
@@ -179,7 +179,7 @@ INSERT INTO IMPROVEMENT_TICKETS (
 VALUES
 (
   'Ticket 1', 
-  GETDATE(), 
+  '2024-03-22', 
   'Problem description for Ticket 1', 
   'Improvement idea for Ticket 1', 
   'Improvement plan for Ticket 1', 
@@ -191,7 +191,7 @@ VALUES
 ),
 (
   'Ticket 2', 
-  GETDATE(), 
+  '2024-03-21', 
   'Problem description for Ticket 2', 
   'Improvement idea for Ticket 2', 
   'Improvement plan for Ticket 2', 
@@ -203,7 +203,7 @@ VALUES
 ),
 (
   'Ticket 3', 
-  GETDATE(),
+  '2024-03-20', 
   'Problem description for Ticket 3', 
   'Improvement idea for Ticket 3', 
   'Improvement plan for Ticket 3', 
