@@ -223,7 +223,7 @@ VALUES
   3, 
   'Solution outcome for Ticket 3', 
   3
-),(4, -- Department ID
+),(2, -- Department ID
   'Improvement Ticket 4', -- Ticket name
   '2024-03-25', -- Date
   'Long wait times in the Emergency Room', -- Problem description
@@ -234,11 +234,11 @@ VALUES
   'PatientSafety', -- Safety issue
   1, -- Quadruple Aim ID
   'Implemented new triage system', -- Solution outcome
-  1 -- Category ID
+  4 -- Category ID
 ),
 (
-  5, -- Department ID
-  'Improvement Ticket 2', -- Ticket name
+  1, -- Department ID
+  'Improvement Ticket 5', -- Ticket name
   '2024-03-26', -- Date
   'High patient readmission rates', -- Problem description
   0, -- isArchived
@@ -248,11 +248,11 @@ VALUES
   'OtherDepartments', -- Safety issue
   2, -- Quadruple Aim ID
   'Reduced readmission rates by 20%', -- Solution outcome
-  1 -- Category ID
+  5 -- Category ID
 ),
 (
-  6, -- Department ID
-  'Improvement Ticket 3', -- Ticket name
+  3, -- Department ID
+  'Improvement Ticket 6', -- Ticket name
   '2024-03-27', -- Date
   'Inefficient medication reconciliation process', -- Problem description
   0, -- isArchived
@@ -262,5 +262,5 @@ VALUES
   'OccupationalHealthSafety', -- Safety issue
   3, -- Quadruple Aim ID
   'Reduced medication errors by 50%', -- Solution outcome
-  2 -- Category ID
+  7 -- Category ID
 );
