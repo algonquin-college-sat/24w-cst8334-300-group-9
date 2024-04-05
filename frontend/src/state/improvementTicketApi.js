@@ -32,7 +32,7 @@ export const getImprovementTicketById = async (ticketId) => {
   }
 };
 
-export const getImprovementTicketByCategoryId = async (catgeroyId) => {
+export const getImprovementTicketByCategoryId = async (categoryId) => {
   try {
     const response = await baseAPI.get(
       `${improvementTicketAPI}/category/${categoryId}`
