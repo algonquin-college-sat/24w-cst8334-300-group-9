@@ -12,10 +12,10 @@ import sql from 'mssql/msnodesqlv8.js';
 import { getConnection } from '../dbConfig.js';
 
 // Create Improvement ticket
-// Create Improvement ticket
 export const createImprovementTicket = async (req, res) => {
   const query = `
     INSERT INTO IMPROVEMENT_TICKETS (
+      department_id,
       name, 
       date, 
       problem, 
@@ -25,11 +25,23 @@ export const createImprovementTicket = async (req, res) => {
       safety_issue, 
       quadruple_aim_id,
       solution_outcome, 
-      category_id
+      category_id,
+      isArchived
     ) 
     VALUES
     ( 
-      @name, @date, @problem, @improve_idea, @source_issue, @input_needed_from, @safety_issue, @quadruple_aim_id, @solution_outcome, @category_id
+      @department_id,
+      @name, 
+      @date, 
+      @problem, 
+      @improve_idea, 
+      @source_issue, 
+      @input_needed_from, 
+      @safety_issue, 
+      @quadruple_aim_id, 
+      @solution_outcome, 
+      @category_id,
+      @isArchived
     );
   `;
 
@@ -37,8 +49,9 @@ export const createImprovementTicket = async (req, res) => {
     const pool = await getConnection();
     const request = pool
       .request()
+      .input('department_id', sql.Int, req.body.department_id)
       .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.NVarChar, req.body.date)
+      .input('date', sql.Date, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
       .input('improve_idea', sql.NVarChar, req.body.improve_idea)
       .input('source_issue', sql.NVarChar, req.body.source_issue)
@@ -46,7 +59,8 @@ export const createImprovementTicket = async (req, res) => {
       .input('safety_issue', sql.NVarChar, req.body.safety_issue)
       .input('quadruple_aim_id', sql.Int, req.body.quadruple_aim_id)
       .input('solution_outcome', sql.NVarChar, req.body.solution_outcome)
-      .input('category_id', sql.Int, req.body.category_id);
+      .input('category_id', sql.Int, req.body.category_id)
+      .input('isArchived', sql.Bit, req.body.isArchived); // Assuming isArchived is a boolean
 
     const result = await request.query(query);
     res.status(201).json({ success: true, data: result.recordset });
@@ -176,10 +190,23 @@ export const getImprovementTicketByDepartment = async (req, res) => {
 /**
  * Update improvement ticket
  */
+/**
+ * Update improvement ticket
+ */
 export const updateImprovementTicket = async (req, res) => {
   const query = `
       UPDATE IMPROVEMENT_TICKETS
-      SET name = @name, date = @date, problem = @problem, improve_idea = @improve_idea, source_issue = @source_issue, input_needed_from = @input_needed_from, safety_issue = @safety_issue, quadruple_aim_id = @quadruple_aim_id, solution_outcome = @solution_outcome, category_id = @category_id
+      SET name = @name, 
+          date = @date, 
+          problem = @problem, 
+          improve_idea = @improve_idea, 
+          source_issue = @source_issue, 
+          input_needed_from = @input_needed_from, 
+          safety_issue = @safety_issue, 
+          quadruple_aim_id = @quadruple_aim_id, 
+          solution_outcome = @solution_outcome, 
+          category_id = @category_id,
+          isArchived = @isArchived
       WHERE ticket_id = @ticketId;
     `;
 
@@ -197,6 +224,7 @@ export const updateImprovementTicket = async (req, res) => {
       .input('quadruple_aim_id', sql.Int, req.body.quadruple_aim_id)
       .input('solution_outcome', sql.NVarChar, req.body.solution_outcome)
       .input('category_id', sql.Int, req.body.category_id)
+      .input('isArchived', sql.Bit, req.body.isArchived) // Assuming isArchived is a boolean
       .input('ticketId', sql.Int, req.params.id)
       .query(query);
 
@@ -206,6 +234,7 @@ export const updateImprovementTicket = async (req, res) => {
     res.status(500).json({ error: 'Failed to update improvement ticket' });
   }
 };
+
 
 /**
  * Delete improvement ticket

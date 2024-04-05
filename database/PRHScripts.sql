@@ -89,6 +89,7 @@ CREATE TABLE IMPROVEMENT_TICKETS (
   department_id INT,
   name VARCHAR(255),
   date TEXT,
+  isArchived BIT,
   problem TEXT,
   source_issue TEXT,
   improve_idea TEXT,
@@ -170,6 +171,7 @@ INSERT INTO IMPROVEMENT_TICKETS (
   name, 
   date, 
   problem, 
+  isArchived,
   improve_idea, 
   source_issue, 
   input_needed_from, 
@@ -180,13 +182,15 @@ INSERT INTO IMPROVEMENT_TICKETS (
 ) 
 VALUES
 (
+  
   1,
-  'Ticket 1', 
+  'Improvement Ticket 1', 
   '2024-03-22', 
   'Problem description for Ticket 1', 
+  0,
   'Improvement idea for Ticket 1', 
   'Improvement plan for Ticket 1', 
-  'Value & Efficiency', 
+  'CommunityPartner', 
   'OtherDepartments', 
   1, 
   'Solution outcome for Ticket 1', 
@@ -194,9 +198,10 @@ VALUES
 ),
 (
   2,
-  'Ticket 2', 
+  'Improvement Ticket 2', 
   '2024-03-21', 
   'Problem description for Ticket 2', 
+  0,
   'Improvement idea for Ticket 2', 
   'Improvement plan for Ticket 2', 
   'CommunityPartner', 
@@ -207,9 +212,10 @@ VALUES
 ),
 (
   3,
-  'Ticket 3', 
+  'Improvement Ticket 3', 
   '2024-03-20', 
   'Problem description for Ticket 3', 
+  0,
   'Improvement idea for Ticket 3', 
   'Improvement plan for Ticket 3', 
   'PatientFamily', 
@@ -217,4 +223,44 @@ VALUES
   3, 
   'Solution outcome for Ticket 3', 
   3
+),(4, -- Department ID
+  'Improvement Ticket 4', -- Ticket name
+  '2024-03-25', -- Date
+  'Long wait times in the Emergency Room', -- Problem description
+  0, -- isArchived
+  'Hiring more triage nurses', -- Improvement idea
+  'Understaffing in the ER department', -- Source issue
+  'PatientFamily', -- Input needed from
+  'PatientSafety', -- Safety issue
+  1, -- Quadruple Aim ID
+  'Implemented new triage system', -- Solution outcome
+  1 -- Category ID
+),
+(
+  5, -- Department ID
+  'Improvement Ticket 2', -- Ticket name
+  '2024-03-26', -- Date
+  'High patient readmission rates', -- Problem description
+  0, -- isArchived
+  'Implementing discharge planning protocols', -- Improvement idea
+  'Lack of standardized discharge procedures', -- Source issue
+  'CommunityPartner', -- Input needed from
+  'OtherDepartments', -- Safety issue
+  2, -- Quadruple Aim ID
+  'Reduced readmission rates by 20%', -- Solution outcome
+  1 -- Category ID
+),
+(
+  6, -- Department ID
+  'Improvement Ticket 3', -- Ticket name
+  '2024-03-27', -- Date
+  'Inefficient medication reconciliation process', -- Problem description
+  0, -- isArchived
+  'Implementing electronic medication reconciliation system', -- Improvement idea
+  'Manual reconciliation process prone to errors', -- Source issue
+  'PatientFamily', -- Input needed from
+  'OccupationalHealthSafety', -- Safety issue
+  3, -- Quadruple Aim ID
+  'Reduced medication errors by 50%', -- Solution outcome
+  2 -- Category ID
 );
