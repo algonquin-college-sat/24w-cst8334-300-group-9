@@ -1,5 +1,6 @@
 import { createImprovementTicket } from '../../state/improvementTicketApi.js';
 import { getAllCategories } from '../../state/categoryApi.js';
+import { getAllDepartments } from '../../state/departmentApi.js';
 
 document.addEventListener('DOMContentLoaded', async function () {
   try {
@@ -17,10 +18,22 @@ document.addEventListener('DOMContentLoaded', async function () {
       categorySelect.appendChild(option);
     });
 
+    const departments = await getAllDepartments();
+
+    // Get the dropdown element
+    const departmentSelect = document.getElementById('departmentSelect');
+    // Populate dropdown options with fetched categories
+    departments.data.forEach((department) => {
+      const option = document.createElement('option');
+      option.value = department.department_id;
+      option.textContent = department.department_name;
+      departmentSelect.appendChild(option);
+    });
+
     // Back button functionality
     const backButton = document.getElementById('backButton');
     backButton.addEventListener('click', function () {
-      window.location.href = '../../pages/overview/index.html';
+      window.history.back();
     });
 
     // Save button functionality
@@ -28,15 +41,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     saveButton.addEventListener('click', async function () {
       try {
         // Get form data
+        const ticketDate = document.getElementById('ticketDate').value;
+        const selectedDepartmentId = parseInt(departmentSelect.value);
         const ticketName = document.getElementById('ticketName').value;
         const problemDescription =
           document.getElementById('problemDescription').value;
         const sourceIssue = document.getElementById('sourceIssue').value;
         const proposedSolution =
           document.getElementById('proposedSolution').value;
-        // Get the value of the date input
-        const ticketDate = document.getElementById('ticketDate').value;
-
         // Get the selected value from the radio buttons for input needed from
         let inputNeededFromValue = null;
         const inputNeededRadios = document.querySelectorAll(
@@ -70,22 +82,24 @@ document.addEventListener('DOMContentLoaded', async function () {
           }
         });
 
-        // Get the selected category from the dropdown
-        const categorySelect = document.getElementById('categorySelect');
         const selectedCategoryId = parseInt(categorySelect.value);
-
+        const isArchived =
+          document.querySelector('input[name="isArchived"]:checked').value ===
+          'true'; // Convert to boolean
         // Prepare improvement ticket data object
         const improvementTicketData = {
-          name: ticketName, // Use the value from the ticket name textarea
           date: ticketDate, // Add the date to the ticket data
+          name: ticketName, // Use the value from the ticket name textarea
           problem: problemDescription,
-          improve_idea: proposedSolution,
           source_issue: sourceIssue,
+          improve_idea: proposedSolution,
           input_needed_from: inputNeededFromValue,
           safety_issue: safetyIssueValue,
           quadruple_aim_id: quadrupleAimIndex,
           solution_outcome: proposedSolution,
           category_id: selectedCategoryId, // Assign the selected category ID
+          department_id: selectedDepartmentId,
+          isArchived: isArchived,
         };
 
         console.log(improvementTicketData);
@@ -96,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Alert the user or perform any other actions
         alert('Improvement ticket created successfully!');
-        window.location.href = '../../pages/overview/index.html';
+        window.history.back();
       } catch (error) {
         console.error('Frontend: Error creating improvement ticket:', error);
         alert('Failed to create improvement ticket. Please try again.');
