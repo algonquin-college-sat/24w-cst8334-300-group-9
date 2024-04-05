@@ -39,6 +39,18 @@
       <div class="row">
         <div class="col-8">
           <form id="improvementForm">
+            <!-- Input field for date -->
+            <div class="form-group">
+              <label for="ticketDate">Date:</label>
+              <input type="date" id="ticketDate" class="form-control" />
+            </div>
+            <!-- Dropdown for category section -->
+            <div class="form-group">
+              <label for="departmenetSelect">Department</label>
+              <select id="departmentSelect" class="form-control">
+                <!-- Options will be added dynamically using JavaScript -->
+              </select>
+            </div>
             <!-- New textarea for ticket name -->
             <div class="form-group">
               <label for="ticketName">Ticket Name:</label>
@@ -197,6 +209,30 @@
                 >Group Discussion Outcome: Team-Ratified Solution</label
               >
               <textarea id="groupDiscussionOutcome" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Is Archived:</label><br />
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="isArchived"
+                  id="isArchivedYes"
+                  value="true"
+                />
+                <label class="form-check-label" for="isArchivedYes">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="isArchived"
+                  id="isArchivedNo"
+                  value="false"
+                  checked
+                />
+                <label class="form-check-label" for="isArchivedNo">No</label>
+              </div>
             </div>
           </form>
 
