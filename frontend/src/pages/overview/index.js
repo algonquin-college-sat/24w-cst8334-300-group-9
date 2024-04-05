@@ -16,6 +16,36 @@ const categoryMapping = {
   Complete: 9,
 };
 
+// Event listeners
+document.addEventListener('DOMContentLoaded', async () => {
+  // Get the department ID from the URL parameters
+  const urlParams = new URLSearchParams(window.location.search); //this will returns  the query string portion of the URL (everything after the question mark)
+  const departmentId = urlParams.get('departmentId'); //retrieves the value of the query parameter named 'departmentId'
+  console.log(departmentId, typeof departmentId);
+
+  try {
+    const department = await getDepartmentById(departmentId);
+    const departmentName = department.data.department_name;
+    console.log(departmentName);
+
+    document.querySelector('.department-name').textContent = departmentName;
+  } catch (error) {
+    console.error('Error fetching department: ', error);
+  }
+
+  document.querySelector('.button').addEventListener('click', openModal);
+  document.querySelector('.close-button').addEventListener('click', closeModal);
+  document
+    .getElementById('improvementButton')
+    .addEventListener('click', addImprovement);
+  document
+    .getElementById('celebrationButton')
+    .addEventListener('click', addCelebration);
+
+  // Fetch and display improvement tickets by category
+  fetchAndDisplayImprovementTicket();
+});
+
 const fetchAndDisplayImprovementTicket = async () => {
   try {
     // Fetch improvement ticket data from the backend
@@ -141,21 +171,3 @@ function addImprovement() {
 function addCelebration() {
   window.location.href = '../../tickets/celebration/index.html';
 }
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.button').addEventListener('click', openModal);
-  document.querySelector('.close-button').addEventListener('click', closeModal);
-  document
-    .getElementById('improvementButton')
-    .addEventListener('click', addImprovement);
-  document
-    .getElementById('celebrationButton')
-    .addEventListener('click', addCelebration);
-
-  // Fetch and display improvement tickets by category
-  fetchAndDisplayImprovementTicket();
-
-  // Update department name
-  updateDepartmentName(1); // Replace 1 with the actual department ID
-});
