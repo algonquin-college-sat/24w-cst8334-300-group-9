@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Fetch department data from the backend
     const departments = await getAllDepartments();
-    console.log(departments);
 
     // Get reference to the dashboard container
     const dashboardContainer = document.getElementById('dashboardContainer');
