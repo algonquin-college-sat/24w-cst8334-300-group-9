@@ -51,7 +51,7 @@ export const createImprovementTicket = async (req, res) => {
       .request()
       .input('department_id', sql.Int, req.body.department_id)
       .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.Date, req.body.date)
+      .input('date', sql.NVarChar, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
       .input('improve_idea', sql.NVarChar, req.body.improve_idea)
       .input('source_issue', sql.NVarChar, req.body.source_issue)
@@ -215,7 +215,7 @@ export const updateImprovementTicket = async (req, res) => {
     const result = await pool
       .request()
       .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.Date, req.body.date)
+      .input('date', sql.NVarChar, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
       .input('improve_idea', sql.NVarChar, req.body.improve_idea)
       .input('source_issue', sql.NVarChar, req.body.source_issue)
@@ -234,7 +234,6 @@ export const updateImprovementTicket = async (req, res) => {
     res.status(500).json({ error: 'Failed to update improvement ticket' });
   }
 };
-
 
 /**
  * Delete improvement ticket

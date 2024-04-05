@@ -191,7 +191,7 @@ VALUES
   'Improvement idea for Ticket 1', 
   'Improvement plan for Ticket 1', 
   'CommunityPartner', 
-  'OtherDepartments', 
+  'OccupationalHealthSafety', 
   1, 
   'Solution outcome for Ticket 1', 
   1
@@ -244,8 +244,8 @@ VALUES
   0, -- isArchived
   'Implementing discharge planning protocols', -- Improvement idea
   'Lack of standardized discharge procedures', -- Source issue
-  'CommunityPartner', -- Input needed from
-  'OtherDepartments', -- Safety issue
+  'OtherDepartments', -- Input needed from
+  'PatientSafety', -- Safety issue
   2, -- Quadruple Aim ID
   'Reduced readmission rates by 20%', -- Solution outcome
   5 -- Category ID
