@@ -139,10 +139,43 @@ export const getImprovementTicketByCategoryId = async (req, res) => {
   }
 };
 
+export const getImprovementTicketByDepartment = async (req, res) => {
+  // SQL query for retrieving an improvement ticket by its ID
+  const query = `SELECT * FROM IMPROVEMENT_TICKETS WHERE department_id = @department_id;`;
+
+  try {
+    // Establish connection to the database
+    const pool = await getConnection();
+    // Create a request object
+    const result = await pool
+      .request()
+      // Bind input parameter
+      .input('department_id', sql.Int, req.params.id)
+      .query(query);
+
+    // Check if a record was found
+    if (result.recordset.length > 0) {
+      // Respond with the retrieved data
+      res.status(200).json(result.recordset[0]);
+    } else {
+      // Respond with error message if no record found
+      res.status(404).json({ error: 'Improvement tickets not found' });
+    }
+  } catch (error) {
+    // Handle errors
+    console.error(
+      'Error retrieving improvement ticket by department ID:',
+      error
+    );
+    res
+      .status(500)
+      .json({ error: 'Failed to retrieve improvement ticket by department' });
+  }
+};
+
 /**
  * Update improvement ticket
  */
-// Update improvement ticket
 export const updateImprovementTicket = async (req, res) => {
   const query = `
       UPDATE IMPROVEMENT_TICKETS

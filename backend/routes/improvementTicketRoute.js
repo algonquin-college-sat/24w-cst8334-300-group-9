@@ -7,6 +7,7 @@ import {
   deleteImprovementTicket,
   getAllImprovementTickets,
   getImprovementTicketByCategoryId,
+  getImprovementTicketByDepartment,
   getImprovementTicketById,
   updateImprovementTicket,
 } from '../Controllers/improvementTicketController.js';
@@ -19,6 +20,7 @@ improvementTicketRoute.post('/', createImprovementTicket);
 improvementTicketRoute.get('/', getAllImprovementTickets);
 improvementTicketRoute.get('/:id', getImprovementTicketById);
 improvementTicketRoute.get('/category/:id', getImprovementTicketByCategoryId);
+improvementTicketRoute.get('/department/:id', getImprovementTicketByDepartment);
 improvementTicketRoute.patch('/:id', updateImprovementTicket);
 improvementTicketRoute.delete('/:id', deleteImprovementTicket);
 
