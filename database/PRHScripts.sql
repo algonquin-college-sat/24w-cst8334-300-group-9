@@ -86,6 +86,7 @@ CREATE TABLE CATEGORIES (
 -- Create the IMPROVEMENT_TICKETS table
 CREATE TABLE IMPROVEMENT_TICKETS (
   ticket_id INT PRIMARY KEY IDENTITY,
+  department_id INT,
   name VARCHAR(255),
   date TEXT,
   problem TEXT,
@@ -165,6 +166,7 @@ INSERT INTO QUADRUPLE_AIM (aim_name) VALUES
 
 -- Inserting into IMPROVEMENT_TICKETS
 INSERT INTO IMPROVEMENT_TICKETS (
+  department_id,
   name, 
   date, 
   problem, 
@@ -178,6 +180,7 @@ INSERT INTO IMPROVEMENT_TICKETS (
 ) 
 VALUES
 (
+  1,
   'Ticket 1', 
   '2024-03-22', 
   'Problem description for Ticket 1', 
@@ -190,6 +193,7 @@ VALUES
   1
 ),
 (
+  2,
   'Ticket 2', 
   '2024-03-21', 
   'Problem description for Ticket 2', 
@@ -202,6 +206,7 @@ VALUES
   2
 ),
 (
+  3,
   'Ticket 3', 
   '2024-03-20', 
   'Problem description for Ticket 3', 
