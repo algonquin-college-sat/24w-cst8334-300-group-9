@@ -125,7 +125,7 @@ export const getImprovementTicketByCategoryId = async (req, res) => {
     // Check if a record was found
     if (result.recordset.length > 0) {
       // Respond with the retrieved data
-      res.status(200).json(result.recordset[0]);
+      res.status(200).json(result.recordset);
     } else {
       // Respond with error message if no record found
       res.status(404).json({ error: 'Improvement tickets not found' });
@@ -156,7 +156,7 @@ export const getImprovementTicketByDepartment = async (req, res) => {
     // Check if a record was found
     if (result.recordset.length > 0) {
       // Respond with the retrieved data
-      res.status(200).json(result.recordset[0]);
+      res.status(200).json(result.recordset);
     } else {
       // Respond with error message if no record found
       res.status(404).json({ error: 'Improvement tickets not found' });
