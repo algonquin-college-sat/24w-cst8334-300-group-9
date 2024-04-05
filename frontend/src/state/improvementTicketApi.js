@@ -32,10 +32,21 @@ export const getImprovementTicketById = async (ticketId) => {
   }
 };
 
-export const getImprovementTicketByCategoryId = async (ticketId) => {
+export const getImprovementTicketByCategoryId = async (categoryId) => {
   try {
     const response = await baseAPI.get(
-      `${improvementTicketAPI}/category/${ticketId}`
+      `${improvementTicketAPI}/category/${categoryId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch improvement ticket');
+  }
+};
+
+export const getImprovementTicketByDepartmentId = async (departmentId) => {
+  try {
+    const response = await baseAPI.get(
+      `${improvementTicketAPI}/department/${departmentId}`
     );
     return response.data;
   } catch (error) {
