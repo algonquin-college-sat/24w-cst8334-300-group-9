@@ -193,27 +193,62 @@ export const getImprovementTicketByDepartment = async (req, res) => {
 /**
  * Update improvement ticket
  */
+/**
+ * Update improvement ticket
+ */
 export const updateImprovementTicket = async (req, res) => {
+  // Initialize an array to store the SQL update statements
+  const updateStatements = [];
+
+  // Check each attribute in the request body and create corresponding update statements
+  if (req.body.name) {
+    updateStatements.push(`name = @name`);
+  }
+  if (req.body.date) {
+    updateStatements.push(`date = @date`);
+  }
+  if (req.body.problem) {
+    updateStatements.push(`problem = @problem`);
+  }
+  if (req.body.improve_idea) {
+    updateStatements.push(`improve_idea = @improve_idea`);
+  }
+  if (req.body.source_issue) {
+    updateStatements.push(`source_issue = @source_issue`);
+  }
+  if (req.body.input_needed_from) {
+    updateStatements.push(`input_needed_from = @input_needed_from`);
+  }
+  if (req.body.safety_issue) {
+    updateStatements.push(`safety_issue = @safety_issue`);
+  }
+  if (req.body.quadruple_aim_id) {
+    updateStatements.push(`quadruple_aim_id = @quadruple_aim_id`);
+  }
+  if (req.body.solution_outcome) {
+    updateStatements.push(`solution_outcome = @solution_outcome`);
+  }
+  if (req.body.category_id) {
+    updateStatements.push(`category_id = @category_id`);
+  }
+  if (req.body.isArchived !== undefined) {
+    // Assuming isArchived is a boolean
+    updateStatements.push(`isArchived = @isArchived`);
+  }
+
+  // Construct the SQL update query
   const query = `
-      UPDATE IMPROVEMENT_TICKETS
-      SET name = @name, 
-          date = @date, 
-          problem = @problem, 
-          improve_idea = @improve_idea, 
-          source_issue = @source_issue, 
-          input_needed_from = @input_needed_from, 
-          safety_issue = @safety_issue, 
-          quadruple_aim_id = @quadruple_aim_id, 
-          solution_outcome = @solution_outcome, 
-          category_id = @category_id,
-          isArchived = @isArchived
-      WHERE ticket_id = @ticketId;
-    `;
+    UPDATE IMPROVEMENT_TICKETS
+    SET ${updateStatements.join(', ')}
+    WHERE ticket_id = @ticketId;
+  `;
 
   try {
     const pool = await getConnection();
     const result = await pool
       .request()
+      // Bind input parameters
+      .input('ticketId', sql.Int, req.params.id)
       .input('name', sql.NVarChar, req.body.name)
       .input('date', sql.NVarChar, req.body.date)
       .input('problem', sql.NVarChar, req.body.problem)
@@ -224,8 +259,7 @@ export const updateImprovementTicket = async (req, res) => {
       .input('quadruple_aim_id', sql.Int, req.body.quadruple_aim_id)
       .input('solution_outcome', sql.NVarChar, req.body.solution_outcome)
       .input('category_id', sql.Int, req.body.category_id)
-      .input('isArchived', sql.Bit, req.body.isArchived) // Assuming isArchived is a boolean
-      .input('ticketId', sql.Int, req.params.id)
+      .input('isArchived', sql.Bit, req.body.isArchived)
       .query(query);
 
     res.status(200).json({ success: true });
