@@ -1,7 +1,7 @@
 import { getDepartmentById } from '../../state/departmentApi.js';
 import {
-  getAllImprovementTickets,
   deleteImprovementTicket,
+  getImprovementTicketByDepartmentId,
 } from '../../state/improvementTicketApi.js';
 
 const categoryMapping = {
@@ -16,18 +16,49 @@ const categoryMapping = {
   Complete: 9,
 };
 
-const fetchAndDisplayImprovementTicket = async () => {
+// Event listeners
+document.addEventListener('DOMContentLoaded', async () => {
+  // Get the department ID from the URL parameters
+  const urlParams = new URLSearchParams(window.location.search); //this will returns  the query string portion of the URL (everything after the question mark)
+  const departmentId = urlParams.get('departmentId'); //retrieves the value of the query parameter named 'departmentId'
+
+  try {
+    const department = await getDepartmentById(departmentId);
+    const departmentName = department.data.department_name;
+
+    document.querySelector('.department-name').textContent = departmentName;
+  } catch (error) {
+    console.error('Error fetching department: ', error);
+  }
+
+  document.querySelector('.button').addEventListener('click', openModal);
+  document.querySelector('.close-button').addEventListener('click', closeModal);
+  document
+    .getElementById('improvementButton')
+    .addEventListener('click', addImprovement);
+  document
+    .getElementById('celebrationButton')
+    .addEventListener('click', addCelebration);
+
+  // Fetch and display improvement tickets by category
+  fetchImprovementTicketByDepartment(departmentId);
+});
+
+const fetchImprovementTicketByDepartment = async (departmentId) => {
   try {
     // Fetch improvement ticket data from the backend
-    const improvementTicketData = await getAllImprovementTickets();
-    const improvementTickets = improvementTicketData.data;
+    const improvementTickets = await getImprovementTicketByDepartmentId(
+      departmentId
+    );
+    console.log(improvementTickets);
 
     // Loop through each category and display corresponding tickets
     for (const category in categoryMapping) {
       const categoryId = categoryMapping[category];
-      const categoryTickets = improvementTickets.filter(
-        (ticket) => ticket.category_id === categoryId
-      );
+      const categoryTickets = improvementTickets.filter((ticket) => {
+        return ticket.category_id === categoryId;
+      });
+
       displayTicketsByCategory(category, categoryTickets);
     }
   } catch (error) {
@@ -37,6 +68,7 @@ const fetchAndDisplayImprovementTicket = async () => {
 
 const displayTicketsByCategory = (category, tickets) => {
   const formattedCategoryName = category.toLowerCase().replace(/\s/g, '-');
+
   const panelElement = document.querySelector(
     `.${formattedCategoryName}-tickets`
   );
@@ -109,17 +141,6 @@ const deleteTicket = async (ticketId) => {
   }
 };
 
-// Function to fetch department details and update the department name in the HTML
-async function updateDepartmentName(departmentId) {
-  try {
-    const department = await getDepartmentById(departmentId);
-    const departmentName = department.data.department_name;
-    document.querySelector('.department-name').textContent = departmentName;
-  } catch (error) {
-    console.error('Error fetching department:', error);
-  }
-}
-
 const modal = document.getElementById('ticketModal');
 
 // Function to open the modal
@@ -141,21 +162,3 @@ function addImprovement() {
 function addCelebration() {
   window.location.href = '../../tickets/celebration/index.html';
 }
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.button').addEventListener('click', openModal);
-  document.querySelector('.close-button').addEventListener('click', closeModal);
-  document
-    .getElementById('improvementButton')
-    .addEventListener('click', addImprovement);
-  document
-    .getElementById('celebrationButton')
-    .addEventListener('click', addCelebration);
-
-  // Fetch and display improvement tickets by category
-  fetchAndDisplayImprovementTicket();
-
-  // Update department name
-  updateDepartmentName(1); // Replace 1 with the actual department ID
-});
