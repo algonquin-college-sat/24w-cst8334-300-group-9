@@ -74,7 +74,6 @@ CREATE TABLE QUADRUPLE_AIM (
 CREATE TABLE DEPARTMENTS (
   department_id INT PRIMARY KEY IDENTITY,
   department_name VARCHAR(255) UNIQUE NOT NULL,
-  display_board BIT
 );
 
 -- create the CATEGORIES table
@@ -154,10 +153,10 @@ INSERT INTO CATEGORIES (category_name) VALUES
 
 
 -- Inserting into DEPARTMENTS
-INSERT INTO DEPARTMENTS (department_name, display_board) VALUES
-('Community Mental Health', 1),
-('Infection Prevention and Control', 1),
-('Patient Records', 1);
+INSERT INTO DEPARTMENTS (department_name) VALUES
+('Community Mental Health'),
+('Infection Prevention and Control'),
+('Patient Records');
 
 INSERT INTO QUADRUPLE_AIM (aim_name) VALUES
 ('Patient & Family Experience'),
