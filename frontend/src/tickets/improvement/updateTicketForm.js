@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const updatedCategory = document.getElementById('categorySelect').value;
       const updatedDepartment =
         document.getElementById('departmentSelect').value;
-      console.log(updatedCategory);
+      console.log({ isArchived });
 
       // Get the updated ticket data from the form
       const updatedTicketData = {
