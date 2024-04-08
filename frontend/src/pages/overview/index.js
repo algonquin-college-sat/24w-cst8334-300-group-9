@@ -55,7 +55,9 @@ const displayDepartmentName = (departmentName) => {
 
 // Helper function to attach event listeners
 const attachEventListeners = () => {
-  document.querySelector('.button').addEventListener('click', openModal);
+  document
+    .getElementById('openModalButton')
+    .addEventListener('click', openModal);
   document.querySelector('.close-button').addEventListener('click', closeModal);
   document
     .getElementById('improvementButton')
@@ -149,26 +151,39 @@ const attachTicketEventListeners = (ticketElement, ticket) => {
 const handleTicketAction = (ticket) => {
   // Get modal elements
   const modal = document.getElementById('ticketInfoModal');
-  const ticketName = document.getElementById('ticketName');
-  const ticketProblem = document.getElementById('ticketProblem');
-  const btnUpdate = document.querySelector('.btn-update');
-  const btnDelete = document.querySelector('.btn-delete');
-  const btnCancel = document.querySelector('.close-info');
+  const ticketFields = {
+    ticketName: ticket.name,
+    ticketDate: ticket.date,
+    ticketProblem: ticket.problem,
+    ticketSourceIssue: ticket.source_issue,
+    ticketImproveIdea: ticket.improve_idea,
+    ticketInputNeeded: ticket.input_needed_from,
+    ticketSafetyIssue: ticket.safety_issue,
+    ticketQuadrupleAim: ticket.quadruple_aim_id,
+    ticketCategory: ticket.category_id,
+    ticketSolutionOutcome: ticket.solution_outcome,
+  };
 
   // Set ticket information in the modal
-  ticketName.textContent = ticket.name;
-  ticketProblem.textContent = ticket.problem;
+  for (const field in ticketFields) {
+    const element = document.getElementById(field);
+    if (element) {
+      element.textContent = ticketFields[field];
+    }
+  }
 
   // Display modal
   modal.style.display = 'block';
 
   // Event listener for update button
+  const btnUpdate = document.querySelector('.btn-update');
   btnUpdate.addEventListener('click', () => {
     modal.style.display = 'none';
     window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
   });
 
   // Event listener for delete button
+  const btnDelete = document.querySelector('.btn-delete');
   btnDelete.addEventListener('click', async () => {
     modal.style.display = 'none';
     try {
@@ -182,7 +197,8 @@ const handleTicketAction = (ticket) => {
     }
   });
 
-  // Event listener for cancel button
+  // Event listener for close button
+  const btnCancel = document.querySelector('.close-info');
   btnCancel.addEventListener('click', () => {
     modal.style.display = 'none';
   });
@@ -203,7 +219,7 @@ const deleteTicket = async (ticketId) => {
 
 // Function to open the modal
 const openModal = () => {
-  const modal = document.getElementById('ticketInfoModal');
+  const modal = document.getElementById('ticketModal');
   if (modal) {
     modal.style.display = 'block';
   }
@@ -211,7 +227,7 @@ const openModal = () => {
 
 // Function to close the modal
 const closeModal = () => {
-  const modal = document.getElementById('ticketInfoModal');
+  const modal = document.getElementById('ticketModal');
   if (modal) {
     modal.style.display = 'none';
   }

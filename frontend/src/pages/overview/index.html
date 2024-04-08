@@ -94,22 +94,25 @@
       </div>
     </div>
 
-    <!-- Modal HTML -->
+    <!-- Create ticket modal -->
     <div id="ticketModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h2>Choose Ticket Type</h2>
-        <button class="button modal-button" id="improvementButton">
-          Add Improvement Ticket
-        </button>
-        <button class="button modal-button" id="celebrationButton">
-          Add Celebration Ticket
-        </button>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h2>Choose Ticket Type</h2>
+          <button class="button modal-button" id="improvementButton">
+            Add Improvement Ticket
+          </button>
+          <button class="button modal-button" id="celebrationButton">
+            Add Celebration Ticket
+          </button>
+        </div>
       </div>
     </div>
-    <!-- Modal HTML -->
-    <div id="ticketInfoModal" class="modal">
-      <div class="modal-dialog modal-dialog-centered">
+    <!-- Ticket info dialog modal -->
+    <!-- Ticket info dialog modal -->
+    <div id="ticketInfoModal" class="modal ticketInfoModal">
+      <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="ticketInfoModalLabel">
@@ -119,12 +122,22 @@
               type="button"
               class="btn-close close-info"
               aria-label="Close"
-            ></button>
+            >
+              &times;
+            </button>
           </div>
           <div class="modal-body">
             <div class="ticket-info">
               <h5>Name: <span id="ticketName"></span></h5>
+              <p>Date: <span id="ticketDate"></span></p>
               <p>Problem: <span id="ticketProblem"></span></p>
+              <p>Source Issue: <span id="ticketSourceIssue"></span></p>
+              <p>Improvement Idea: <span id="ticketImproveIdea"></span></p>
+              <p>Input Needed From: <span id="ticketInputNeeded"></span></p>
+              <p>Safety Issue: <span id="ticketSafetyIssue"></span></p>
+              <p>Quadruple Aim: <span id="ticketQuadrupleAim"></span></p>
+              <p>Category: <span id="ticketCategory"></span></p>
+              <p>Solution Outcome: <span id="ticketSolutionOutcome"></span></p>
             </div>
           </div>
           <div class="modal-footer">
