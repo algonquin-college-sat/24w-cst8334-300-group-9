@@ -189,8 +189,8 @@ VALUES
   0,
   'Improvement idea for Ticket 1', 
   'Improvement plan for Ticket 1', 
-  'CommunityPartner', 
-  'OccupationalHealthSafety', 
+  'Comunity Partner', 
+  'Occupational Health Safety', 
   1, 
   'Solution outcome for Ticket 1', 
   1
@@ -203,8 +203,8 @@ VALUES
   0,
   'Improvement idea for Ticket 2', 
   'Improvement plan for Ticket 2', 
-  'CommunityPartner', 
-  'OccupationalHealthSafety', 
+  'Comunity Partner', 
+  'Occupational Health Safety', 
   2, 
   'Solution outcome for Ticket 2', 
   2
@@ -217,8 +217,8 @@ VALUES
   0,
   'Improvement idea for Ticket 3', 
   'Improvement plan for Ticket 3', 
-  'PatientFamily', 
-  'PatientSafety', 
+  'Patient Family', 
+  'Patient Safety', 
   3, 
   'Solution outcome for Ticket 3', 
   3
@@ -229,8 +229,8 @@ VALUES
   0, -- isArchived
   'Hiring more triage nurses', -- Improvement idea
   'Understaffing in the ER department', -- Source issue
-  'PatientFamily', -- Input needed from
-  'PatientSafety', -- Safety issue
+  'Patient Family', -- Input needed from
+  'Patient Safety', -- Safety issue
   1, -- Quadruple Aim ID
   'Implemented new triage system', -- Solution outcome
   4 -- Category ID
@@ -243,8 +243,8 @@ VALUES
   0, -- isArchived
   'Implementing discharge planning protocols', -- Improvement idea
   'Lack of standardized discharge procedures', -- Source issue
-  'OtherDepartments', -- Input needed from
-  'PatientSafety', -- Safety issue
+  'Other Departments', -- Input needed from
+  'Patient Safety', -- Safety issue
   2, -- Quadruple Aim ID
   'Reduced readmission rates by 20%', -- Solution outcome
   5 -- Category ID
@@ -257,8 +257,8 @@ VALUES
   0, -- isArchived
   'Implementing electronic medication reconciliation system', -- Improvement idea
   'Manual reconciliation process prone to errors', -- Source issue
-  'PatientFamily', -- Input needed from
-  'OccupationalHealthSafety', -- Safety issue
+  'Patient Family', -- Input needed from
+  'Occupational Health Safety', -- Safety issue
   3, -- Quadruple Aim ID
   'Reduced medication errors by 50%', -- Solution outcome
   7 -- Category ID

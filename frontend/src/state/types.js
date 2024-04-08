@@ -36,5 +36,4 @@ export const CategorySchema = {
 export const DepartmentSchema = {
   department_id: 'number',
   department_name: 'string',
-  display_board: 'boolean',
 };

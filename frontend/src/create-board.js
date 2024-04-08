@@ -2,35 +2,33 @@
 import { createDepartment } from './state/departmentApi.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Get reference to the form, the create board button, and the modal
-  const form = document.getElementById('createBoardForm');
-  const createBoardTriggerBtn = document.getElementById('createBoardTrigger');
-  const modal = new bootstrap.Modal(
-    document.getElementById('modalCreateBoard')
-  );
+  // Get reference to the form and the create board button
+  const form = document.querySelector('form');
+  const createBoardTriggerBtn = document.getElementById('createBoardBtn');
 
   // Add event listener to the create board button
   createBoardTriggerBtn.addEventListener('click', async () => {
     try {
       // Gather form data
       const departmentName = document.getElementById('deptName').value;
-      // Get other form input values
 
       // Create department object
       const departmentData = {
         department_name: departmentName,
-        display_board: true,
-        // Other form data properties
+        // Add other form data properties as needed
       };
 
       // Call createDepartment function from departmentAPI
       const response = await createDepartment(departmentData);
-      window.history.back();
+
       // Handle successful response
       console.log('New department created:', response);
 
-      // Close the modal after creating the department
-      modal.hide();
+      // Prompt user with confirmation message
+      window.alert('Department created successfully!');
+
+      // Navigate back to the previous page
+      window.location.href = './index.html'; // Replace './index.html' with the desired URL
     } catch (error) {
       // Handle error
       console.error('Error creating department:', error);
