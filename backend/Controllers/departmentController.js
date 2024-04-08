@@ -12,19 +12,18 @@ import { getConnection } from '../dbConfig.js';
 
 // Create a department
 export const createDepartment = async (req, res) => {
-  const { department_name, display_board } = req.body;
+  const { department_name } = req.body;
 
   const query = `
-    INSERT INTO DEPARTMENTS (department_name, display_board)
-    VALUES (@department_name, @display_board);
+    INSERT INTO DEPARTMENTS (department_name)
+    VALUES (@department_name);
   `;
 
   try {
     const pool = await getConnection();
     const request = pool
       .request()
-      .input('department_name', sql.NVarChar, department_name)
-      .input('display_board', sql.Bit, display_board);
+      .input('department_name', sql.NVarChar, department_name);
 
     const result = await request.query(query);
     res.status(201).json({ success: true, data: result.recordset });
@@ -72,12 +71,12 @@ export const getDepartmentById = async (req, res) => {
 
 // Update department by ID
 export const updateDepartment = async (req, res) => {
-  const { department_name, display_board } = req.body;
+  const { department_name } = req.body;
   const { id } = req.params;
 
   const query = `
     UPDATE DEPARTMENTS
-    SET department_name = @department_name, display_board = @display_board
+    SET department_name = @department_name
     WHERE department_id = @departmentId;
   `;
 
@@ -86,7 +85,6 @@ export const updateDepartment = async (req, res) => {
     const request = pool
       .request()
       .input('department_name', sql.NVarChar, department_name)
-      .input('display_board', sql.Bit, display_board)
       .input('departmentId', sql.Int, id);
 
     const result = await request.query(query);
