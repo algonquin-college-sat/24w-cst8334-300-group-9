@@ -118,7 +118,7 @@ const displayTickets = (category, tickets) => {
 // Helper function to create a ticket element
 const createTicketElement = (ticket) => {
   const ticketElement = document.createElement('div');
-  ticketElement.classList.add('card', 'h-100', 'shadow', 'improvement-ticket');
+  ticketElement.classList.add('card', 'h-100', 'improvement-ticket');
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -238,12 +238,12 @@ const closeModal = () => {
 
 // Function to handle adding an improvement ticket
 const addImprovement = () => {
-  window.location.href = '../../tickets/improvement/index.html';
+  window.location.href = '../../tickets/improvement/iTicket.html';
 };
 
 // Function to handle adding a celebration ticket
 const addCelebration = () => {
-  window.location.href = '../../tickets/celebration/index.html';
+  window.location.href = '../../tickets/celebration/cTicket.html';
 };
 
 // Function to return to board selection page

@@ -148,6 +148,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 10px; /* Added gap between improvement tickets */
+  border: 2px solid #006bd7;
 }
 
 .card-body:hover {
@@ -194,4 +195,13 @@ html {
 .card-description {
   margin-top: 10px;
   color: #666666; /* Slightly darker text color */
+}
+
+.btnStandardWork {
+  background-color: #006bd7!important;
+  color: #fff!important;
+  padding: 15px!important;
+  font-size: 18px!important;
+  border-radius: 20px!important;
+  /* font-weight: bold!important; */
 }
