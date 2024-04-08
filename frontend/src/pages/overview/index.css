@@ -83,8 +83,11 @@ html {
   justify-content: center;
 }
 .header {
-  background-color: #5e97f6;
+  background-color: #445d89;
   color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  text-align: center;
   padding: 5px;
   margin-bottom: 10px;
 }
@@ -112,10 +115,9 @@ html {
 }
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* Adjust as needed to center the modal */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%; /* Make the modal narrower */
   position: relative;
 }
 
@@ -146,19 +148,48 @@ html {
   gap: 10px; /* Added gap between improvement tickets */
 }
 
-.improvement-ticket .card {
-  flex: 0 1 calc(50% - 10px); /* Adjust card width to fit two cards per row with gap */
+.card-body:hover {
+  opacity: 0.8;
+}
+/* Add ticket styling for work in progress tickets */
+.work-in-progress-tickets,
+.new-ideas-tickets,
+.almost-done-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Added gap between work in progress tickets */
 }
 
-.improvement-ticket .card .card-body {
-  background-color: #ececec;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
+.card {
+  border-radius: 12px;
+  background-color: #f4f4f4; /* Light gray background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+
+  /* Hover effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-1.5px); /* Lift the card on hover */
   cursor: pointer;
-  transition: opacity 0.3s ease; /* Added transition effect for hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  background-color: #e7e7e7; /* White background on hover */
 }
 
-.improvement-ticket .card .card-body:hover {
-  opacity: 0.7;
+.card-body {
+  padding: 20px; /* Increased padding for better spacing */
+  border-radius: 12px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333; /* Dark text color */
+}
+
+.card-description {
+  margin-top: 10px;
+  color: #666666; /* Slightly darker text color */
 }
