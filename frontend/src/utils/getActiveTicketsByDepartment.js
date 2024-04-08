@@ -15,12 +15,10 @@ export const getActiveTicketsByDepartment = async (departmentId) => {
     const ticketsResponse = await getAllImprovementTickets();
     const tickets = ticketsResponse.data;
     const archivedTickets = tickets.filter((ticket) => {
-      ticket.department_id === parseInt(departmentId) &&
-        ticket.isArchived === false;
-      console.log({
-        departmentid: ticket.department_id,
-        ticketarchive: ticket.isArchived,
-      });
+      return (
+        ticket.department_id === parseInt(departmentId) &&
+        ticket.isArchived === false
+      );
     });
     console.log({ archivedTickets });
 
