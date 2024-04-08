@@ -71,7 +71,7 @@ export const getCategoryById = async (req, res) => {
 
 // Update category by ID
 export const updateCategory = async (req, res) => {
-  const { category_name, display_board } = req.body;
+  const { category_name } = req.body;
   const { id } = req.params;
 
   const query = `
@@ -85,7 +85,6 @@ export const updateCategory = async (req, res) => {
     const request = pool
       .request()
       .input('category_name', sql.NVarChar, category_name)
-      .input('display_board', sql.Bit, display_board)
       .input('categoryId', sql.Int, id);
 
     const result = await request.query(query);
