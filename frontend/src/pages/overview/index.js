@@ -65,6 +65,9 @@ const attachEventListeners = () => {
   document
     .getElementById('celebrationButton')
     .addEventListener('click', addCelebration);
+  document
+    .getElementById('logo')
+    .addEventListener('click', goToSelectBoard);
 };
 
 // Helper function to fetch and display improvement tickets
@@ -241,4 +244,9 @@ const addImprovement = () => {
 // Function to handle adding a celebration ticket
 const addCelebration = () => {
   window.location.href = '../../tickets/celebration/index.html';
+};
+
+// Function to return to board selection page
+const goToSelectBoard = () => {
+  window.location.href = '../../index.html';
 };

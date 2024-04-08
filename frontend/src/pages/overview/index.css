@@ -32,11 +32,13 @@ html {
 .logo {
   background: url('../../assets/images/pembroke-hospital-logo.jpg') no-repeat
     center center;
+  background-color: #fff;
   background-size: contain;
   flex: 0 0 100px; /* Fixed height for logo */
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 .huddle-time,
 .standard-work {
