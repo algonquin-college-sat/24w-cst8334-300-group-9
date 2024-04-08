@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Huddle Board</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="index.css" />
     <script type="importmap">
       {
@@ -101,6 +105,37 @@
         <button class="button modal-button" id="celebrationButton">
           Add Celebration Ticket
         </button>
+      </div>
+    </div>
+    <!-- Modal HTML -->
+    <div id="ticketInfoModal" class="modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ticketInfoModalLabel">
+              Ticket Information
+            </h5>
+            <button
+              type="button"
+              class="btn-close close-info"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="ticket-info">
+              <h5>Name: <span id="ticketName"></span></h5>
+              <p>Problem: <span id="ticketProblem"></span></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-update">
+              Update
+            </button>
+            <button type="button" class="btn btn-danger btn-delete">
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
