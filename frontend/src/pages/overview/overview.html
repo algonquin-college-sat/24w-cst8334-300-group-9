@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="overview.css" />
     <script type="importmap">
       {
         "imports": {
@@ -20,7 +20,7 @@
   <body>
     <div class="board">
       <div class="left-panel">
-        <div class="logo"></div>
+        <div class="logo" id="logo"></div>
         <div class="panel huddle-info">
           <div class="header">Department</div>
           <div class="text-center">
@@ -43,21 +43,23 @@
           />
         </div>
         <button class="button" id="openModalButton">Add New Ticket</button>
-
-        <div class="panel standard-work">
+        <a href="../../../assets/documents/StandardWork.pdf" class="btn btnStandardWork" target="_blank">Standard Work (<abbr title="Portable Document Format">PDF</abbr>, 140 <abbr title="kilobyte">KB</abbr>)</abbr></a>
+        <a href="../archive-tickets/index.html" class="btn btnStandardWork">View Archive</a>
+        
+        <!-- <div class="panel standard-work">
           <div class="header">Standard Work</div>
           <a
             href="../../../assets/documents/StandardWork.pdf"
             class="standard-work-link"
             >Link</a
           >
-        </div>
-        <div class="panel archive-tickets">
+        </div> -->
+        <!-- <div class="panel archive-tickets">
           <div class="header">Archive Tickets</div>
           <a href="../archive-tickets/index.html" class="archive-link"
             >View Archived Tickets</a
           >
-        </div>
+        </div> -->
       </div>
       <div class="middle-panel">
         <div class="panel">
@@ -152,6 +154,6 @@
       </div>
     </div>
 
-    <script type="module" src="./index.js"></script>
+    <script type="module" src="./overview.js"></script>
   </body>
 </html>
