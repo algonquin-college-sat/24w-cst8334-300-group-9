@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="../../../node_modules/bootstrap/dist/css/bootstrap.css"
     />
+    
   </head>
 
   <body>
@@ -22,143 +23,36 @@
     <!-- Celebration Tickets -->
     <div class="container">
 
-      <h1>Celebration Board</h1><br>
-
       <!--Number of tickets per row-->   
-      <div class="row row-cols-3">
-        <!--Celebration Ticket #1 -->
-        <div class="column">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
           <div class="card mb-4">
-            <form> <!--Celebration Ticket Form 1-->
-              <h3>Celebration Ticket 1</h3>
-              <label for="date" class="form-label">Date:</label><br>
-          
+            <form> 
+              <h3 class="mb-3">Celebration Ticket</h3>
+              <label for="date" class="form-label"><strong>Date: </strong></label>
+              <input type="date" id="ticketDate" name="date">
+              
+              <div class="mb-2">
+                <label for="whoWhat" class="form-label"><strong>Who / What:</strong></label>
+                <input type="text" id="whoWhat" class="ms-2">
+              </div>
+
               <!-- List of PRH departments -->
-              <label for="department" class="form-label">Department:</label><br>
-              <select class="form-select">
-                <option value="department1">Community and Mental Health</option>
-                <option value="department2">Infection Prevention and Control</option>
-                <option value="department3">Patient Records</option>
-              </select> 
-    
+              <div>
+                <label for="department" class="form-label"><strong>Department:</strong></label>
+                <input type="text" id="department" class="ms-2">
+              </div>
+              
               <br>
     
               <!-- Details -->
-              <label>Details</label>
-         
-              <br>
+              <label for="details"><strong>Details:</strong></label>
 
               <!-- Details of who/what are entered here-->
               <textarea id="details" class="form-control" row="20" cols="50" placeholder="Enter the details of who/what here"></textarea>
           
               <br>
-         
-              <!-- PRH Values -->
-              <h4>Link to our PRH Values</h4>
-              <!--Compassion and Caring-->
-              <input type="checkbox" id="value1" name="value1" value="value1">
-              <label for="compassion_and_caring">Compassion and Caring</label><br>
-          
-              <!--Sacredness of Life-->
-              <input type="checkbox" id="value2" name="value2" value="value2">
-              <label for="sacredness_of_life">Sacredness of Life</label><br>
-    
-              <!--Community Spirit-->
-              <input type="checkbox" id="value3" name="value3" value="value3">
-              <label for="community_spirit">Community Spirit</label><br>
-          
-              <!--Excellence and Innovation-->
-              <input type="checkbox" id="value4" name="value4" value="value4">
-              <label for="excellence_and_innovation">Excellence and Innovation</label><br>
-    
-              <!--Mutual Respect-->
-              <input type="checkbox" id="value5" name="value5" value="value5">
-              <label for="mutual_respect">Mutual Respect</label><br>
-    
-              <!--Social and Fiscal Responsibility-->
-              <input type="checkbox" id="value6" name="value6" value="value6">
-              <label for="social_and_fiscalresponsibility">Social and Fiscal Responsibility</label><br>        
-            </form>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card mb-4">
-            <form> <!--Celebration Ticket Form 2-->
-              <h3>Celebration Ticket 2</h3>
-              <label for="date" class="form-label">Date:</label><br>
-          
-              <!-- List of PRH departments -->
-              <label for="department" class="form-label">Department:</label><br>
-              <select class="form-select">
-                <option value="department1">Community and Mental Health</option>
-                <option value="department2">Infection Prevention and Control</option>
-                <option value="department3">Patient Records</option>
-              </select> 
-    
-              <br>
-    
-              <!-- Details -->
-              <label>Details</label>
-          
-              <br>
-    
-              <!-- Details of who/what are entered here-->
-              <textarea id="details" class="form-control" row="20" cols="50" placeholder="Enter the details of who/what here"></textarea>
-          
-              <br>
-         
-              <!-- PRH Values -->
-              <h4>Link to our PRH Values</h4>
-              <!--Compassion and Caring-->
-              <input type="checkbox" id="value1" name="value1" value="value1">
-              <label for="compassion_and_caring">Compassion and Caring</label><br>
-          
-              <!--Sacredness of Life-->
-              <input type="checkbox" id="value2" name="value2" value="value2">
-              <label for="sacredness_of_life">Sacredness of Life</label><br>
-    
-              <!--Community Spirit-->
-              <input type="checkbox" id="value3" name="value3" value="value3">
-              <label for="community_spirit">Community Spirit</label><br>
-          
-              <!--Excellence and Innovation-->
-              <input type="checkbox" id="value4" name="value4" value="value4">
-              <label for="excellence_and_innovation">Excellence and Innovation</label><br>
-    
-              <!--Mutual Respect-->
-              <input type="checkbox" id="value5" name="value5" value="value5">
-              <label for="mutual_respect">Mutual Respect</label><br>
-    
-              <!--Social and Fiscal Responsibility-->
-              <input type="checkbox" id="value6" name="value6" value="value6">
-              <label for="social_and_fiscalresponsibility">Social and Fiscal Responsibility</label><br>        
-            </form>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card mb-4">
-            <form> <!--Celebration Ticket Form 3-->
-              <h3>Celebration Ticket 3</h3>
-              <label for="date" class="form-label">Date:</label><br>
-          
-              <!-- List of PRH departments -->
-              <label for="department" class="form-label">Department:</label><br>
-              <select class="form-select">
-                <option value="department1">Community and Mental Health</option>
-                <option value="department2">Infection Prevention and Control</option>
-                <option value="department3">Patient Records</option>
-              </select> 
-    
-              <br>
-    
-              <!-- Details -->
-              <label>Details</label>
-
-              <!-- Details of who/what are entered here-->
-              <textarea id="details" class="form-control" row="20" cols="50" placeholder="Enter the details of who/what here"></textarea>
-          
-              <br>
-         
               <!-- PRH Values -->
               <h4>Link to our PRH Values</h4>
               <!--Compassion and Caring-->
@@ -188,15 +82,46 @@
               <br>
 
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary me-md-2" type="button">Submit</button>
-                <button class="btn btn-danger" type="button">Cancel</button>
+                <!-- <a class="btn btn-primary me-md-2" href="../../pages/overview/hboard-cmh3.html">Submit</a> -->
+                <button type="button" class="btn btn-primary me-md-2" id="saveButton">
+                  Submit
+                </button>
+                <a class="btn btn-danger" href="javascript:;" id="backButton">Cancel</a>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>      
+    <div class="modal" id="modalCelebrationSubmit">
+      <div class="modal-dialog">
+        <div class="modal-content">
     
+          <!-- Modal Header -->
+          <!-- <div class="modal-header">
+            <h4 class="modal-title">Submit Celebration Ticket</h4>
+          </div> -->
+    
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+            <p>Are you sure you want to submit this ticket?</p>
+            <p><strong>Celebration tickets cannot be edited after submission.</strong></p>
+            <p>Select Cancel to return to editing the ticket.</p>
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-3"> -->
+                <!-- Change the "action" part of the id to match the action the button performs -->
+                <!-- <a class="btn btn-success" id="celebrationTrigger" href="../../pages/overview/hboard-cmh3.html">Submit</a>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btnBasic" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </div> -->
     <!--Bootstrap JS script-->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> 
     <script src="cTicket.js"></script>
