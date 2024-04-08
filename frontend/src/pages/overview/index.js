@@ -1,9 +1,8 @@
 import { getDepartmentById } from '../../state/departmentApi.js';
-import {
-  deleteImprovementTicket,
-  getImprovementTicketByDepartmentId,
-} from '../../state/improvementTicketApi.js';
+import { deleteImprovementTicket } from '../../state/improvementTicketApi.js';
+import { getActiveTicketsByDepartment } from '../../utils/getActiveTicketsByDepartment.js';
 
+// Define category mapping
 const categoryMapping = {
   'New Ideas': 1,
   'Work in Progress': 2,
@@ -16,21 +15,46 @@ const categoryMapping = {
   Complete: 9,
 };
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', async () => {
-  // Get the department ID from the URL parameters
-  const urlParams = new URLSearchParams(window.location.search); //this will returns  the query string portion of the URL (everything after the question mark)
-  const departmentId = urlParams.get('departmentId'); //retrieves the value of the query parameter named 'departmentId'
+  // Fetch and display department name
+  const departmentId = getDepartmentIdFromUrl();
+  const departmentName = await fetchDepartmentName(departmentId);
+  displayDepartmentName(departmentName);
 
+  // Attach event listeners
+  attachEventListeners();
+
+  // Fetch and display improvement tickets
+  fetchAndDisplayImprovementTickets(departmentId);
+});
+
+// Helper function to extract department ID from URL
+const getDepartmentIdFromUrl = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('departmentId');
+};
+
+// Helper function to fetch department name
+const fetchDepartmentName = async (departmentId) => {
   try {
     const department = await getDepartmentById(departmentId);
-    const departmentName = department.data.department_name;
-
-    document.querySelector('.department-name').textContent = departmentName;
+    return department.data.department_name;
   } catch (error) {
-    console.error('Error fetching department: ', error);
+    console.error('Error fetching department:', error);
+    return '';
   }
+};
 
+// Helper function to display department name
+const displayDepartmentName = (departmentName) => {
+  const departmentNameElement = document.querySelector('.department-name');
+  if (departmentNameElement) {
+    departmentNameElement.textContent = departmentName;
+  }
+};
+
+// Helper function to attach event listeners
+const attachEventListeners = () => {
   document.querySelector('.button').addEventListener('click', openModal);
   document.querySelector('.close-button').addEventListener('click', closeModal);
   document
@@ -39,92 +63,128 @@ document.addEventListener('DOMContentLoaded', async () => {
   document
     .getElementById('celebrationButton')
     .addEventListener('click', addCelebration);
+};
 
-  // Fetch and display improvement tickets by category
-  fetchImprovementTicketByDepartment(departmentId);
-});
-
-const fetchImprovementTicketByDepartment = async (departmentId) => {
+// Helper function to fetch and display improvement tickets
+const fetchAndDisplayImprovementTickets = async (departmentId) => {
   try {
-    // Fetch improvement ticket data from the backend
-    const improvementTickets = await getImprovementTicketByDepartmentId(
-      departmentId
-    );
-    console.log(improvementTickets);
-
-    // Loop through each category and display corresponding tickets
-    for (const category in categoryMapping) {
-      const categoryId = categoryMapping[category];
-      const categoryTickets = improvementTickets.filter((ticket) => {
-        return ticket.category_id === categoryId;
-      });
-
-      displayTicketsByCategory(category, categoryTickets);
-    }
+    const improvementTickets = await getActiveTicketsByDepartment(departmentId);
+    displayTicketsByCategory(improvementTickets);
   } catch (error) {
     console.error('Error fetching improvement tickets:', error);
   }
 };
 
-const displayTicketsByCategory = (category, tickets) => {
-  const formattedCategoryName = category.toLowerCase().replace(/\s/g, '-');
+// Helper function to display improvement tickets by category
+const displayTicketsByCategory = (improvementTickets) => {
+  for (const category in categoryMapping) {
+    const categoryId = categoryMapping[category];
+    const categoryTickets = improvementTickets.filter(
+      (ticket) => ticket.category_id === categoryId
+    );
+    console.log({ categoryTickets });
 
+    displayTickets(category, categoryTickets);
+  }
+};
+
+// Helper function to display tickets in a category
+const displayTickets = (category, tickets) => {
   const panelElement = document.querySelector(
-    `.${formattedCategoryName}-tickets`
+    `.${category.toLowerCase().replace(/\s/g, '-')}-tickets`
   );
   if (!panelElement) {
     console.error(
-      `Element with class '${formattedCategoryName}-tickets' not found.`
+      `Element with class '${category
+        .toLowerCase()
+        .replace(/\s/g, '-')}-tickets' not found.`
     );
     return;
   }
   panelElement.innerHTML = ''; // Clear previous content
 
   tickets.forEach((ticket) => {
-    const ticketElement = document.createElement('div');
-    ticketElement.classList.add(
-      'card',
-      'h-100',
-      'shadow',
-      'improvement-ticket'
-    );
-
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-
-    const cardTitle = document.createElement('h5');
-    cardTitle.classList.add('card-title');
-    cardTitle.textContent = ticket.name;
-
-    const cardDescription = document.createElement('div');
-    cardDescription.classList.add('card-description'); // Add a class for description
-    cardDescription.textContent = ticket.problem;
-
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(cardDescription);
-
-    ticketElement.appendChild(cardBody);
-
-    // Event listener to prompt user to update or delete the ticket
-    ticketElement.addEventListener('click', () => {
-      const confirmAction = window.confirm(
-        'Do you want to update or delete this ticket?'
-      );
-      if (confirmAction) {
-        const updateAction = window.prompt(
-          'Type "update" to edit the ticket or "delete" to remove it.'
-        );
-        if (updateAction === 'update') {
-          window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
-        } else if (updateAction === 'delete') {
-          deleteTicket(ticket.ticket_id);
-        } else {
-          alert('Invalid action. Please type "update" or "delete".');
-        }
-      }
-    });
-
+    const ticketElement = createTicketElement(ticket);
+    attachTicketEventListeners(ticketElement, ticket);
     panelElement.appendChild(ticketElement);
+  });
+};
+
+// Helper function to create a ticket element
+const createTicketElement = (ticket) => {
+  const ticketElement = document.createElement('div');
+  ticketElement.classList.add('card', 'h-100', 'shadow', 'improvement-ticket');
+
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+
+  const cardTitle = document.createElement('h5');
+  cardTitle.classList.add('card-title');
+  cardTitle.textContent = ticket.name;
+
+  const cardDescription = document.createElement('div');
+  cardDescription.classList.add('card-description');
+  cardDescription.textContent = ticket.problem;
+
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardDescription);
+
+  ticketElement.appendChild(cardBody);
+  return ticketElement;
+};
+
+// Helper function to attach event listeners to tickets
+const attachTicketEventListeners = (ticketElement, ticket) => {
+  ticketElement.addEventListener('click', () => {
+    const confirmAction = window.confirm(
+      'Do you want to update or delete this ticket?'
+    );
+    if (confirmAction) {
+      handleTicketAction(ticket);
+    }
+  });
+};
+
+// Helper function to handle ticket actions (update/delete)
+const handleTicketAction = (ticket) => {
+  // Get modal elements
+  const modal = document.getElementById('ticketInfoModal');
+  const ticketName = document.getElementById('ticketName');
+  const ticketProblem = document.getElementById('ticketProblem');
+  const btnUpdate = document.querySelector('.btn-update');
+  const btnDelete = document.querySelector('.btn-delete');
+  const btnCancel = document.querySelector('.close-info');
+
+  // Set ticket information in the modal
+  ticketName.textContent = ticket.name;
+  ticketProblem.textContent = ticket.problem;
+
+  // Display modal
+  modal.style.display = 'block';
+
+  // Event listener for update button
+  btnUpdate.addEventListener('click', () => {
+    modal.style.display = 'none';
+    window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+  });
+
+  // Event listener for delete button
+  btnDelete.addEventListener('click', async () => {
+    modal.style.display = 'none';
+    try {
+      await deleteImprovementTicket(ticket.ticket_id);
+      alert('Ticket deleted successfully.');
+      // Reload the page to reflect the changes
+      location.reload();
+    } catch (error) {
+      console.error('Error deleting ticket:', error);
+      alert('Failed to delete ticket.');
+    }
+  });
+
+  // Event listener for cancel button
+  btnCancel.addEventListener('click', () => {
+    modal.style.display = 'none';
   });
 };
 
@@ -141,24 +201,28 @@ const deleteTicket = async (ticketId) => {
   }
 };
 
-const modal = document.getElementById('ticketModal');
-
 // Function to open the modal
-function openModal() {
-  modal.style.display = 'block';
-}
+const openModal = () => {
+  const modal = document.getElementById('ticketInfoModal');
+  if (modal) {
+    modal.style.display = 'block';
+  }
+};
 
 // Function to close the modal
-function closeModal() {
-  modal.style.display = 'none';
-}
+const closeModal = () => {
+  const modal = document.getElementById('ticketInfoModal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+};
 
 // Function to handle adding an improvement ticket
-function addImprovement() {
+const addImprovement = () => {
   window.location.href = '../../tickets/improvement/index.html';
-}
+};
 
 // Function to handle adding a celebration ticket
-function addCelebration() {
+const addCelebration = () => {
   window.location.href = '../../tickets/celebration/index.html';
-}
+};
