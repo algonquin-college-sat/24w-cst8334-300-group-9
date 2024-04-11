@@ -81,8 +81,34 @@
               
               <br>
 
+              <div class="form-group">
+                <label>Archive ticket?</label><br />
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="isArchived"
+                    id="isArchivedYes"
+                    value="true"
+                  />
+                  <label class="form-check-label" for="isArchivedYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="isArchived"
+                    id="isArchivedNo"
+                    value="false"
+                    checked
+                  />
+                  <label class="form-check-label" for="isArchivedNo">No</label>
+                </div>
+              </div>
+
+              <br>
+
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <!-- <a class="btn btn-primary me-md-2" href="../../pages/overview/hboard-cmh3.html">Submit</a> -->
                 <button type="button" class="btn btn-primary me-md-2" id="saveButton">
                   Submit
                 </button>

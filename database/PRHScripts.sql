@@ -104,7 +104,6 @@ CREATE TABLE IMPROVEMENT_TICKETS (
 -- Create the CELEBRATION_TICKET table
 CREATE TABLE CELEBRATION_TICKET (
   c_ticket_id INT PRIMARY KEY IDENTITY,
-  i_ticket_id INT,
   department_id INT,
   date TEXT,
   who_what TEXT,
@@ -115,7 +114,7 @@ CREATE TABLE CELEBRATION_TICKET (
   value_excellence BIT,
   value_respect BIT,
   value_responsibility BIT,
-  FOREIGN KEY (i_ticket_id) REFERENCES IMPROVEMENT_TICKETS(ticket_id),
+  isArchived BIT,
   FOREIGN KEY (department_id) REFERENCES DEPARTMENTS(department_id)
 );
 

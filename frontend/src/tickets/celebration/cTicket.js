@@ -13,10 +13,103 @@ document.addEventListener('DOMContentLoaded', async function(){
     const ticketDate = document.getElementById('ticketDate').value;
     const whoWhat = document.getElementById('whoWhat').value;
     const department = document.getElementById('department').value;
-    const details = document.getElementById('details').value;
-    alert("Work in progress");
+    const celebDetails = document.getElementById('details').value;
+    const value1 = null;
+    const value2 = null;
+    const value3 = null;
+    const value4 = null;
+    const value5 = null;
+    const value6 = null;
+    
+    const valCompass = document.getElementById('value1');
+    if (valCompass.checked){
+      value1=1;
+    }
+    else {
+      value1=0;
+    }
+    const valLife = document.getElementById('value2');
+    if (valLife.checked){
+      value2=1;
+    }
+    else {
+      value2=0;
+    }
+
+    const valSpirit = document.getElementById('value3');
+    if (valSpirit.checked){
+      value3=1;
+    }
+    else {
+      value3=0;
+    }
+
+    const valExcell = document.getElementById('value4');
+    if (valExcell.checked){
+      value4=1;
+    }
+    else {
+      value4=0;
+    }
+
+    const valRespect = document.getElementById('value5');
+    if (valRespect.checked){
+      value5=1;
+    }
+    else {
+      value5=0;
+    }
+    const valRespons = document.getElementById('value6');
+    if (valRespons.checked){
+      value6=1;
+    }
+    else {
+      value6=0;
+    }
+
+    const deptId = 8;
+
+    alert("Work in progress: " + ticketDate + whoWhat + department + celebDetails + value1 + value2 + value3 + value4 + value5 + value6 + deptId);
+
+    // const isArchived =
+    //   document.querySelector('input[name="isArchived"]:checked').value ===
+    //   'true'; // Convert to boolean
+
+    // const celbrationTicketData = {
+    //   department_id: deptId,
+    //   date: ticketDate,
+    //   who_what: whoWhat,
+    //   details: celebDetails,
+    //   value_compassion: value1,
+    //   value_life: value2,
+    //   value_community: value3,
+    //   value_excellence: value4,
+    //   value_respect: value5,
+    //   value_responsibility: value6,
+    //   isArchived: isArchived
+    // };
+
+//         // Prepare improvement ticket data object
+//         const improvementTicketData = {
+//           date: ticketDate, // Add the date to the ticket data
+//           name: ticketName, // Use the value from the ticket name textarea
+//           problem: problemDescription,
+//           source_issue: sourceIssue,
+//           improve_idea: proposedSolution,
+//           input_needed_from: inputNeededFromValue,
+//           safety_issue: safetyIssueValue,
+//           quadruple_aim_id: quadrupleAimIndex,
+//           solution_outcome: proposedSolution,
+//           category_id: selectedCategoryId, // Assign the selected category ID
+//           department_id: selectedDepartmentId,
+//           isArchived: isArchived,
+//         };
+
+
   });
 
+
+  
 
 });
 
