@@ -1,5 +1,5 @@
 import { getDepartmentById } from '../../state/departmentApi.js';
-import { deleteImprovementTicket } from '../../state/improvementTicketApi.js';
+import { updateImprovementTicket } from '../../state/improvementTicketApi.js';
 import { getActiveTicketsByDepartment } from '../../utils/getActiveTicketsByDepartment.js';
 
 // Define category mapping
@@ -65,9 +65,7 @@ const attachEventListeners = () => {
   document
     .getElementById('celebrationButton')
     .addEventListener('click', addCelebration);
-  document
-    .getElementById('logo')
-    .addEventListener('click', goToSelectBoard);
+  document.getElementById('logo').addEventListener('click', goToSelectBoard);
 };
 
 // Helper function to fetch and display improvement tickets
@@ -139,13 +137,94 @@ const createTicketElement = (ticket) => {
 };
 
 // Helper function to attach event listeners to tickets
+// const attachTicketEventListeners = (ticketElement, ticket) => {
+//   ticketElement.addEventListener('click', () => {
+//       window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+//   });
+// };
+
+// Helper function to attach event listeners to tickets
 const attachTicketEventListeners = (ticketElement, ticket) => {
   ticketElement.addEventListener('click', () => {
-      window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+    const confirmAction = window.confirm(
+      'Do you want to update or archive this ticket?'
+    );
+    if (confirmAction) {
+      handleTicketAction(ticket);
+    }
   });
 };
 
+// Helper function to handle ticket actions (update/archive)
+const handleTicketAction = (ticket) => {
+  // Get modal elements
+  const modal = document.getElementById('ticketInfoModal');
+  const ticketFields = {
+    ticketName: ticket.name,
+    ticketDate: ticket.date,
+    ticketProblem: ticket.problem,
+    ticketSourceIssue: ticket.source_issue,
+    ticketImproveIdea: ticket.improve_idea,
+    ticketInputNeeded: ticket.input_needed_from,
+    ticketSafetyIssue: ticket.safety_issue,
+    ticketQuadrupleAim: ticket.quadruple_aim_id,
+    ticketCategory: ticket.category_id,
+    ticketSolutionOutcome: ticket.solution_outcome,
+  };
 
+  // Set ticket information in the modal
+  for (const field in ticketFields) {
+    const element = document.getElementById(field);
+    if (element) {
+      element.textContent = ticketFields[field];
+    }
+  }
+
+  // Display modal
+  modal.style.display = 'block';
+
+  // Event listener for update button
+  const btnUpdate = document.querySelector('.btn-update');
+  btnUpdate.addEventListener('click', () => {
+    modal.style.display = 'none';
+    window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
+  });
+
+  // Event listener for archive button
+  const btnArchive = document.querySelector('.btn-archive');
+  btnArchive.addEventListener('click', async () => {
+    modal.style.display = 'none';
+    try {
+      await updateImprovementTicket(ticket.ticket_id, { isArchived: true });
+      // await deleteImprovementTicket(ticket.ticket_id);
+      alert('Ticket archived successfully.');
+      // Reload the page to reflect the changes
+      location.reload();
+    } catch (error) {
+      console.error('Error archiving ticket:', error);
+      alert('Failed to archive ticket.');
+    }
+  });
+
+  // Event listener for close button
+  const btnCancel = document.querySelector('.close-info');
+  btnCancel.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+};
+
+// Function to delete the ticket
+// const deleteTicket = async (ticketId) => {
+//   try {
+//     await deleteImprovementTicket(ticketId);
+//     alert('Ticket deleted successfully.');
+//     // Reload the page to reflect the changes
+//     location.reload();
+//   } catch (error) {
+//     console.error('Error deleting ticket:', error);
+//     alert('Failed to delete ticket.');
+//   }
+// };
 
 // Function to open the modal
 const openModal = () => {
