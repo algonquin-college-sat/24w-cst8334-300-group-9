@@ -85,7 +85,6 @@ const displayTicketsByCategory = (improvementTickets) => {
     const categoryTickets = improvementTickets.filter(
       (ticket) => ticket.category_id === categoryId
     );
-    console.log({ categoryTickets });
 
     displayTickets(category, categoryTickets);
   }
@@ -146,12 +145,7 @@ const createTicketElement = (ticket) => {
 // Helper function to attach event listeners to tickets
 const attachTicketEventListeners = (ticketElement, ticket) => {
   ticketElement.addEventListener('click', () => {
-    const confirmAction = window.confirm(
-      'Do you want to update or archive this ticket?'
-    );
-    if (confirmAction) {
-      handleTicketAction(ticket);
-    }
+    handleTicketAction(ticket);
   });
 };
 

@@ -20,7 +20,6 @@ export const getActiveTicketsByDepartment = async (departmentId) => {
         ticket.isArchived === false
       );
     });
-    console.log({ archivedTickets });
 
     return archivedTickets;
   } catch (error) {
