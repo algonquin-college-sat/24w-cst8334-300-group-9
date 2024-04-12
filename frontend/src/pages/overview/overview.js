@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const departmentName = await fetchDepartmentName(departmentId);
   displayDepartmentName(departmentName);
 
+  fetchAndDisplayTickets(departmentId);
   // Attach event listeners
   attachEventListeners();
 
   // Fetch and display improvement tickets
-  fetchAndDisplayTickets(departmentId);
 });
 
 // Helper function to extract department ID from URL
@@ -110,7 +110,6 @@ const displayCelebrationTickets = (celebrationTickets) => {
     console.error('Celebration panel element not found.');
     return;
   }
-
   celebrationTickets.forEach((ticket) => {
     const ticketElement = createCelebrationTicketElement(ticket);
     celebrationPanelElement.appendChild(ticketElement);
