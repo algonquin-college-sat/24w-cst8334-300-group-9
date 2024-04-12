@@ -10,16 +10,16 @@
  */
 import sql from 'mssql/msnodesqlv8.js';
 import { getConnection } from '../dbConfig.js';
-import { getImprovementTicketById } from './improvementTicketController.js';
+import { getDepartmentById } from './departmentController.js';
 
 // Create Celebration ticket
 export const createCelebrationTicket = async (req, res) => {
   // SQL query for inserting data into the CELEBRATION_TICKETS table
   const query = `
     INSERT INTO CELEBRATION_TICKET
-    (i_ticket_id, department_id, date, who_what, details, value_compassion, value_life, value_community, value_excellence, value_respect, value_responsibility)
+    (department_id, date, who_what, details, value_compassion, value_life, value_community, value_excellence, value_respect, value_responsibility)
     VALUES 
-    (@i_ticket_id, @department_id, @date, @who_what, @details, @value_compassion, @value_life, @value_community, @value_excellence, @value_respect, @value_responsibility);
+    (@department_id, @date, @who_what, @details, @value_compassion, @value_life, @value_community, @value_excellence, @value_respect, @value_responsibility);
 `;
 
   try {
@@ -27,7 +27,6 @@ export const createCelebrationTicket = async (req, res) => {
     const pool = await getConnection();
 
     const {
-      i_ticket_id,
       department_id,
       date,
       who_what,
@@ -38,43 +37,33 @@ export const createCelebrationTicket = async (req, res) => {
       value_excellence,
       value_respect,
       value_responsibility,
+      isArchived,
     } = req.body;
-
-    // Check if the provided i_ticket_id exists in the ImprovementTicket table
-    const improvementTicketExists = await checkImprovementTicketExists(
-      i_ticket_id
-    );
-
-    if (!improvementTicketExists) {
-      return res.status(400).json({
-        error: `Improvement ticket with ID ${i_ticket_id} does not exist.`,
-      });
-    }
-
+    console.log(department_id);
     // Check if the provided department_id exists in the ImprovementTicket table
-    const departmentExists = await getImprovementTicketById(department_id);
+    // const departmentExists = await getDepartmentById(department_id);
 
-    if (!departmentExists) {
-      return res.status(400).json({
-        error: `Department with ID ${i_ticket_id} does not exist.`,
-      });
-    }
+    // if (!departmentExists) {
+    //   return res.status(400).json({
+    //     error: `Department with ID ${i_ticket_id} does not exist.`,
+    //   });
+    // }
 
     // Create a request object
     const request = pool
       .request()
       // Bind input parameters
-      .input('i_ticket_id', sql.Int, i_ticket_id)
       .input('department_id', sql.Int, department_id)
-      .input('date', sql.Date, date)
+      .input('date', sql.NVarChar, date)
       .input('who_what', sql.NVarChar, who_what)
       .input('details', sql.NVarChar, details)
-      .input('value_compassion', value_compassion) // Using boolean values directly
-      .input('value_life', value_life)
-      .input('value_community', value_community)
-      .input('value_excellence', value_excellence)
-      .input('value_respect', value_respect)
-      .input('value_responsibility', value_responsibility);
+      .input('value_compassion', sql.Bit, value_compassion) // Using boolean values directly
+      .input('value_life', sql.Bit, value_life)
+      .input('value_community', sql.Bit, value_community)
+      .input('value_excellence', sql.Bit, value_excellence)
+      .input('value_respect', sql.Bit, value_respect)
+      .input('value_responsibility', sql.Bit, value_responsibility)
+      .input('isArchived', sql.Bit, isArchived);
 
     // Execute the query
     const result = await request.query(query);
@@ -142,27 +131,10 @@ export const getCelebrationTicketById = async (req, res) => {
  * Update celebration ticket
  */
 export const updateCelebrationTicket = async (req, res) => {
-  const query = `
-        UPDATE CELEBRATION_TICKET
-        SET i_ticket_id = @i_ticket_id,
-            department_id = @department_id,
-            date = @date,
-            who_what = @who_what,
-            details = @details,
-            value_compassion = @value_compassion,
-            value_life = @value_life,
-            value_community = @value_community,
-            value_excellence = @value_excellence,
-            value_respect = @value_respect,
-            value_responsibility = @value_responsibility
-        WHERE c_ticket_id = @c_ticket_id;
-      `;
-
   try {
     const pool = await getConnection();
 
     const {
-      i_ticket_id,
       department_id,
       date,
       who_what,
@@ -173,42 +145,62 @@ export const updateCelebrationTicket = async (req, res) => {
       value_excellence,
       value_respect,
       value_responsibility,
+      c_ticket_id,
+      isArchived,
     } = req.body;
 
-    // Check if the provided i_ticket_id exists in the ImprovementTicket table
-    const improvementTicketExists = await checkImprovementTicketExists(
-      i_ticket_id
-    );
+    // // Check if the provided department_id exists in the Department table
+    // const departmentExists = await getDepartmentById(department_id);
 
-    if (!improvementTicketExists) {
-      return res.status(400).json({
-        error: `Improvement ticket with ID ${i_ticket_id} does not exist.`,
-      });
+    // if (!departmentExists) {
+    //   return res.status(400).json({
+    //     error: `Department with ID ${department_id} does not exist.`,
+    //   });
+    // }
+
+    let updateFields = [];
+    const updateValues = {
+      department_id,
+      date,
+      who_what,
+      details,
+      value_compassion,
+      value_life,
+      value_community,
+      value_excellence,
+      value_respect,
+      value_responsibility,
+      isArchived,
+    };
+
+    // Construct the SET clause for the SQL query
+    for (const [key, value] of Object.entries(updateValues)) {
+      if (value || value !== undefined) {
+        updateFields.push(`${key} = @${key}`);
+      }
     }
 
-    // Check if the provided department_id exists in the ImprovementTicket table
-    const departmentExists = await getImprovementTicketById(department_id);
+    // Construct the SQL query dynamically
+    const query = `
+        UPDATE CELEBRATION_TICKET
+        SET ${updateFields.join(', ')}
+        WHERE c_ticket_id = @c_ticket_id;
+      `;
 
-    if (!departmentExists) {
-      return res.status(400).json({
-        error: `Department with ID ${i_ticket_id} does not exist.`,
-      });
-    }
-
+    // Execute the query
     const result = await pool
       .request()
-      .input('i_ticket_id', sql.Int, i_ticket_id)
+      .input('c_ticket_id', sql.Int, c_ticket_id)
       .input('department_id', sql.Int, department_id)
-      .input('date', sql.Date, date)
+      .input('date', sql.NVarChar, date)
       .input('who_what', sql.NVarChar, who_what)
       .input('details', sql.NVarChar, details)
-      .input('value_compassion', value_compassion)
-      .input('value_life', value_life)
-      .input('value_community', value_community)
-      .input('value_excellence', value_excellence)
-      .input('value_respect', value_respect)
-      .input('value_responsibility', value_responsibility)
-      .input('c_ticket_id', sql.Int, id)
+      .input('value_compassion', sql.Bit, value_compassion)
+      .input('value_life', sql.Bit, value_life)
+      .input('value_community', sql.Bit, value_community)
+      .input('value_excellence', sql.Bit, value_excellence)
+      .input('value_respect', sql.Bit, value_respect)
+      .input('value_responsibility', sql.Bit, value_responsibility)
       .query(query);
 
     res.status(200).json({ success: true });
@@ -222,7 +214,7 @@ export const updateCelebrationTicket = async (req, res) => {
  * Delete celebration ticket
  */
 export const deleteCelebrationTicket = async (req, res) => {
-  const query = `DELETE FROM CELEBRATION_TICKET WHERE ticket_id = @ticketId;`;
+  const query = `DELETE FROM CELEBRATION_TICKET WHERE c_ticket_id = @ticketId;`;
 
   try {
     const pool = await getConnection();
