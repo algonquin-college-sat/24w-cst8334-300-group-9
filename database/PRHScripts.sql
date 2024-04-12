@@ -44,9 +44,9 @@ END
 GO
 
 -- Drop the TICKET_UPDATES table if it exists
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'TICKET_UPDATES')
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'I_TICKET_UPDATE_NOTES')
 BEGIN
-    DROP TABLE TICKET_UPDATES;
+    DROP TABLE I_TICKET_UPDATE_NOTES;
 END
 GO
 
@@ -119,7 +119,7 @@ CREATE TABLE CELEBRATION_TICKET (
 );
 
 -- Create the TICKET_UPDATES table
-CREATE TABLE TICKET_UPDATES (
+CREATE TABLE I_TICKET_UPDATE_NOTES (
   update_id INT PRIMARY KEY IDENTITY,
   i_ticket_id INT,
   date TEXT,
@@ -262,3 +262,10 @@ VALUES
   'Reduced medication errors by 50%', -- Solution outcome
   7 -- Category ID
 );
+
+-- Data dump for Improvement ticket notes
+INSERT INTO I_TICKET_UPDATE_NOTES (i_ticket_id, date, update_note, owner)
+VALUES
+(1, '2024-04-10', 'Update note 1 for ticket 1', 'John Doe'),
+(2, '2024-04-11', 'Update note 1 for ticket 2', 'Jane Smith'),
+(3, '2024-04-12', 'Update note 1 for ticket 3', 'Alice Johnson');
