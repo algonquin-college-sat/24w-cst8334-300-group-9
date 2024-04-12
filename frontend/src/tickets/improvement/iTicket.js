@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Back button functionality
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', function () {
+    const cancelButton = document.getElementById('cancelButton');
+    cancelButton.addEventListener('click', function () {
       window.history.back();
     });
 
     // Save button functionality
-    const saveButton = document.getElementById('saveButton');
-    saveButton.addEventListener('click', async function () {
+    const submitButton = document.getElementById('submitButton');
+    submitButton.addEventListener('click', async function () {
       try {
         // Get form data
         const ticketDate = document.getElementById('ticketDate').value;
