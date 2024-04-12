@@ -190,12 +190,6 @@ export const getImprovementTicketByDepartment = async (req, res) => {
 /**
  * Update improvement ticket
  */
-/**
- * Update improvement ticket
- */
-/**
- * Update improvement ticket
- */
 export const updateImprovementTicket = async (req, res) => {
   // Initialize an array to store the SQL update statements
   const updateStatements = [];
