@@ -145,19 +145,19 @@ html {
 
 /* Add ticket styling for improvement tickets */
 .improvement-ticket {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Added gap between improvement tickets */
   border: 2px solid #006bd7;
 }
-
+.celebration-ticket {
+  border: 2px solid #9523dc;
+}
 .card-body:hover {
   opacity: 0.8;
 }
 /* Add ticket styling for work in progress tickets */
 .work-in-progress-tickets,
 .new-ideas-tickets,
-.almost-done-tickets {
+.almost-done-tickets,
+.celebration-tickets {
   display: flex;
   flex-direction: column;
   gap: 15px; /* Added gap between work in progress tickets */
@@ -198,10 +198,10 @@ html {
 }
 
 .btnStandardWork {
-  background-color: #006bd7!important;
-  color: #fff!important;
-  padding: 15px!important;
-  font-size: 18px!important;
-  border-radius: 20px!important;
+  background-color: #006bd7 !important;
+  color: #fff !important;
+  padding: 15px !important;
+  font-size: 18px !important;
+  border-radius: 20px !important;
   /* font-weight: bold!important; */
 }

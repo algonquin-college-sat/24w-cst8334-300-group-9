@@ -1,6 +1,9 @@
 import { getDepartmentById } from '../../state/departmentApi.js';
 import { updateImprovementTicket } from '../../state/improvementTicketApi.js';
-import { getActiveTicketsByDepartment } from '../../utils/getActiveTicketsByDepartment.js';
+import {
+  getActiveCelebrationTicketsByDepartment,
+  getActiveImprovementTicketsByDepartment,
+} from '../../utils/getActiveTicketsByDepartment.js';
 
 // Define category mapping
 const categoryMapping = {
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   attachEventListeners();
 
   // Fetch and display improvement tickets
-  fetchAndDisplayImprovementTickets(departmentId);
+  fetchAndDisplayTickets(departmentId);
 });
 
 // Helper function to extract department ID from URL
@@ -69,10 +72,18 @@ const attachEventListeners = () => {
 };
 
 // Helper function to fetch and display improvement tickets
-const fetchAndDisplayImprovementTickets = async (departmentId) => {
+const fetchAndDisplayTickets = async (departmentId) => {
   try {
-    const improvementTickets = await getActiveTicketsByDepartment(departmentId);
+    const improvementTickets = await getActiveImprovementTicketsByDepartment(
+      departmentId
+    );
+    const celebrationTickets = await getActiveCelebrationTicketsByDepartment(
+      departmentId
+    );
+    console.log({ celebrationTickets });
     displayTicketsByCategory(improvementTickets);
+    // Display celebration tickets in the "Celebration" category
+    displayCelebrationTickets(celebrationTickets);
   } catch (error) {
     console.error('Error fetching improvement tickets:', error);
   }
@@ -86,12 +97,51 @@ const displayTicketsByCategory = (improvementTickets) => {
       (ticket) => ticket.category_id === categoryId
     );
 
-    displayTickets(category, categoryTickets);
+    displayImprovementTickets(category, categoryTickets);
   }
 };
 
+// Helper function to display celebration tickets
+const displayCelebrationTickets = (celebrationTickets) => {
+  const celebrationPanelElement = document.querySelector(
+    '.celebration-tickets'
+  );
+  if (!celebrationPanelElement) {
+    console.error('Celebration panel element not found.');
+    return;
+  }
+
+  celebrationTickets.forEach((ticket) => {
+    const ticketElement = createCelebrationTicketElement(ticket);
+    celebrationPanelElement.appendChild(ticketElement);
+  });
+};
+
+// Helper function to create a celebration ticket element
+const createCelebrationTicketElement = (ticket) => {
+  const ticketElement = document.createElement('div');
+  ticketElement.classList.add('card', 'h-100', 'celebration-ticket');
+
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+
+  const cardTitle = document.createElement('h5');
+  cardTitle.classList.add('card-title');
+  cardTitle.textContent = ticket.who_what;
+
+  const cardDescription = document.createElement('div');
+  cardDescription.classList.add('card-description');
+  cardDescription.textContent = ticket.details;
+
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardDescription);
+
+  ticketElement.appendChild(cardBody);
+  return ticketElement;
+};
+
 // Helper function to display tickets in a category
-const displayTickets = (category, tickets) => {
+const displayImprovementTickets = (category, tickets) => {
   const panelElement = document.querySelector(
     `.${category.toLowerCase().replace(/\s/g, '-')}-tickets`
   );
@@ -134,13 +184,6 @@ const createTicketElement = (ticket) => {
   ticketElement.appendChild(cardBody);
   return ticketElement;
 };
-
-// Helper function to attach event listeners to tickets
-// const attachTicketEventListeners = (ticketElement, ticket) => {
-//   ticketElement.addEventListener('click', () => {
-//       window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
-//   });
-// };
 
 // Helper function to attach event listeners to tickets
 const attachTicketEventListeners = (ticketElement, ticket) => {

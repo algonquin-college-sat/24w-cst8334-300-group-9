@@ -269,3 +269,12 @@ VALUES
 (1, '2024-04-10', 'Update note 1 for ticket 1', 'John Doe'),
 (2, '2024-04-11', 'Update note 1 for ticket 2', 'Jane Smith'),
 (3, '2024-04-12', 'Update note 1 for ticket 3', 'Alice Johnson');
+
+-- Data dump for Celebration ticket
+INSERT INTO CELEBRATION_TICKET (department_id, date, who_what, details, value_compassion, value_life, value_community, value_excellence, value_respect, value_responsibility, isArchived)
+VALUES 
+(1, '2024-04-11', 'Employee Promotion', 'John Doe promoted to Senior Manager', 1, 0, 0, 1, 1, 0, 0),
+(2, '2024-04-12', 'Team Achievement', 'Project X completed ahead of schedule', 0, 1, 1, 0, 1, 1, 0),
+(3, '2024-04-13', 'Employee Recognition', 'Jane Smith awarded Employee of the Month', 1, 0, 0, 1, 1, 0, 0),
+(1, '2024-04-14', 'Milestone Celebration', 'Company anniversary - 10 years in business', 1, 1, 1, 1, 1, 1, 0),
+(2, '2024-04-15', 'Special Event', 'Annual company picnic held at the park', 1, 1, 1, 1, 1, 1, 0);
