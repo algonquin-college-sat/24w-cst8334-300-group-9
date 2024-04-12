@@ -4,3 +4,4 @@ export const DEPARTMENTS = '/department'; // Base path for departments
 export const CELEBRATIONTICKETS = '/celebration-ticket';
 export const CATEGORIES = '/category';
 export const QUADRUPLE_AIM = '/quadruple-aim';
+export const IMP_TICKET_UPDATE_NOTES = '/impTicket-note';
