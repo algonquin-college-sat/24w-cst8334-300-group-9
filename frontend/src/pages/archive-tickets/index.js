@@ -49,7 +49,7 @@ const createTicketElement = (ticket) => {
               ticket.name ?? ticket.who_what
             } - <small>${ticket.date}</small></h5>
             <p class="card-text mb-1">${ticket.problem ?? ticket.details}</p>
-            <small>${ticket.solution_outcome}</small>
+            <small>${ticket.solution_outcome ?? ''}</small>
           </div>
           <div class="col-md-3">
             <button class="btn btn-primary unarchive-btn" data-ticket-id="${
