@@ -191,69 +191,72 @@ export const getImprovementTicketByDepartment = async (req, res) => {
  * Update improvement ticket
  */
 export const updateImprovementTicket = async (req, res) => {
-  // Initialize an array to store the SQL update statements
-  const updateStatements = [];
-
-  // Check each attribute in the request body and create corresponding update statements
-  if (req.body.name) {
-    updateStatements.push(`name = @name`);
-  }
-  if (req.body.date) {
-    updateStatements.push(`date = @date`);
-  }
-  if (req.body.problem) {
-    updateStatements.push(`problem = @problem`);
-  }
-  if (req.body.improve_idea) {
-    updateStatements.push(`improve_idea = @improve_idea`);
-  }
-  if (req.body.source_issue) {
-    updateStatements.push(`source_issue = @source_issue`);
-  }
-  if (req.body.input_needed_from) {
-    updateStatements.push(`input_needed_from = @input_needed_from`);
-  }
-  if (req.body.safety_issue) {
-    updateStatements.push(`safety_issue = @safety_issue`);
-  }
-  if (req.body.quadruple_aim_id) {
-    updateStatements.push(`quadruple_aim_id = @quadruple_aim_id`);
-  }
-  if (req.body.solution_outcome) {
-    updateStatements.push(`solution_outcome = @solution_outcome`);
-  }
-  if (req.body.category_id) {
-    updateStatements.push(`category_id = @category_id`);
-  }
-  if (req.body.isArchived !== undefined) {
-    // Assuming isArchived is a boolean
-    updateStatements.push(`isArchived = @isArchived`);
-  }
-
-  // Construct the SQL update query
-  const query = `
-    UPDATE IMPROVEMENT_TICKETS
-    SET ${updateStatements.join(', ')}
-    WHERE ticket_id = @ticketId;
-  `;
-
   try {
     const pool = await getConnection();
+    // Initialize an array to store the SQL update statements
+    let updateFields = [];
+
+    const {
+      ticket_id,
+      department_id,
+      name,
+      date,
+      problem,
+      improve_idea,
+      source_issue,
+      input_needed_from,
+      safety_issue,
+      quadruple_aim_id,
+      solution_outcome,
+      category_id,
+      isArchived,
+    } = req.body;
+
+    const updateValues = {
+      department_id,
+      name,
+      date,
+      problem,
+      improve_idea,
+      source_issue,
+      input_needed_from,
+      safety_issue,
+      quadruple_aim_id,
+      solution_outcome,
+      category_id,
+      isArchived,
+    };
+    console.log(ticket_id);
+    console.log(req.body);
+
+    for (const [key, value] of Object.entries(updateValues)) {
+      if (value || value !== undefined) {
+        updateFields.push(`${key} = @${key}`);
+      }
+    }
+
+    // Construct the SQL update query
+    const query = `
+    UPDATE IMPROVEMENT_TICKETS
+    SET ${updateFields.join(', ')}
+    WHERE ticket_id = @ticketId;
+  `;
     const result = await pool
       .request()
       // Bind input parameters
       .input('ticketId', sql.Int, req.params.id)
-      .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.NVarChar, req.body.date)
-      .input('problem', sql.NVarChar, req.body.problem)
-      .input('improve_idea', sql.NVarChar, req.body.improve_idea)
-      .input('source_issue', sql.NVarChar, req.body.source_issue)
-      .input('input_needed_from', sql.NVarChar, req.body.input_needed_from)
-      .input('safety_issue', sql.NVarChar, req.body.safety_issue)
-      .input('quadruple_aim_id', sql.Int, req.body.quadruple_aim_id)
-      .input('solution_outcome', sql.NVarChar, req.body.solution_outcome)
-      .input('category_id', sql.Int, req.body.category_id)
-      .input('isArchived', sql.Bit, req.body.isArchived)
+      .input('department_id', sql.Int, department_id)
+      .input('name', sql.NVarChar, name)
+      .input('date', sql.NVarChar, date)
+      .input('problem', sql.NVarChar, problem)
+      .input('improve_idea', sql.NVarChar, improve_idea)
+      .input('source_issue', sql.NVarChar, source_issue)
+      .input('input_needed_from', sql.NVarChar, input_needed_from)
+      .input('safety_issue', sql.NVarChar, safety_issue)
+      .input('quadruple_aim_id', sql.Int, quadruple_aim_id)
+      .input('solution_outcome', sql.NVarChar, solution_outcome)
+      .input('category_id', sql.Int, category_id)
+      .input('isArchived', sql.Bit, isArchived)
       .query(query);
 
     res.status(200).json({ success: true });
