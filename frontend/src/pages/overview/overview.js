@@ -259,14 +259,14 @@ const handleImprovementTicketAction = (ticket) => {
 };
 
 // Helper function to handle celebration ticket actions (update/archive)
-const handleCelebrationTicketAction = (ticket) => {
+const handleCelebrationTicketAction = async (ticket) => {
   const modal = document.getElementById('cTicketInfoModal');
 
   const ticketFields = {
     cTicketWhoWhat: ticket.who_what,
     cTicketDate: ticket.date,
     cTicketDetails: ticket.details,
-    cTicketDepartment: fetchDepartmentName(ticket.department_id),
+    cTicketDepartment: await fetchDepartmentName(ticket.department_id),
   };
   // Set ticket information in the modal
   for (const field in ticketFields) {
