@@ -77,19 +77,30 @@ export const getImpTicketUpdateNoteById = async (req, res) => {
 
 // Update ticket update note
 export const updateImpTicketUpdateNote = async (req, res) => {
-  const query = `
-    UPDATE I_TICKET_UPDATE_NOTES
-    SET 
-      date = @date,
-      update_note = @update_note,
-      owner = @owner
-    WHERE update_id = @updateId;
-  `;
-
   try {
     const pool = await getConnection();
+    let updateFields = [];
+
+    const { date, update_note, owner } = req.body;
+    const updateValues = {
+      date,
+      update_note,
+      owner,
+    };
+    for (const [key, value] of Object.entries(updateValues)) {
+      if (value || value !== undefined) {
+        updateFields.push(`${key} = @${key}`);
+      }
+    }
+    const query = `
+    UPDATE I_TICKET_UPDATE_NOTES
+    SET ${updateFields.join(', ')}
+    WHERE update_id = @update_id;
+  `;
+
     const result = await pool
       .request()
+      .input('update_id', sql.Int, req.params.id)
       .input('date', sql.NVarChar, req.body.date)
       .input('update_note', sql.NVarChar, req.body.update_note)
       .input('owner', sql.NVarChar, req.body.owner)
