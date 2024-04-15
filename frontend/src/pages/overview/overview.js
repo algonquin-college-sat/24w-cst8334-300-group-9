@@ -229,7 +229,7 @@ const handleImprovementTicketAction = (ticket) => {
   });
 
   // Event listener for archive button
-  const btnArchive = document.getElementById('.i-archive-btn');
+  const btnArchive = document.getElementById('i-archive-btn');
   btnArchive.addEventListener('click', async () => {
     modal.style.display = 'none';
     try {
@@ -244,13 +244,18 @@ const handleImprovementTicketAction = (ticket) => {
   });
 
   // Event listener for close button
-  const closeBtnLists = document.querySelectorAll('.close-info');
-
-  closeBtnLists.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+  const closeBtn = document.getElementById('i-close-btn');
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
   });
+  //   // Event listener for close button
+  //   const closeBtnLists = document.querySelectorAll('.close-info');
+
+  //   closeBtnLists.forEach((btn) => {
+  //     btn.addEventListener('click', () => {
+  //       modal.style.display = 'none';
+  //     });
+  //   });
 };
 
 // Helper function to handle celebration ticket actions (update/archive)
@@ -258,10 +263,10 @@ const handleCelebrationTicketAction = (ticket) => {
   const modal = document.getElementById('cTicketInfoModal');
 
   const ticketFields = {
-    cTicketName: ticket.name,
+    cTicketWhoWhat: ticket.who_what,
     cTicketDate: ticket.date,
-    cTicketWhoWhat: ticket.problem,
-    cTicketValues: ticket.source_issue,
+    cTicketDetails: ticket.details,
+    cTicketDepartment: fetchDepartmentName(ticket.department_id),
   };
   // Set ticket information in the modal
   for (const field in ticketFields) {
