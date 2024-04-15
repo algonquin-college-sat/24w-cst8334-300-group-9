@@ -17,9 +17,9 @@ export const createCelebrationTicket = async (req, res) => {
   // SQL query for inserting data into the CELEBRATION_TICKETS table
   const query = `
     INSERT INTO CELEBRATION_TICKET
-    (department_id, date, who_what, details, value_compassion, value_life, value_community, value_excellence, value_respect, value_responsibility)
+    (department_id, date, who_what, details, value_compassion, value_life, value_community, value_excellence, value_respect, value_responsibility, isArchived)
     VALUES 
-    (@department_id, @date, @who_what, @details, @value_compassion, @value_life, @value_community, @value_excellence, @value_respect, @value_responsibility);
+    (@department_id, @date, @who_what, @details, @value_compassion, @value_life, @value_community, @value_excellence, @value_respect, @value_responsibility, @isArchived);
 `;
 
   try {
@@ -149,15 +149,6 @@ export const updateCelebrationTicket = async (req, res) => {
       isArchived,
     } = req.body;
 
-    // // Check if the provided department_id exists in the Department table
-    // const departmentExists = await getDepartmentById(department_id);
-
-    // if (!departmentExists) {
-    //   return res.status(400).json({
-    //     error: `Department with ID ${department_id} does not exist.`,
-    //   });
-    // }
-
     let updateFields = [];
     const updateValues = {
       department_id,
@@ -201,6 +192,7 @@ export const updateCelebrationTicket = async (req, res) => {
       .input('value_excellence', sql.Bit, value_excellence)
       .input('value_respect', sql.Bit, value_respect)
       .input('value_responsibility', sql.Bit, value_responsibility)
+      .input('isArchived', sql.Bit, isArchived)
       .query(query);
 
     res.status(200).json({ success: true });
@@ -230,17 +222,17 @@ export const deleteCelebrationTicket = async (req, res) => {
   }
 };
 
-// Function to check if an improvement ticket exists with the given ID
-async function checkImprovementTicketExists(i_ticket_id) {
-  const query = `SELECT COUNT(*) AS ticketCount FROM IMPROVEMENT_TICKETS WHERE ticket_id = @i_ticket_id;`;
+// // Function to check if an improvement ticket exists with the given ID
+// async function checkImprovementTicketExists(i_ticket_id) {
+//   const query = `SELECT COUNT(*) AS ticketCount FROM IMPROVEMENT_TICKETS WHERE ticket_id = @i_ticket_id;`;
 
-  try {
-    const pool = await getConnection();
-    const request = pool.request().input('i_ticket_id', sql.Int, i_ticket_id);
-    const result = await request.query(query);
-    return result.recordset[0].ticketCount > 0;
-  } catch (error) {
-    console.error('Error checking improvement ticket existence:', error);
-    return false;
-  }
-}
+//   try {
+//     const pool = await getConnection();
+//     const request = pool.request().input('i_ticket_id', sql.Int, i_ticket_id);
+//     const result = await request.query(query);
+//     return result.recordset[0].ticketCount > 0;
+//   } catch (error) {
+//     console.error('Error checking improvement ticket existence:', error);
+//     return false;
+//   }
+// }
