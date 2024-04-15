@@ -4,9 +4,7 @@ const impTicketUpdateNoteAPI = '/impTicket-note';
 
 export const createImpTicketUpdateNote = async (updateNoteData) => {
   try {
-    console.log('inside API', updateNoteData);
     const response = await baseAPI.post(impTicketUpdateNoteAPI, updateNoteData);
-    console.log('inside API', response.data);
     return response.data;
   } catch (error) {
     throw new Error('Failed to create improvement ticket update note');

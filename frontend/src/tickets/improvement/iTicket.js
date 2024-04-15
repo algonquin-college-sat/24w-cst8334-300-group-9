@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', async function () {
           inputNeededFromValue.push(checkbox.value);
         });
         const inputNeededFromValueString = inputNeededFromValue.join(', ');
-        console.log({ inputNeededFromValue });
 
         // Get the value from the checkboxes for safety issue
         let safetyIssueValue = [];
@@ -99,11 +98,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           isArchived: isArchived,
         };
 
-        console.log(improvementTicketData);
-
         // Create the improvement ticket
-        const newTicket = await createImprovementTicket(improvementTicketData);
-        console.log(newTicket);
+        await createImprovementTicket(improvementTicketData);
 
         // Alert the user or perform any other actions
         alert('Improvement ticket created successfully!');

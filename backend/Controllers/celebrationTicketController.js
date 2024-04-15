@@ -38,7 +38,7 @@ export const createCelebrationTicket = async (req, res) => {
       value_responsibility,
       isArchived,
     } = req.body;
-    console.log(department_id);
+
     // Check if the provided department_id exists in the ImprovementTicket table
     // const departmentExists = await getDepartmentById(department_id);
 

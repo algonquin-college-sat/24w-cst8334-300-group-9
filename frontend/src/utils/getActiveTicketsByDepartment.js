@@ -32,14 +32,12 @@ export const getActiveCelebrationTicketsByDepartment = async (departmentId) => {
   try {
     const ticketsResponse = await getAllCelebrationTickets();
     const tickets = ticketsResponse.data;
-    console.log({ tickets });
     const activeTickets = tickets.filter((ticket) => {
       return (
         ticket.department_id == parseInt(departmentId) &&
         ticket.isArchived === false
       );
     });
-    console.log({ activeTickets });
 
     return activeTickets;
   } catch (error) {

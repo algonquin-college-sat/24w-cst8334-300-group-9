@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const notes = await getUpdateNotesByImpTicketId(ticketId);
-  console.log(notes);
   populateUpdateNotesTable(notes);
   // Function to populate form fields with ticket data
   function populateFormFields(ticket) {
@@ -128,7 +127,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         ticket.isArchived.toString()
       );
     }
-    console.log({ isArchivedCheckbox });
 
     document.getElementById('categorySelect').value = ticket.category_id;
     document.getElementById('groupDiscussionOutcome').value =
@@ -177,7 +175,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const updatedCategory = document.getElementById('categorySelect').value;
       const updatedDepartment =
         document.getElementById('departmentSelect').value;
-      console.log({ isArchived });
 
       // Get the updated ticket data from the form
       const updatedTicketData = {
@@ -195,7 +192,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         isArchived: isArchived,
         // Get other form field values similarly
       };
-      console.log({ updatedTicketData });
       // Update the ticket with the new data
       try {
         await updateImprovementTicket(ticketId, updatedTicketData);
@@ -222,7 +218,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         update_note,
         owner,
       };
-      console.log({ progressNoteData });
 
       try {
         await createImpTicketUpdateNote(progressNoteData);

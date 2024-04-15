@@ -162,7 +162,6 @@ const displayImprovementTickets = (category, tickets) => {
   tickets.forEach((ticket) => {
     const ticketElement = createTicketElement(ticket);
     ticketElement.addEventListener('click', () => {
-      console.log({ ticket });
       handleImprovementTicketAction(ticket);
     });
     panelElement.appendChild(ticketElement);

@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const urlParams = new URLSearchParams(window.location.search);
   const ticketId = urlParams.get('ticketId');
   const departments = await getAllDepartments();
-  console.log({ departments });
   // Get the dropdown element
   const departmentSelect = document.getElementById('departmentSelect');
   // Populate dropdown options with fetched categories
@@ -64,7 +63,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             value_responsibility,
             isArchived,
           };
-          console.log({ celebrationTicketData });
           await createCelebrationTicket(celebrationTicketData);
 
           window.history.back();
@@ -104,7 +102,6 @@ const populateTicketInfo = async (ticketId) => {
       `input[name="isArchived"][value="${ticket.isArchived.toString()}"]`
     );
 
-    console.log(typeof ticketId);
 
     date.value = ticket.date;
     who_what.value = ticket.who_what;

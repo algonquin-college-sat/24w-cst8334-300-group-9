@@ -226,8 +226,6 @@ export const updateImprovementTicket = async (req, res) => {
       category_id,
       isArchived,
     };
-    console.log(ticket_id);
-    console.log(req.body);
 
     for (const [key, value] of Object.entries(updateValues)) {
       if (value || value !== undefined) {
