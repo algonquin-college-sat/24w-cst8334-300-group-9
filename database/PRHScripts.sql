@@ -182,7 +182,7 @@ VALUES
 (
   
   1,
-  'Improvement Ticket 1', 
+  'Scott Tiger', 
   '2024-03-22', 
   'Problem description for Ticket 1', 
   0,
@@ -196,7 +196,7 @@ VALUES
 ),
 (
   2,
-  'Improvement Ticket 2', 
+  'John Smith', 
   '2024-03-21', 
   'Problem description for Ticket 2', 
   0,
@@ -210,7 +210,7 @@ VALUES
 ),
 (
   3,
-  'Improvement Ticket 3', 
+  'Carlin Crew', 
   '2024-03-20', 
   'Problem description for Ticket 3', 
   0,
@@ -222,7 +222,7 @@ VALUES
   'Solution outcome for Ticket 3', 
   3
 ),(2, -- Department ID
-  'Improvement Ticket 4', -- Ticket name
+  'Madden Hatch', -- Ticket name
   '2024-03-25', -- Date
   'Long wait times in the Emergency Room', -- Problem description
   0, -- isArchived
@@ -236,7 +236,7 @@ VALUES
 ),
 (
   1, -- Department ID
-  'Improvement Ticket 5', -- Ticket name
+  'Adaya Edison', -- Ticket name
   '2024-03-26', -- Date
   'High patient readmission rates', -- Problem description
   0, -- isArchived
@@ -250,7 +250,7 @@ VALUES
 ),
 (
   3, -- Department ID
-  'Improvement Ticket 6', -- Ticket name
+  'Belen Sheldon', -- Ticket name
   '2024-03-27', -- Date
   'Inefficient medication reconciliation process', -- Problem description
   0, -- isArchived
