@@ -1,5 +1,6 @@
 import { getDepartmentById } from '../../state/departmentApi.js';
 import { updateImprovementTicket } from '../../state/improvementTicketApi.js';
+import { updateCelebrationTicket } from '../../state/celebrationTicketApi.js';
 import {
   getActiveCelebrationTicketsByDepartment,
   getActiveImprovementTicketsByDepartment,
@@ -221,14 +222,14 @@ const handleImprovementTicketAction = (ticket) => {
   modal.style.display = 'block';
 
   // Event listener for update button
-  const btnUpdate = document.querySelector('.btn-update');
+  const btnUpdate = document.getElementById('i-update-btn');
   btnUpdate.addEventListener('click', () => {
     modal.style.display = 'none';
     window.location.href = `../../tickets/improvement/updateTicketForm.html?ticketId=${ticket.ticket_id}`;
   });
 
   // Event listener for archive button
-  const btnArchive = document.querySelector('.btn-archive');
+  const btnArchive = document.getElementById('.i-archive-btn');
   btnArchive.addEventListener('click', async () => {
     modal.style.display = 'none';
     try {
@@ -281,7 +282,7 @@ const handleCelebrationTicketAction = (ticket) => {
   });
 
   // Event listener for archive button
-  const btnArchive = document.querySelector('.btn-archive');
+  const btnArchive = document.getElementById('c-archive-btn');
   btnArchive.addEventListener('click', async () => {
     modal.style.display = 'none';
     try {
