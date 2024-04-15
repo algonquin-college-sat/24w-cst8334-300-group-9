@@ -61,7 +61,9 @@ const attachEventListeners = () => {
   document
     .getElementById('openModalButton')
     .addEventListener('click', openModal);
-  document.querySelector('.close-button').addEventListener('click', closeModal);
+  document
+    .getElementById('close-create-modal')
+    .addEventListener('click', closeModal);
   document
     .getElementById('improvementButton')
     .addEventListener('click', addImprovement);
@@ -80,7 +82,6 @@ const fetchAndDisplayTickets = async (departmentId) => {
     const celebrationTickets = await getActiveCelebrationTicketsByDepartment(
       departmentId
     );
-    console.log({ celebrationTickets });
     displayTicketsByCategory(improvementTickets);
     // Display celebration tickets in the "Celebration" category
     displayCelebrationTickets(celebrationTickets);
@@ -113,6 +114,9 @@ const displayCelebrationTickets = (celebrationTickets) => {
   celebrationTickets.forEach((ticket) => {
     const ticketElement = createCelebrationTicketElement(ticket);
     celebrationPanelElement.appendChild(ticketElement);
+    ticketElement.addEventListener('click', () => {
+      handleCelebrationTicketAction(ticket);
+    });
   });
 };
 
@@ -156,7 +160,10 @@ const displayImprovementTickets = (category, tickets) => {
 
   tickets.forEach((ticket) => {
     const ticketElement = createTicketElement(ticket);
-    attachTicketEventListeners(ticketElement, ticket);
+    ticketElement.addEventListener('click', () => {
+      console.log({ ticket });
+      handleImprovementTicketAction(ticket);
+    });
     panelElement.appendChild(ticketElement);
   });
 };
@@ -184,28 +191,22 @@ const createTicketElement = (ticket) => {
   return ticketElement;
 };
 
-// Helper function to attach event listeners to tickets
-const attachTicketEventListeners = (ticketElement, ticket) => {
-  ticketElement.addEventListener('click', () => {
-    handleTicketAction(ticket);
-  });
-};
-
-// Helper function to handle ticket actions (update/archive)
-const handleTicketAction = (ticket) => {
+// Helper function to handle celebration ticket actions (update/archive)
+const handleImprovementTicketAction = (ticket) => {
   // Get modal elements
-  const modal = document.getElementById('ticketInfoModal');
+  const modal = document.getElementById('iTicketInfoModal');
   const ticketFields = {
-    ticketName: ticket.name,
-    ticketDate: ticket.date,
-    ticketProblem: ticket.problem,
-    ticketSourceIssue: ticket.source_issue,
-    ticketImproveIdea: ticket.improve_idea,
-    ticketInputNeeded: ticket.input_needed_from,
-    ticketSafetyIssue: ticket.safety_issue,
-    ticketQuadrupleAim: ticket.quadruple_aim_id,
-    ticketCategory: ticket.category_id,
-    ticketSolutionOutcome: ticket.solution_outcome,
+    iTicketName: ticket.name,
+    iTicketDate: ticket.date,
+    iTicketProblem: ticket.problem,
+    iTicketSourceIssue: ticket.source_issue,
+    iTicketImproveIdea: ticket.improve_idea,
+    iTicketInputNeeded: ticket.input_needed_from,
+    iTicketSafetyIssue: ticket.safety_issue,
+    iTicketQuadrupleAim: ticket.quadruple_aim_id,
+    iTicketCategory: ticket.category_id,
+    iTicketSolutionOutcome: ticket.solution_outcome,
+    iTicketArchive: ticket.isArchived,
   };
 
   // Set ticket information in the modal
@@ -232,7 +233,6 @@ const handleTicketAction = (ticket) => {
     modal.style.display = 'none';
     try {
       await updateImprovementTicket(ticket.ticket_id, { isArchived: true });
-      // await deleteImprovementTicket(ticket.ticket_id);
       alert('Ticket archived successfully.');
       // Reload the page to reflect the changes
       location.reload();
@@ -243,24 +243,64 @@ const handleTicketAction = (ticket) => {
   });
 
   // Event listener for close button
-  const btnCancel = document.querySelector('.close-info');
-  btnCancel.addEventListener('click', () => {
-    modal.style.display = 'none';
+  const closeBtnLists = document.querySelectorAll('.close-info');
+
+  closeBtnLists.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
   });
 };
 
-// Function to delete the ticket
-// const deleteTicket = async (ticketId) => {
-//   try {
-//     await deleteImprovementTicket(ticketId);
-//     alert('Ticket deleted successfully.');
-//     // Reload the page to reflect the changes
-//     location.reload();
-//   } catch (error) {
-//     console.error('Error deleting ticket:', error);
-//     alert('Failed to delete ticket.');
-//   }
-// };
+// Helper function to handle celebration ticket actions (update/archive)
+const handleCelebrationTicketAction = (ticket) => {
+  const modal = document.getElementById('cTicketInfoModal');
+
+  const ticketFields = {
+    cTicketName: ticket.name,
+    cTicketDate: ticket.date,
+    cTicketWhoWhat: ticket.problem,
+    cTicketValues: ticket.source_issue,
+  };
+  // Set ticket information in the modal
+  for (const field in ticketFields) {
+    const element = document.getElementById(field);
+    if (element) {
+      element.textContent = ticketFields[field];
+    }
+  }
+  // Display modal
+  modal.style.display = 'block';
+
+  // Event listener for update button
+  const btnUpdate = document.getElementById('c-update-btn');
+  btnUpdate.addEventListener('click', () => {
+    modal.style.display = 'none';
+
+    window.location.href = `../../tickets/celebration/cTicket.html?ticketId=${ticket.c_ticket_id}`;
+  });
+
+  // Event listener for archive button
+  const btnArchive = document.querySelector('.btn-archive');
+  btnArchive.addEventListener('click', async () => {
+    modal.style.display = 'none';
+    try {
+      await updateCelebrationTicket(ticket.c_ticket_id, { isArchived: true });
+      // await deleteImprovementTicket(ticket.ticket_id);
+      alert('Ticket archived successfully.');
+      // Reload the page to reflect the changes
+      location.reload();
+    } catch (error) {
+      console.error('Error archiving ticket:', error);
+      alert('Failed to archive ticket.');
+    }
+  });
+  // Event listener for close button
+  const closeBtn = document.getElementById('c-close-btn');
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+};
 
 // Function to open the modal
 const openModal = () => {
