@@ -5,10 +5,7 @@ import {
 import { getAllCategories } from '../../state/categoryApi.js';
 import { getAllDepartments } from '../../state/departmentApi.js';
 import { getUpdateNotesByImpTicketId } from '../../utils/getUpdateNotesByImpTicketId.js';
-import {
-  createImpTicketUpdateNote,
-  updateImpTicketUpdateNote,
-} from '../../state/impTicketUpdateNotesApi.js';
+import { createImpTicketUpdateNote } from '../../state/impTicketUpdateNotesApi.js';
 // Function to populate the progress notes table
 const populateUpdateNotesTable = (notes) => {
   const tbody = document
@@ -214,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for the Tracking note submission
   document
     .getElementById('addProgressNote')
-    .addEventListener('click', async () => {
+    .addEventListener('click', async (event) => {
       event.preventDefault(); // Prevent the default form submission
       const update_note = document.getElementById('updateInput').value;
       const owner = document.getElementById('ownerInput').value;
