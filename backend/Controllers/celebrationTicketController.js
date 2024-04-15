@@ -10,7 +10,6 @@
  */
 import sql from 'mssql/msnodesqlv8.js';
 import { getConnection } from '../dbConfig.js';
-import { getDepartmentById } from './departmentController.js';
 
 // Create Celebration ticket
 export const createCelebrationTicket = async (req, res) => {
@@ -181,7 +180,7 @@ export const updateCelebrationTicket = async (req, res) => {
     // Execute the query
     const result = await pool
       .request()
-      .input('c_ticket_id', sql.Int, c_ticket_id)
+      .input('c_ticket_id', sql.Int, req.params.id)
       .input('department_id', sql.Int, department_id)
       .input('date', sql.NVarChar, date)
       .input('who_what', sql.NVarChar, who_what)
