@@ -6,6 +6,7 @@ import { getAllCategories } from '../../state/categoryApi.js';
 import { getAllDepartments } from '../../state/departmentApi.js';
 import { getUpdateNotesByImpTicketId } from '../../utils/getUpdateNotesByImpTicketId.js';
 import { createImpTicketUpdateNote } from '../../state/impTicketUpdateNotesApi.js';
+
 // Function to populate the progress notes table
 const populateUpdateNotesTable = (notes) => {
   const tbody = document
@@ -67,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const notes = await getUpdateNotesByImpTicketId(ticketId);
   populateUpdateNotesTable(notes);
+
   // Function to populate form fields with ticket data
   function populateFormFields(ticket) {
     document.getElementById('departmentSelect').value = ticket.department_id;
@@ -75,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('problemDescription').value = ticket.problem;
     document.getElementById('sourceIssue').value = ticket.source_issue;
     document.getElementById('proposedSolution').value = ticket.improve_idea;
+
     // Populate checkbox button for input needed from
     const inputNeededFromCheckbox = document.querySelector(
       `input[name="inputNeededFrom"][value="${ticket.input_needed_from}"]`
@@ -86,7 +89,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         'Input needed from value not found in checkbox buttons:',
         ticket.input_needed_from
       );
-      // Provide a default value or handle this scenario as appropriate
     }
 
     // Check if the safety issue checkbox button exists before setting its checked property
@@ -100,8 +102,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         'Safety issue value not found in checkbox buttons:',
         ticket.safety_issue
       );
-      // Provide a default value or handle this scenario as appropriate
     }
+
     // Populate checkbox button for quadruple aim
     const quadrupleAimCheckbox = document.querySelector(
       `input[name="quadrupleAim"][value="${ticket.quadruple_aim_id}"]`
@@ -113,8 +115,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         'Quadruple aim value not found in checkbox buttons:',
         ticket.quadruple_aim_id
       );
-      // Provide a default value or handle this scenario as appropriate
     }
+
     // Populate "Is Archived" checkbox button
     const isArchivedCheckbox = document.querySelector(
       `input[name="isArchived"][value="${ticket.isArchived.toString()}"]`
@@ -131,10 +133,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('categorySelect').value = ticket.category_id;
     document.getElementById('groupDiscussionOutcome').value =
       ticket.solution_outcome;
-
-    document.getElementById('groupDiscussionOutcome').value =
-      ticket.solution_outcome;
-    document.getElementById('categorySelect').value = ticket.category_id;
   }
 
   const backButton = document.getElementById('backButton');
@@ -190,8 +188,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         category_id: parseInt(updatedCategory),
         department_id: parseInt(updatedDepartment),
         isArchived: isArchived,
-        // Get other form field values similarly
       };
+
       // Update the ticket with the new data
       try {
         await updateImprovementTicket(ticketId, updatedTicketData);
@@ -222,7 +220,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       try {
         await createImpTicketUpdateNote(progressNoteData);
         alert('Progress note created successfully');
-        location.reload();
+        // Update the notes table UI without reloading the page
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${update_note}</td>
+          <td>${owner}</td>
+          <td>${update_date}</td>
+        `;
+        document
+          .getElementById('progressNotesTable')
+          .getElementsByTagName('tbody')[0]
+          .appendChild(newRow);
       } catch (error) {
         console.error('Error creating progress note:', error);
         alert('Failed to create progress note.');
