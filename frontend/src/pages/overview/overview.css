@@ -32,11 +32,13 @@ html {
 .logo {
   background: url('../../assets/images/pembroke-hospital-logo.jpg') no-repeat
     center center;
+  background-color: #fff;
   background-size: contain;
   flex: 0 0 100px; /* Fixed height for logo */
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 .huddle-time,
 .standard-work {
@@ -143,18 +145,19 @@ html {
 
 /* Add ticket styling for improvement tickets */
 .improvement-ticket {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Added gap between improvement tickets */
+  border: 2px solid #006bd7;
 }
-
+.celebration-ticket {
+  border: 2px solid #9523dc;
+}
 .card-body:hover {
   opacity: 0.8;
 }
 /* Add ticket styling for work in progress tickets */
 .work-in-progress-tickets,
 .new-ideas-tickets,
-.almost-done-tickets {
+.almost-done-tickets,
+.celebration-tickets {
   display: flex;
   flex-direction: column;
   gap: 15px; /* Added gap between work in progress tickets */
@@ -192,4 +195,13 @@ html {
 .card-description {
   margin-top: 10px;
   color: #666666; /* Slightly darker text color */
+}
+
+.standard-work-btn, .view-archive-btn {
+  background-color: #006bd7 !important;
+  color: #fff !important;
+  padding: 15px !important;
+  font-size: 18px !important;
+  border-radius: 20px !important;
+  /* font-weight: bold!important; */
 }

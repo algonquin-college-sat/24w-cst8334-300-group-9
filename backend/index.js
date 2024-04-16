@@ -10,11 +10,13 @@ import {
   CELEBRATIONTICKETS,
   DEPARTMENTS,
   IMPROVEMENTTICKETS,
+  IMP_TICKET_UPDATE_NOTES,
   QUADRUPLE_AIM,
 } from './routes/routePaths.js';
 import categoryRoute from './routes/categoryRoute.js';
 import celebrationTicketRoute from './routes/celebrationTicketRoute.js';
 import quadrupleAimRoute from './routes/quardrupleAimRoute.js';
+import impTicketUpdateNoteRoute from './routes/i_ticketUpdateNoteRoute.js';
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -40,6 +42,7 @@ app.use(DEPARTMENTS, departmentRoute);
 app.use(CATEGORIES, categoryRoute);
 app.use(CELEBRATIONTICKETS, celebrationTicketRoute);
 app.use(QUADRUPLE_AIM, quadrupleAimRoute);
+app.use(IMP_TICKET_UPDATE_NOTES, impTicketUpdateNoteRoute);
 // app.get('/improvement-ticket', getAllImprovementTickets);
 // Define your routes and other backend logic here
 

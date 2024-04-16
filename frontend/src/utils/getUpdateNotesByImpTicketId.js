@@ -7,16 +7,17 @@
  *
  * @returns {Promise<Object[]>} A promise that resolves to an array of archived improvement tickets.
  */
-import { getAllImprovementTickets } from '../state/improvementTicketApi.js';
-export const getArchivedImprovementTickets = async () => {
+import { getAllImpTicketUpdateNotes } from '../state/impTicketUpdateNotesApi.js';
+export const getUpdateNotesByImpTicketId = async (ticketId) => {
   try {
-    const ticketsResponse = await getAllImprovementTickets();
-    const tickets = ticketsResponse.data;
-    const archivedTickets = tickets.filter(
-      (ticket) => ticket.isArchived === true
+    const response = await getAllImpTicketUpdateNotes();
+    const allUpdateNotes = response.data;
+    const notesByTicket = allUpdateNotes.filter(
+      (note) => note.i_ticket_id == ticketId
     );
-    return archivedTickets;
+
+    return notesByTicket;
   } catch (error) {
-    throw new Error('Failed to fetch improvement tickets.');
+    throw new Error('Failed to fetch update notes');
   }
 };

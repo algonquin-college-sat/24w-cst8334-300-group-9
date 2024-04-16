@@ -9,21 +9,38 @@
  * @param {number} departmentId The ID of the department to filter tickets for.
  * @returns {Promise<Object[]>} A promise that resolves to an array of improvement tickets.
  */
+import { getAllCelebrationTickets } from '../state/celebrationTicketApi.js';
 import { getAllImprovementTickets } from '../state/improvementTicketApi.js';
-export const getActiveTicketsByDepartment = async (departmentId) => {
+export const getActiveImprovementTicketsByDepartment = async (departmentId) => {
   try {
     const ticketsResponse = await getAllImprovementTickets();
     const tickets = ticketsResponse.data;
-    const archivedTickets = tickets.filter((ticket) => {
+    const activeTickets = tickets.filter((ticket) => {
       return (
         ticket.department_id === parseInt(departmentId) &&
         ticket.isArchived === false
       );
     });
-    console.log({ archivedTickets });
 
-    return archivedTickets;
+    return activeTickets;
   } catch (error) {
     throw new Error('Failed to fetch improvement tickets.');
+  }
+};
+
+export const getActiveCelebrationTicketsByDepartment = async (departmentId) => {
+  try {
+    const ticketsResponse = await getAllCelebrationTickets();
+    const tickets = ticketsResponse.data;
+    const activeTickets = tickets.filter((ticket) => {
+      return (
+        ticket.department_id == parseInt(departmentId) &&
+        ticket.isArchived === false
+      );
+    });
+
+    return activeTickets;
+  } catch (error) {
+    throw new Error('Failed to fetch celebration tickets.');
   }
 };

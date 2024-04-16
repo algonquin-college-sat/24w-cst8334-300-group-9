@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// Function to navigate to the department's index.html page with department ID
+// Function to navigate to the department's overview.html page with department ID
 const navigateToDashboardPage = (departmentId) => {
   // Construct the URL with the department ID as a query parameter
-  const pageUrl = `./pages/overview/index.html?departmentId=${departmentId}`;
+  const pageUrl = `./pages/overview/overview.html?departmentId=${departmentId}`;
   // Navigate to the URL
   window.location.href = pageUrl;
 };

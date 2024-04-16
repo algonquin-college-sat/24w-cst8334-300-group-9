@@ -4,6 +4,27 @@ import {
 } from '../../state/improvementTicketApi.js';
 import { getAllCategories } from '../../state/categoryApi.js';
 import { getAllDepartments } from '../../state/departmentApi.js';
+import { getUpdateNotesByImpTicketId } from '../../utils/getUpdateNotesByImpTicketId.js';
+import { createImpTicketUpdateNote } from '../../state/impTicketUpdateNotesApi.js';
+
+// Function to populate the progress notes table
+const populateUpdateNotesTable = (notes) => {
+  const tbody = document
+    .getElementById('progressNotesTable')
+    .getElementsByTagName('tbody')[0];
+  tbody.innerHTML = ''; // Clear existing table rows
+
+  notes.forEach((note) => {
+    const row = tbody.insertRow();
+    const updateCell = row.insertCell(0);
+    const ownerCell = row.insertCell(1);
+    const dateCell = row.insertCell(2);
+
+    updateCell.textContent = note.update_note;
+    ownerCell.textContent = note.owner;
+    dateCell.textContent = note.date;
+  });
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Get the ticket ID from the URL parameters
@@ -45,6 +66,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert('Failed to fetch ticket details.');
   }
 
+  const notes = await getUpdateNotesByImpTicketId(ticketId);
+  populateUpdateNotesTable(notes);
+
   // Function to populate form fields with ticket data
   function populateFormFields(ticket) {
     document.getElementById('departmentSelect').value = ticket.department_id;
@@ -53,67 +77,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('problemDescription').value = ticket.problem;
     document.getElementById('sourceIssue').value = ticket.source_issue;
     document.getElementById('proposedSolution').value = ticket.improve_idea;
-    // Populate radio button for input needed from
-    const inputNeededFromRadio = document.querySelector(
+
+    // Populate checkbox button for input needed from
+    const inputNeededFromCheckbox = document.querySelector(
       `input[name="inputNeededFrom"][value="${ticket.input_needed_from}"]`
     );
-    if (inputNeededFromRadio) {
-      inputNeededFromRadio.checked = true;
+    if (inputNeededFromCheckbox) {
+      inputNeededFromCheckbox.checked = true;
     } else {
       console.error(
-        'Input needed from value not found in radio buttons:',
+        'Input needed from value not found in checkbox buttons:',
         ticket.input_needed_from
       );
-      // Provide a default value or handle this scenario as appropriate
     }
 
-    // Check if the safety issue radio button exists before setting its checked property
-    const safetyIssueRadio = document.querySelector(
+    // Check if the safety issue checkbox button exists before setting its checked property
+    const safetyIssueCheckbox = document.querySelector(
       `input[name="safetyIssue"][value="${ticket.safety_issue}"]`
     );
-    if (safetyIssueRadio) {
-      safetyIssueRadio.checked = true;
+    if (safetyIssueCheckbox) {
+      safetyIssueCheckbox.checked = true;
     } else {
       console.error(
-        'Safety issue value not found in radio buttons:',
+        'Safety issue value not found in checkbox buttons:',
         ticket.safety_issue
       );
-      // Provide a default value or handle this scenario as appropriate
     }
-    // Populate radio button for quadruple aim
-    const quadrupleAimRadio = document.querySelector(
+
+    // Populate checkbox button for quadruple aim
+    const quadrupleAimCheckbox = document.querySelector(
       `input[name="quadrupleAim"][value="${ticket.quadruple_aim_id}"]`
     );
-    if (quadrupleAimRadio) {
-      quadrupleAimRadio.checked = true;
+    if (quadrupleAimCheckbox) {
+      quadrupleAimCheckbox.checked = true;
     } else {
       console.error(
-        'Quadruple aim value not found in radio buttons:',
+        'Quadruple aim value not found in checkbox buttons:',
         ticket.quadruple_aim_id
       );
-      // Provide a default value or handle this scenario as appropriate
     }
-    // Populate "Is Archived" radio button
-    const isArchivedRadio = document.querySelector(
+
+    // Populate "Is Archived" checkbox button
+    const isArchivedCheckbox = document.querySelector(
       `input[name="isArchived"][value="${ticket.isArchived.toString()}"]`
     );
-    if (isArchivedRadio) {
-      isArchivedRadio.checked = true;
+    if (isArchivedCheckbox) {
+      isArchivedCheckbox.checked = true;
     } else {
       console.error(
-        'Is Archived value not found in radio buttons:',
+        'Is Archived value not found in checkbox buttons:',
         ticket.isArchived.toString()
       );
     }
-    console.log({ isArchivedRadio });
 
     document.getElementById('categorySelect').value = ticket.category_id;
     document.getElementById('groupDiscussionOutcome').value =
       ticket.solution_outcome;
-
-    document.getElementById('groupDiscussionOutcome').value =
-      ticket.solution_outcome;
-    document.getElementById('categorySelect').value = ticket.category_id;
   }
 
   const backButton = document.getElementById('backButton');
@@ -121,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.history.back();
   });
 
-  // Event listener for the form submission
+  // Event listener for the ticket form submission
   document
     .getElementById('saveButton')
     .addEventListener('click', async (event) => {
@@ -154,7 +173,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const updatedCategory = document.getElementById('categorySelect').value;
       const updatedDepartment =
         document.getElementById('departmentSelect').value;
-      console.log({ isArchived });
 
       // Get the updated ticket data from the form
       const updatedTicketData = {
@@ -170,9 +188,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         category_id: parseInt(updatedCategory),
         department_id: parseInt(updatedDepartment),
         isArchived: isArchived,
-        // Get other form field values similarly
       };
-      console.log({ updatedTicketData });
+
       // Update the ticket with the new data
       try {
         await updateImprovementTicket(ticketId, updatedTicketData);
@@ -182,6 +199,41 @@ document.addEventListener('DOMContentLoaded', async () => {
       } catch (error) {
         console.error('Error updating ticket:', error);
         alert('Failed to update ticket.');
+      }
+    });
+
+  // Event listener for the Tracking note submission
+  document
+    .getElementById('addProgressNote')
+    .addEventListener('click', async (event) => {
+      event.preventDefault(); // Prevent the default form submission
+      const update_note = document.getElementById('updateInput').value;
+      const owner = document.getElementById('ownerInput').value;
+      const update_date = document.getElementById('dateInput').value;
+      const progressNoteData = {
+        i_ticket_id: parseInt(ticketId),
+        date: update_date,
+        update_note,
+        owner,
+      };
+
+      try {
+        await createImpTicketUpdateNote(progressNoteData);
+        alert('Progress note created successfully');
+        // Update the notes table UI without reloading the page
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${update_note}</td>
+          <td>${owner}</td>
+          <td>${update_date}</td>
+        `;
+        document
+          .getElementById('progressNotesTable')
+          .getElementsByTagName('tbody')[0]
+          .appendChild(newRow);
+      } catch (error) {
+        console.error('Error creating progress note:', error);
+        alert('Failed to create progress note.');
       }
     });
 });

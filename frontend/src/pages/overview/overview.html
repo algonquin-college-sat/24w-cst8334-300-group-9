@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="overview.css" />
     <script type="importmap">
       {
         "imports": {
@@ -20,14 +20,15 @@
   <body>
     <div class="board">
       <div class="left-panel">
-        <div class="logo"></div>
+        <div class="logo" id="logo"></div>
         <div class="panel huddle-info">
           <div class="header">Department</div>
           <div class="text-center">
             <strong class="department-name"></strong>
           </div>
         </div>
-        <div class="panel huddle-time">
+        <!-- Future implementation -->
+        <!-- <div class="panel huddle-time">
           <div class="header">Huddle Time</div>
           <input
             type="text"
@@ -41,23 +42,11 @@
             placeholder="Weekday"
             value="Tuesday, Thursday"
           />
-        </div>
+        </div> -->
         <button class="button" id="openModalButton">Add New Ticket</button>
+        <a href="../../../assets/documents/StandardWork.pdf" class="btn standard-work-btn" target="_blank">Standard Work (<abbr title="Portable Document Format">PDF</abbr>, 140 <abbr title="kilobyte">KB</abbr>)</abbr></a>
+        <a href="#" class="btn view-archive-btn">View Archive</a>
 
-        <div class="panel standard-work">
-          <div class="header">Standard Work</div>
-          <a
-            href="../../../assets/documents/StandardWork.pdf"
-            class="standard-work-link"
-            >Link</a
-          >
-        </div>
-        <div class="panel archive-tickets">
-          <div class="header">Archive Tickets</div>
-          <a href="../archive-tickets/index.html" class="archive-link"
-            >View Archived Tickets</a
-          >
-        </div>
       </div>
       <div class="middle-panel">
         <div class="panel">
@@ -98,7 +87,7 @@
     <div id="ticketModal" class="modal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <span class="close-button">&times;</span>
+          <span class="close-button" id="close-create-modal">&times;</span>
           <h2>Choose Ticket Type</h2>
           <button class="button modal-button" id="improvementButton">
             Add Improvement Ticket
@@ -109,49 +98,86 @@
         </div>
       </div>
     </div>
-    <!-- Ticket info dialog modal -->
-    <!-- Ticket info dialog modal -->
-    <div id="ticketInfoModal" class="modal ticketInfoModal">
+    <!-- Improvement ticket info dialog modal -->
+    <div id="iTicketInfoModal" class="modal ticketModal">
       <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ticketInfoModalLabel">
+            <h5 class="modal-title" id="iTicketInfoModalLabel">
               Ticket Information
             </h5>
-            <button
+            <span
               type="button"
-              class="btn-close close-info"
+              id="i-close-btn"
+              class="btn-close close-info close-button"
               aria-label="Close"
             >
               &times;
-            </button>
+            </span>
           </div>
           <div class="modal-body">
             <div class="ticket-info">
-              <h5>Name: <span id="ticketName"></span></h5>
-              <p>Date: <span id="ticketDate"></span></p>
-              <p>Problem: <span id="ticketProblem"></span></p>
-              <p>Source Issue: <span id="ticketSourceIssue"></span></p>
-              <p>Improvement Idea: <span id="ticketImproveIdea"></span></p>
-              <p>Input Needed From: <span id="ticketInputNeeded"></span></p>
-              <p>Safety Issue: <span id="ticketSafetyIssue"></span></p>
-              <p>Quadruple Aim: <span id="ticketQuadrupleAim"></span></p>
-              <p>Category: <span id="ticketCategory"></span></p>
-              <p>Solution Outcome: <span id="ticketSolutionOutcome"></span></p>
+              <h5>Name: <span id="iTicketName"></span></h5>
+              <p><strong>Date: </strong><span id="iTicketDate"></span></p>
+              <p><strong>Problem: </strong><span id="iTicketProblem"></span></p>
+              <p><strong>Source Issue: </strong><span id="iTicketSourceIssue"></span></p>
+              <p><strong>Improvement Idea: </strong><span id="iTicketImproveIdea"></span></p>
+              <p><strong>Input Needed From: </strong><span id="iTicketInputNeeded"></span></p>
+              <p><strong>Safety Issue: </strong><span id="iTicketSafetyIssue"></span></p>
+              <!-- <p><strong>Quadruple Aim: </strong><span id="iTicketQuadrupleAim"></span></p> -->
+              <!-- <p><strong>Category: </strong><span id="iTicketCategory"></span></p> -->
+              <p><strong>Solution Outcome: </strong><span id="iTicketSolutionOutcome"></span></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-update">
+            <button type="button" class="btn btn-primary btn-update" id="i-update-btn">
               Update
             </button>
-            <button type="button" class="btn btn-danger btn-delete">
-              Delete
+            <button type="button" class="btn btn-danger btn-archive" id="i-archive-btn">
+              Archive
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <script type="module" src="./index.js"></script>
+    <!-- Celebration ticket info dialog modal -->
+    <div id="cTicketInfoModal" class="modal ticketModal">
+      <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cTicketInfoModalLabel">
+              Ticket Information
+            </h5>
+            <span
+              type="button"
+              class="btn-close close-button"
+              id="c-close-btn"
+              aria-label="Close"
+            >
+              &times;
+            </span>
+          </div>
+          <div class="modal-body">
+            <div class="ticket-info">
+              <h5>Who/What: <span id="cTicketWhoWhat"></span></h5>
+              <p><strong>Date: </strong><span id="cTicketDate"></span></p>
+              <p><strong>Details: </strong><span id="cTicketDetails"></span></p>
+              <p><strong>Department: </strong><span id="cTicketDepartment"></span></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-update" id="c-update-btn">
+              Update
+            </button>
+            <button type="button" class="btn btn-danger btn-archive"id="c-archive-btn">
+              Archive
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./overview.js"></script>
   </body>
 </html>

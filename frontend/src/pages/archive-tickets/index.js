@@ -1,47 +1,77 @@
+import { updateCelebrationTicket } from '../../state/celebrationTicketApi.js';
 import { updateImprovementTicket } from '../../state/improvementTicketApi.js';
-import { getArchivedImprovementTickets } from '../../utils/getArchivedImprovementTickets.js';
+import {
+  getArchivedImprovementTickets,
+  getArchivedCelebrationTickets,
+} from '../../utils/getArchivedTickets.js';
 
-const archivedTicketsContainer = document.getElementById('archivedTickets');
+const iTicketsContainer = document.getElementById('improvementTickets');
+const cTicketsContainer = document.getElementById('celebrationTickets');
+
+// Helper function to extract department ID from URL
+const getDepartmentIdFromUrl = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('departmentId');
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const departmentId = getDepartmentIdFromUrl();
   try {
-    const archivedTickets = await getArchivedImprovementTickets();
-    displayArchivedTickets(archivedTickets);
+    const iTickets = await getArchivedImprovementTickets(departmentId);
+    displayImprovementTickets(iTickets);
+
+    const cTickets = await getArchivedCelebrationTickets(departmentId);
+    displayCelebrationTickets(cTickets);
   } catch (error) {
     console.error(error);
   }
 });
 
-const displayArchivedTickets = (archivedTickets) => {
-  archivedTickets.forEach((ticket) => {
+const displayImprovementTickets = (tickets) => {
+  tickets.forEach((ticket) => {
     const ticketItem = createTicketElement(ticket);
-    archivedTicketsContainer.appendChild(ticketItem);
+    iTicketsContainer.appendChild(ticketItem);
+  });
+};
+
+const displayCelebrationTickets = (tickets) => {
+  tickets.forEach((ticket) => {
+    const ticketItem = createTicketElement(ticket);
+    cTicketsContainer.appendChild(ticketItem);
   });
 };
 
 const createTicketElement = (ticket) => {
   const ticketItem = document.createElement('div');
-  ticketItem.classList.add('list-group-item');
-  ticketItem.innerHTML = `
-    <div class="row align-items-center">
-      <div class="col-md-1 text-center">
-        <i class="bi bi-archive-fill" style="font-size: 2rem"></i>
+  ticketItem.classList.add('card', 'mb-3');
+  if (ticket) {
+    ticketItem.innerHTML = `
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-md-1 text-center">
+            <i class="bi bi-archive-fill" style="font-size: 2rem"></i>
+          </div>
+          <div class="col-md">
+            <h5 class="card-title mb-1">${
+              ticket.name ?? ticket.who_what
+            } - <small>${ticket.date}</small></h5>
+            <p class="card-text mb-1">${ticket.problem ?? ticket.details}</p>
+            <small>${ticket.solution_outcome ?? ''}</small>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary unarchive-btn" data-ticket-id="${
+              ticket.ticket_id ?? ticket.c_ticket_id
+            }">Unarchive</button>
+          </div>
+        </div>
       </div>
-      <div class="col-md">
-        <h5 class="mb-1">${ticket.name} - <small>${ticket.date}</small></h5>
-        <p class="mb-1">${ticket.problem}</p>
-        <small>${ticket.solution_outcome}</small>
-      </div>
-      <div class="col-md-1">
-        <button class="btn btn-primary unarchive-btn" data-ticket-id="${ticket.ticket_id}">Unarchive</button>
-      </div>
-    </div>
     `;
+  }
   return ticketItem;
 };
 
-// Event delegation to handle unarchive button clicks
-archivedTicketsContainer.addEventListener('click', async (event) => {
+// Event delegation to handle unarchive button clicks for Improvement Tickets
+iTicketsContainer.addEventListener('click', async (event) => {
   if (event.target.classList.contains('unarchive-btn')) {
     const ticketId = event.target.dataset.ticketId;
 
@@ -50,13 +80,34 @@ archivedTicketsContainer.addEventListener('click', async (event) => {
       await updateImprovementTicket(ticketId, { isArchived: false });
 
       // Remove the unarchived ticket from the UI
-      const ticketElement = event.target.closest('.list-group-item');
+      const ticketElement = event.target.closest('.card');
       ticketElement.remove();
 
-      alert('Ticket unarchived successfully.');
+      alert('Improvement ticket unarchived successfully.');
     } catch (error) {
-      console.error('Error unarchiving ticket:', error);
-      alert('Failed to unarchive ticket.');
+      console.error('Error unarchiving improvement ticket:', error);
+      alert('Failed to unarchive improvement ticket.');
+    }
+  }
+});
+
+// Event delegation to handle unarchive button clicks for Celebration Tickets
+cTicketsContainer.addEventListener('click', async (event) => {
+  if (event.target.classList.contains('unarchive-btn')) {
+    const ticketId = event.target.dataset.ticketId;
+
+    try {
+      // Update ticket to set isArchived to false
+      await updateCelebrationTicket(parseInt(ticketId), { isArchived: false });
+
+      // Remove the unarchived ticket from the UI
+      const ticketElement = event.target.closest('.card');
+      ticketElement.remove();
+
+      alert('Celebration ticket unarchived successfully.');
+    } catch (error) {
+      console.error('Error unarchiving celebration ticket:', error);
+      alert('Failed to unarchive celebration ticket.');
     }
   }
 });

@@ -79,5 +79,3 @@ export const deleteImprovementTicket = async (ticketId) => {
     throw new Error('Failed to delete improvement ticket');
   }
 };
-
-export default improvementTicketAPI;

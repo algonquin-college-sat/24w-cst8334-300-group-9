@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     // Back button functionality
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', function () {
+    const cancelButton = document.getElementById('cancelButton');
+    cancelButton.addEventListener('click', function () {
       window.history.back();
     });
 
     // Save button functionality
-    const saveButton = document.getElementById('saveButton');
-    saveButton.addEventListener('click', async function () {
+    const submitButton = document.getElementById('submitButton');
+    submitButton.addEventListener('click', async function () {
       try {
         // Get form data
         const ticketDate = document.getElementById('ticketDate').value;
@@ -49,37 +49,33 @@ document.addEventListener('DOMContentLoaded', async function () {
         const sourceIssue = document.getElementById('sourceIssue').value;
         const proposedSolution =
           document.getElementById('proposedSolution').value;
-        // Get the selected value from the radio buttons for input needed from
-        let inputNeededFromValue = null;
-        const inputNeededRadios = document.querySelectorAll(
-          'input[name="inputNeededFrom"]'
+        // Get the value from the checkboxes for input needed from
+        let inputNeededFromValue = [];
+        const inputNeededCheckboxes = document.querySelectorAll(
+          'input[name="inputNeededFrom"]:checked'
         );
-        inputNeededRadios.forEach((radio) => {
-          if (radio.checked) {
-            inputNeededFromValue = radio.value.toString(); // Ensure it's a string
-          }
+        inputNeededCheckboxes.forEach((checkbox) => {
+          inputNeededFromValue.push(checkbox.value);
         });
+        const inputNeededFromValueString = inputNeededFromValue.join(', ');
 
-        // Get the selected value from the radio buttons for safety issue
-        let safetyIssueValue = null;
-        const safetyIssueRadios = document.querySelectorAll(
-          'input[name="safetyIssue"]'
+        // Get the value from the checkboxes for safety issue
+        let safetyIssueValue = [];
+        const safetyIssueCheckboxes = document.querySelectorAll(
+          'input[name="safetyIssue"]:checked'
         );
-        safetyIssueRadios.forEach((radio) => {
-          if (radio.checked) {
-            safetyIssueValue = radio.value;
-          }
+        safetyIssueCheckboxes.forEach((checkbox) => {
+          safetyIssueValue.push(checkbox.value);
         });
+        const safetyIssueValueString = safetyIssueValue.join(', ');
 
-        // Get the index of the selected radio button in the quadrupleAim section
-        let quadrupleAimIndex = null;
-        const quadrupleAimRadios = document.querySelectorAll(
-          'input[name="quadrupleAim"]'
+        // Get the index of the selected checkboxes in the quadrupleAim section
+        let quadrupleAimIndex = [];
+        const quadrupleAimCheckboxes = document.querySelectorAll(
+          'input[name="quadrupleAim"]:checked'
         );
-        quadrupleAimRadios.forEach((radio, index) => {
-          if (radio.checked) {
-            quadrupleAimIndex = index + 1;
-          }
+        quadrupleAimCheckboxes.forEach((checkbox) => {
+          quadrupleAimIndex.push(parseInt(checkbox.value));
         });
 
         const selectedCategoryId = parseInt(categorySelect.value);
@@ -93,8 +89,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           problem: problemDescription,
           source_issue: sourceIssue,
           improve_idea: proposedSolution,
-          input_needed_from: inputNeededFromValue,
-          safety_issue: safetyIssueValue,
+          input_needed_from: inputNeededFromValueString,
+          safety_issue: safetyIssueValueString,
           quadruple_aim_id: quadrupleAimIndex,
           solution_outcome: proposedSolution,
           category_id: selectedCategoryId, // Assign the selected category ID
@@ -102,11 +98,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           isArchived: isArchived,
         };
 
-        console.log(improvementTicketData);
-
         // Create the improvement ticket
-        const newTicket = await createImprovementTicket(improvementTicketData);
-        console.log(newTicket);
+        await createImprovementTicket(improvementTicketData);
 
         // Alert the user or perform any other actions
         alert('Improvement ticket created successfully!');
@@ -116,39 +109,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert('Failed to create improvement ticket. Please try again.');
       }
     });
-
-    // Add note functionality
-    const addProgressNoteButton = document.getElementById('addProgressNote');
-    addProgressNoteButton.addEventListener('click', function () {
-      const updateValue = document.getElementById('updateInput').value;
-      const ownerValue = document.getElementById('ownerInput').value;
-      const dateValue = document.getElementById('dateInput').value;
-
-      // Validation to ensure that no fields are empty
-      if (!updateValue || !ownerValue || !dateValue) {
-        alert('Please fill in all fields before adding a note.');
-        return;
-      }
-
-      const table = document
-        .getElementById('progressNotesTable')
-        .getElementsByTagName('tbody')[0];
-      const newRow = table.insertRow();
-      const updateCell = newRow.insertCell(0);
-      const ownerCell = newRow.insertCell(1);
-      const dateCell = newRow.insertCell(2);
-
-      updateCell.textContent = updateValue;
-      ownerCell.textContent = ownerValue;
-      dateCell.textContent = dateValue;
-
-      // Clear the input fields after adding
-      document.getElementById('updateInput').value = '';
-      document.getElementById('ownerInput').value = '';
-      document.getElementById('dateInput').value = '';
-    });
   } catch (error) {
-    console.error('Frontend: Error fetching categories:', error);
-    alert('Failed to fetch categories. Please try again.');
+    console.error('Frontend: Error fetching data:', error);
   }
 });

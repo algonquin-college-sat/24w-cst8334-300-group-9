@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Call createDepartment function from departmentAPI
       const response = await createDepartment(departmentData);
 
-      // Handle successful response
-      console.log('New department created:', response);
-
       // Prompt user with confirmation message
       window.alert('Department created successfully!');
 
