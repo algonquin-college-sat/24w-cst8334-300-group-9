@@ -8,12 +8,19 @@ import {
 const iTicketsContainer = document.getElementById('improvementTickets');
 const cTicketsContainer = document.getElementById('celebrationTickets');
 
+// Helper function to extract department ID from URL
+const getDepartmentIdFromUrl = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('departmentId');
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
+  const departmentId = getDepartmentIdFromUrl();
   try {
-    const iTickets = await getArchivedImprovementTickets();
+    const iTickets = await getArchivedImprovementTickets(departmentId);
     displayImprovementTickets(iTickets);
 
-    const cTickets = await getArchivedCelebrationTickets();
+    const cTickets = await getArchivedCelebrationTickets(departmentId);
     displayCelebrationTickets(cTickets);
   } catch (error) {
     console.error(error);

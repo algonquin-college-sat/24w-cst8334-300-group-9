@@ -197,7 +197,7 @@ html {
   color: #666666; /* Slightly darker text color */
 }
 
-.btnStandardWork {
+.standard-work-btn, .view-archive-btn {
   background-color: #006bd7 !important;
   color: #fff !important;
   padding: 15px !important;

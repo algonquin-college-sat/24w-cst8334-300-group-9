@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Attach event listeners
   attachEventListeners();
 
-  // Fetch and display improvement tickets
+  document.querySelector('.view-archive-btn').addEventListener('click', () => {
+    window.location.href = `../archive-tickets/index.html?departmentId=${departmentId}`;
+  });
 });
 
 // Helper function to extract department ID from URL
@@ -247,14 +249,6 @@ const handleImprovementTicketAction = (ticket) => {
   closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
   });
-  //   // Event listener for close button
-  //   const closeBtnLists = document.querySelectorAll('.close-info');
-
-  //   closeBtnLists.forEach((btn) => {
-  //     btn.addEventListener('click', () => {
-  //       modal.style.display = 'none';
-  //     });
-  //   });
 };
 
 // Helper function to handle celebration ticket actions (update/archive)

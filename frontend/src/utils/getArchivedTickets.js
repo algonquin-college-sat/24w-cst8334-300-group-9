@@ -9,12 +9,14 @@ import { getAllCelebrationTickets } from '../state/celebrationTicketApi.js';
  *
  * @returns {Promise<Object[]>} A promise that resolves to an array of archived improvement tickets.
  */
-export const getArchivedImprovementTickets = async () => {
+export const getArchivedImprovementTickets = async (departmentId) => {
   try {
     const ticketsResponse = await getAllImprovementTickets();
     const tickets = ticketsResponse.data;
     const archivedTickets = tickets.filter(
-      (ticket) => ticket.isArchived === true
+      (ticket) =>
+        ticket.isArchived === true &&
+        ticket.department_id === parseInt(departmentId)
     );
     return archivedTickets;
   } catch (error) {
@@ -31,12 +33,14 @@ export const getArchivedImprovementTickets = async () => {
  *
  * @returns {Promise<Object[]>} A promise that resolves to an array of archived improvement tickets.
  */
-export const getArchivedCelebrationTickets = async () => {
+export const getArchivedCelebrationTickets = async (departmentId) => {
   try {
     const ticketsResponse = await getAllCelebrationTickets();
     const tickets = ticketsResponse.data;
     const archivedTickets = tickets.filter(
-      (ticket) => ticket.isArchived === true
+      (ticket) =>
+        ticket.isArchived === true &&
+        ticket.department_id === parseInt(departmentId)
     );
     return archivedTickets;
   } catch (error) {
