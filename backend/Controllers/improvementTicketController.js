@@ -18,49 +18,98 @@ export const createImprovementTicket = async (req, res) => {
       department_id,
       name, 
       date, 
+      isArchived,
       problem, 
       improve_idea, 
       source_issue, 
-      input_needed_from, 
-      safety_issue, 
-      quadruple_aim_id,
+      is_from_patient_family,
+      is_from_community ,
+      is_from_other,
+      is_occupational_heath_safety,
+      is_patient_safety,
+      is_patient_family_quadAim,
+      is_health_outcome_quaAim,
+      is_provider_experience_quadAim, 
+      is_value_efficiency_quadAim,
       solution_outcome, 
-      category_id,
-      isArchived
+      category_id
     ) 
     VALUES
     ( 
       @department_id,
       @name, 
       @date, 
+      @isArchived,
       @problem, 
       @improve_idea, 
       @source_issue, 
-      @input_needed_from, 
-      @safety_issue, 
-      @quadruple_aim_id, 
+      @is_from_patient_family,
+      @is_from_community,
+      @is_from_other,
+      @is_occupational_heath_safety,
+      @is_patient_safety,
+      @is_patient_family_quadAim,
+      @is_health_outcome_quaAim,
+      @is_provider_experience_quadAim, 
+      @is_value_efficiency_quadAim,
       @solution_outcome, 
-      @category_id,
-      @isArchived
+      @category_id
     );
   `;
-
+  const {
+    department_id,
+    name,
+    date,
+    isArchived,
+    problem,
+    improve_idea,
+    source_issue,
+    is_from_patient_family,
+    is_from_community,
+    is_from_other,
+    is_occupational_heath_safety,
+    is_patient_safety,
+    is_patient_family_quadAim,
+    is_health_outcome_quaAim,
+    is_provider_experience_quadAim,
+    is_value_efficiency_quadAim,
+    solution_outcome,
+    category_id,
+  } = req.body;
   try {
     const pool = await getConnection();
     const request = pool
       .request()
-      .input('department_id', sql.Int, req.body.department_id)
-      .input('name', sql.NVarChar, req.body.name)
-      .input('date', sql.NVarChar, req.body.date)
-      .input('problem', sql.NVarChar, req.body.problem)
-      .input('improve_idea', sql.NVarChar, req.body.improve_idea)
-      .input('source_issue', sql.NVarChar, req.body.source_issue)
-      .input('input_needed_from', sql.NVarChar, req.body.input_needed_from)
-      .input('safety_issue', sql.NVarChar, req.body.safety_issue)
-      .input('quadruple_aim_id', sql.Int, req.body.quadruple_aim_id)
-      .input('solution_outcome', sql.NVarChar, req.body.solution_outcome)
-      .input('category_id', sql.Int, req.body.category_id)
-      .input('isArchived', sql.Bit, req.body.isArchived); // Assuming isArchived is a boolean
+      .input('department_id', sql.Int, department_id)
+      .input('name', sql.NVarChar, name)
+      .input('date', sql.NVarChar, date)
+      .input('isArchived', sql.Bit, isArchived) // Assuming isArchived is a boolean
+      .input('problem', sql.NVarChar, problem)
+      .input('improve_idea', sql.NVarChar, improve_idea)
+      .input('source_issue', sql.NVarChar, source_issue)
+      .input('is_from_patient_family', sql.Bit, is_from_patient_family) // Assuming isArchived is a boolean
+      .input('is_from_community', sql.Bit, is_from_community) // Assuming isArchived is a boolean
+      .input('is_from_other', sql.Bit, is_from_other) // Assuming isArchived is a boolean
+      .input(
+        'is_occupational_heath_safety',
+        sql.Bit,
+        is_occupational_heath_safety
+      ) // Assuming isArchived is a boolean
+      .input('is_patient_safety', sql.Bit, is_patient_safety) // Assuming isArchived is a boolean
+      .input('is_patient_family_quadAim', sql.Bit, is_patient_family_quadAim) // Assuming isArchived is a boolean
+      .input('is_health_outcome_quaAim', sql.Bit, is_health_outcome_quaAim) // Assuming isArchived is a boolean
+      .input(
+        'is_provider_experience_quadAim',
+        sql.Bit,
+        is_provider_experience_quadAim
+      ) // Assuming isArchived is a boolean
+      .input(
+        'is_value_efficiency_quadAim',
+        sql.Bit,
+        is_value_efficiency_quadAim
+      ) // Assuming isArchived is a boolean
+      .input('solution_outcome', sql.NVarChar, solution_outcome)
+      .input('category_id', sql.Int, category_id);
 
     const result = await request.query(query);
     res.status(201).json({ success: true, data: result.recordset });
@@ -197,34 +246,45 @@ export const updateImprovementTicket = async (req, res) => {
     let updateFields = [];
 
     const {
-      ticket_id,
       department_id,
       name,
       date,
+      isArchived,
       problem,
       improve_idea,
       source_issue,
-      input_needed_from,
-      safety_issue,
-      quadruple_aim_id,
+      is_from_patient_family,
+      is_from_community,
+      is_from_other,
+      is_occupational_heath_safety,
+      is_patient_safety,
+      is_patient_family_quadAim,
+      is_health_outcome_quaAim,
+      is_provider_experience_quadAim,
+      is_value_efficiency_quadAim,
       solution_outcome,
       category_id,
-      isArchived,
     } = req.body;
 
     const updateValues = {
       department_id,
       name,
       date,
+      isArchived,
       problem,
       improve_idea,
       source_issue,
-      input_needed_from,
-      safety_issue,
-      quadruple_aim_id,
+      is_from_patient_family,
+      is_from_community,
+      is_from_other,
+      is_occupational_heath_safety,
+      is_patient_safety,
+      is_patient_family_quadAim,
+      is_health_outcome_quaAim,
+      is_provider_experience_quadAim,
+      is_value_efficiency_quadAim,
       solution_outcome,
       category_id,
-      isArchived,
     };
 
     for (const [key, value] of Object.entries(updateValues)) {
@@ -246,15 +306,33 @@ export const updateImprovementTicket = async (req, res) => {
       .input('department_id', sql.Int, department_id)
       .input('name', sql.NVarChar, name)
       .input('date', sql.NVarChar, date)
+      .input('isArchived', sql.Bit, isArchived) // Assuming isArchived is a boolean
       .input('problem', sql.NVarChar, problem)
       .input('improve_idea', sql.NVarChar, improve_idea)
       .input('source_issue', sql.NVarChar, source_issue)
-      .input('input_needed_from', sql.NVarChar, input_needed_from)
-      .input('safety_issue', sql.NVarChar, safety_issue)
-      .input('quadruple_aim_id', sql.Int, quadruple_aim_id)
+      .input('is_from_patient_family', sql.Bit, is_from_patient_family) // Assuming isArchived is a boolean
+      .input('is_from_community', sql.Bit, is_from_community) // Assuming isArchived is a boolean
+      .input('is_from_other', sql.Bit, is_from_other) // Assuming isArchived is a boolean
+      .input(
+        'is_occupational_heath_safety',
+        sql.Bit,
+        is_occupational_heath_safety
+      ) // Assuming isArchived is a boolean
+      .input('is_patient_safety', sql.Bit, is_patient_safety) // Assuming isArchived is a boolean
+      .input('is_patient_family_quadAim', sql.Bit, is_patient_family_quadAim) // Assuming isArchived is a boolean
+      .input('is_health_outcome_quaAim', sql.Bit, is_health_outcome_quaAim) // Assuming isArchived is a boolean
+      .input(
+        'is_provider_experience_quadAim',
+        sql.Bit,
+        is_provider_experience_quadAim
+      ) // Assuming isArchived is a boolean
+      .input(
+        'is_value_efficiency_quadAim',
+        sql.Bit,
+        is_value_efficiency_quadAim
+      ) // Assuming isArchived is a boolean
       .input('solution_outcome', sql.NVarChar, solution_outcome)
       .input('category_id', sql.Int, category_id)
-      .input('isArchived', sql.Bit, isArchived)
       .query(query);
 
     res.status(200).json({ success: true });

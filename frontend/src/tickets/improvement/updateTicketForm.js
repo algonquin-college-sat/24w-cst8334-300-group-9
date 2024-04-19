@@ -77,45 +77,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('problemDescription').value = ticket.problem;
     document.getElementById('sourceIssue').value = ticket.source_issue;
     document.getElementById('proposedSolution').value = ticket.improve_idea;
-
-    // Populate checkbox button for input needed from
-    const inputNeededFromCheckbox = document.querySelector(
-      `input[name="inputNeededFrom"][value="${ticket.input_needed_from}"]`
-    );
-    if (inputNeededFromCheckbox) {
-      inputNeededFromCheckbox.checked = true;
-    } else {
-      console.error(
-        'Input needed from value not found in checkbox buttons:',
-        ticket.input_needed_from
-      );
-    }
-
-    // Check if the safety issue checkbox button exists before setting its checked property
-    const safetyIssueCheckbox = document.querySelector(
-      `input[name="safetyIssue"][value="${ticket.safety_issue}"]`
-    );
-    if (safetyIssueCheckbox) {
-      safetyIssueCheckbox.checked = true;
-    } else {
-      console.error(
-        'Safety issue value not found in checkbox buttons:',
-        ticket.safety_issue
-      );
-    }
-
-    // Populate checkbox button for quadruple aim
-    const quadrupleAimCheckbox = document.querySelector(
-      `input[name="quadrupleAim"][value="${ticket.quadruple_aim_id}"]`
-    );
-    if (quadrupleAimCheckbox) {
-      quadrupleAimCheckbox.checked = true;
-    } else {
-      console.error(
-        'Quadruple aim value not found in checkbox buttons:',
-        ticket.quadruple_aim_id
-      );
-    }
+    document.getElementById('patientFamily').checked =
+      ticket.is_from_patient_family;
+    document.getElementById('communityPartner').checked =
+      ticket.is_from_community;
+    document.getElementById('otherDepartments').checked = ticket.is_from_other;
+    document.getElementById('occupationalHealthSafety').checked =
+      ticket.is_occupational_heath_safety;
+    document.getElementById('patientSafety').checked = ticket.is_patient_safety;
+    document.getElementById('patientExperience').checked =
+      ticket.is_patient_family_quadAim;
+    document.getElementById('bestHealthOutcome').checked =
+      ticket.is_health_outcome_quaAim;
+    document.getElementById('providerExperience').checked =
+      ticket.is_provider_experience_quadAim;
+    document.getElementById('valueEfficiency').checked =
+      ticket.is_value_efficiency_quadAim;
 
     // Populate "Is Archived" checkbox button
     const isArchivedCheckbox = document.querySelector(
@@ -146,48 +123,59 @@ document.addEventListener('DOMContentLoaded', async () => {
     .addEventListener('click', async (event) => {
       event.preventDefault(); // Prevent the default form submission
 
-      // Validate form fields
+      const updatedDepartment =
+        document.getElementById('departmentSelect').value;
       const ticketName = document.getElementById('ticketName').value;
-      // Get the value of the date input
       const ticketDate = document.getElementById('ticketDate').value;
-      const problemDescription =
-        document.getElementById('problemDescription').value;
-      const sourceIssue = document.getElementById('sourceIssue').value;
-      const proposedSolution =
-        document.getElementById('proposedSolution').value;
-      const inputNeededFrom = document.querySelector(
-        'input[name="inputNeededFrom"]:checked'
-      );
-      const safetyIssue = document.querySelector(
-        'input[name="safetyIssue"]:checked'
-      );
-      const quadrupleAim = document.querySelector(
-        'input[name="quadrupleAim"]:checked'
-      );
       const isArchived =
         document.querySelector('input[name="isArchived"]:checked').value ===
         'true'; // Convert to boolean
-      const groupDiscussionOutcome = document.getElementById(
+      const problem = document.getElementById('problemDescription').value;
+      const source_issue = document.getElementById('sourceIssue').value;
+      const improve_idea = document.getElementById('proposedSolution').value;
+      const is_from_patient_family =
+        document.getElementById('patientFamily').checked;
+      const is_from_community =
+        document.getElementById('communityPartner').checked;
+      const is_from_other = document.getElementById('otherDepartments').checked;
+      const is_occupational_heath_safety = document.getElementById(
+        'occupationalHealthSafety'
+      ).checked;
+      const is_patient_safety =
+        document.getElementById('patientSafety').checked;
+      const is_patient_family_quadAim =
+        document.getElementById('patientExperience').checked;
+      const is_health_outcome_quaAim =
+        document.getElementById('bestHealthOutcome').checked;
+      const is_provider_experience_quadAim =
+        document.getElementById('providerExperience').checked;
+      const is_value_efficiency_quadAim =
+        document.getElementById('valueEfficiency').checked;
+      const solution_outcome = document.getElementById(
         'groupDiscussionOutcome'
       ).value;
       const updatedCategory = document.getElementById('categorySelect').value;
-      const updatedDepartment =
-        document.getElementById('departmentSelect').value;
 
       // Get the updated ticket data from the form
       const updatedTicketData = {
-        date: ticketDate,
-        name: ticketName,
-        problem: problemDescription,
-        source_issue: sourceIssue,
-        improve_idea: proposedSolution,
-        input_needed_from: inputNeededFrom.value,
-        safety_issue: safetyIssue.value,
-        quadruple_aim_id: parseInt(quadrupleAim.value),
-        solution_outcome: groupDiscussionOutcome,
         category_id: parseInt(updatedCategory),
         department_id: parseInt(updatedDepartment),
-        isArchived: isArchived,
+        name: ticketName,
+        date: ticketDate,
+        isArchived,
+        problem,
+        improve_idea,
+        source_issue,
+        is_from_patient_family,
+        is_from_community,
+        is_from_other,
+        is_occupational_heath_safety,
+        is_patient_safety,
+        is_patient_family_quadAim,
+        is_health_outcome_quaAim,
+        is_provider_experience_quadAim,
+        is_value_efficiency_quadAim,
+        solution_outcome,
       };
 
       // Update the ticket with the new data
