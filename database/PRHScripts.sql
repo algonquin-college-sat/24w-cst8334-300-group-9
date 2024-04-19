@@ -36,12 +36,6 @@ BEGIN
 END
 GO
 
--- Drop the QUADRUPLE_AIM table if it exists
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'QUADRUPLE_AIM')
-BEGIN
-    DROP TABLE QUADRUPLE_AIM;
-END
-GO
 
 -- Drop the TICKET_UPDATES table if it exists
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'I_TICKET_UPDATE_NOTES')
@@ -64,11 +58,6 @@ BEGIN
 END
 GO
 
--- Create the QUADRUPLE_AIM table
-CREATE TABLE QUADRUPLE_AIM (
-  quadruple_aim_id INT PRIMARY KEY IDENTITY,
-  aim_name VARCHAR(255) UNIQUE NOT NULL
-);
 
 -- Create the DEPARTMENTS table
 CREATE TABLE DEPARTMENTS (
@@ -90,14 +79,19 @@ CREATE TABLE IMPROVEMENT_TICKETS (
   date TEXT,
   isArchived BIT,
   problem TEXT,
-  source_issue TEXT,
   improve_idea TEXT,
-  input_needed_from TEXT,
-  safety_issue TEXT,
-  quadruple_aim_id INT,
+  source_issue TEXT,
+  is_from_patient_family BIT,
+  is_from_community BIT,
+  is_from_other BIT,
+  is_occupational_heath_safety BIT,
+  is_patient_safety BIT,
+  is_patient_family_quadAim BIT,
+  is_health_outcome_quaAim BIT,
+  is_provider_experience_quadAim BIT, 
+  is_value_efficiency_quadAim BIT,
   solution_outcome TEXT,
   category_id INT,
-  FOREIGN KEY (quadruple_aim_id) REFERENCES QUADRUPLE_AIM(quadruple_aim_id),
   FOREIGN KEY (category_id) REFERENCES CATEGORIES(category_id)
 );
 
@@ -157,80 +151,109 @@ INSERT INTO DEPARTMENTS (department_name) VALUES
 ('Infection Prevention and Control'),
 ('Patient Records');
 
-INSERT INTO QUADRUPLE_AIM (aim_name) VALUES
-('Patient & Family Experience'),
-('Best Possible Health Outcome'),
-('Provider Experience'),
-('Value & Efficiency');
+-- INSERT INTO QUADRUPLE_AIM (aim_name) VALUES
+-- ('Patient & Family Experience'),
+-- ('Best Possible Health Outcome'),
+-- ('Provider Experience'),
+-- ('Value & Efficiency');
 
 -- Inserting into IMPROVEMENT_TICKETS
 INSERT INTO IMPROVEMENT_TICKETS (
   department_id,
   name, 
   date, 
-  problem, 
   isArchived,
-  improve_idea, 
-  source_issue, 
-  input_needed_from, 
-  safety_issue, 
-  quadruple_aim_id, -- Corrected column name
-  solution_outcome, 
+  problem ,
+  improve_idea,
+  source_issue,
+  is_from_patient_family,
+  is_from_community,
+  is_from_other,
+  is_occupational_heath_safety,
+  is_patient_safety,
+  is_patient_family_quadAim,
+  is_health_outcome_quaAim,
+  is_provider_experience_quadAim, 
+  is_value_efficiency_quadAim,
+  solution_outcome,
   category_id
 ) 
 VALUES
 (
-  
-  1,
-  'Scott Tiger', 
-  '2024-03-22', 
-  'Problem description for Ticket 1', 
-  0,
-  'Improvement idea for Ticket 1', 
-  'Improvement plan for Ticket 1', 
-  'Comunity Partner', 
-  'Occupational Health Safety', 
-  1, 
-  'Solution outcome for Ticket 1', 
-  1
+  1, -- Department ID
+  'Scott Tiger', -- Ticket name
+  '2024-03-22', -- Date
+  0, -- isArchived
+  'Problem description for Ticket 1', -- Problem description
+  'Improvement plan for Ticket 1', -- Source issue
+  'Improvement idea for Ticket 1', -- Improvement idea
+  0, -- is_from_patient_family
+  0, -- is_from_community
+  0, -- is_from_other
+  1, -- is_occupational_heath_safety
+  0, -- is_patient_safety
+  1, -- is_patient_family_quadAim
+  1, -- is_health_outcome_quaAim
+  0, -- is_provider_experience_quadAim
+  1, -- is_value_efficiency_quadAim
+  'Solution outcome for Ticket 1', -- Solution outcome
+  1 -- Category ID
 ),
 (
-  2,
-  'John Smith', 
-  '2024-03-21', 
-  'Problem description for Ticket 2', 
-  0,
-  'Improvement idea for Ticket 2', 
-  'Improvement plan for Ticket 2', 
-  'Comunity Partner', 
-  'Occupational Health Safety', 
-  2, 
-  'Solution outcome for Ticket 2', 
-  2
+  2, -- Department ID
+  'John Smith', -- Ticket name
+  '2024-03-21', -- Date
+  0, -- isArchived
+  'Problem description for Ticket 2', -- Problem description
+  'Improvement idea for Ticket 2', -- Improvement idea
+  'Improvement plan for Ticket 2', -- Source issue
+  0, -- is_from_patient_family
+  0, -- is_from_community
+  0, -- is_from_other
+  1, -- is_occupational_heath_safety
+  0, -- is_patient_safety
+  0, -- is_patient_family_quadAim
+  1, -- is_health_outcome_quaAim
+  0, -- is_provider_experience_quadAim
+  0, -- is_value_efficiency_quadAim
+  'Solution outcome for Ticket 2', -- Solution outcome
+  2 -- Category ID
 ),
 (
-  3,
-  'Carlin Crew', 
-  '2024-03-20', 
-  'Problem description for Ticket 3', 
-  0,
-  'Improvement idea for Ticket 3', 
-  'Improvement plan for Ticket 3', 
-  'Patient Family', 
-  'Patient Safety', 
-  3, 
-  'Solution outcome for Ticket 3', 
-  3
+ 3, -- Department ID
+  'Carlin Crew', -- Ticket name
+  '2024-03-20', -- Date
+  0, -- isArchived
+  'Problem description for Ticket 3', -- Problem description
+  'Improvement idea for Ticket 3', -- Improvement idea
+  'Improvement plan for Ticket 3', -- Source issue
+  1, -- is_from_patient_family
+  0, -- is_from_community
+  0, -- is_from_other
+  0, -- is_occupational_heath_safety
+  1, -- is_patient_safety
+  1, -- is_patient_family_quadAim
+  0, -- is_health_outcome_quaAim
+  0, -- is_provider_experience_quadAim
+  0, -- is_value_efficiency_quadAim
+  'Solution outcome for Ticket 3', -- Solution outcome
+  3 -- Category ID
 ),(2, -- Department ID
   'Madden Hatch', -- Ticket name
   '2024-03-25', -- Date
-  'Long wait times in the Emergency Room', -- Problem description
   0, -- isArchived
+  'Long wait times in the Emergency Room', -- Problem description
   'Hiring more triage nurses', -- Improvement idea
   'Understaffing in the ER department', -- Source issue
-  'Patient Family', -- Input needed from
-  'Patient Safety', -- Safety issue
-  1, -- Quadruple Aim ID
+  0, -- is_from_patient_family
+  1, -- is_from_community
+  1, -- is_from_other
+  0, -- is_occupational_heath_safety
+  0, -- is_patient_safety
+  1, -- is_patient_family_quadAim
+  0, -- is_health_outcome_quaAim
+  1, -- is_provider_experience_quadAim
+  0, -- is_value_efficiency_quadAim
   'Implemented new triage system', -- Solution outcome
   4 -- Category ID
 ),
@@ -238,13 +261,19 @@ VALUES
   1, -- Department ID
   'Adaya Edison', -- Ticket name
   '2024-03-26', -- Date
-  'High patient readmission rates', -- Problem description
   0, -- isArchived
+  'High patient readmission rates', -- Problem description
   'Implementing discharge planning protocols', -- Improvement idea
   'Lack of standardized discharge procedures', -- Source issue
-  'Other Departments', -- Input needed from
-  'Patient Safety', -- Safety issue
-  2, -- Quadruple Aim ID
+  1, -- is_from_patient_family
+  1, -- is_from_community
+  0, -- is_from_other
+  1, -- is_occupational_heath_safety
+  1, -- is_patient_safety
+  0, -- is_patient_family_quadAim
+  1, -- is_health_outcome_quaAim
+  1, -- is_provider_experience_quadAim
+  0, -- is_value_efficiency_quadAim
   'Reduced readmission rates by 20%', -- Solution outcome
   5 -- Category ID
 ),
@@ -252,13 +281,19 @@ VALUES
   3, -- Department ID
   'Belen Sheldon', -- Ticket name
   '2024-03-27', -- Date
-  'Inefficient medication reconciliation process', -- Problem description
   0, -- isArchived
+  'Inefficient medication reconciliation process', -- Problem description
   'Implementing electronic medication reconciliation system', -- Improvement idea
   'Manual reconciliation process prone to errors', -- Source issue
-  'Patient Family', -- Input needed from
-  'Occupational Health Safety', -- Safety issue
-  3, -- Quadruple Aim ID
+  0, -- is_from_patient_family
+  1, -- is_from_community
+  0, -- is_from_other
+  0, -- is_occupational_heath_safety
+  1, -- is_patient_safety
+  0, -- is_patient_family_quadAim
+  0, -- is_health_outcome_quaAim
+  0, -- is_provider_experience_quadAim
+  1, -- is_value_efficiency_quadAim
   'Reduced medication errors by 50%', -- Solution outcome
   7 -- Category ID
 );
