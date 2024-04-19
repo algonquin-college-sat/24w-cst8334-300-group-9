@@ -180,13 +180,13 @@ INSERT INTO IMPROVEMENT_TICKETS (
 ) 
 VALUES
 (
-  1, -- Department ID
+  3, -- Department ID
   'Scott Tiger', -- Ticket name
   '2024-03-22', -- Date
   0, -- isArchived
   'Problem description for Ticket 1', -- Problem description
   'Improvement plan for Ticket 1', -- Source issue
-  'Improvement idea for Ticket 1', -- Improvement idea
+  'Source issue for Ticket 1', -- Improvement idea
   0, -- is_from_patient_family
   0, -- is_from_community
   0, -- is_from_other
@@ -206,7 +206,7 @@ VALUES
   0, -- isArchived
   'Problem description for Ticket 2', -- Problem description
   'Improvement idea for Ticket 2', -- Improvement idea
-  'Improvement plan for Ticket 2', -- Source issue
+  'Source issue for Ticket 2', -- Source issue
   0, -- is_from_patient_family
   0, -- is_from_community
   0, -- is_from_other
@@ -220,13 +220,13 @@ VALUES
   2 -- Category ID
 ),
 (
- 3, -- Department ID
+ 1, -- Department ID
   'Carlin Crew', -- Ticket name
   '2024-03-20', -- Date
   0, -- isArchived
   'Problem description for Ticket 3', -- Problem description
   'Improvement idea for Ticket 3', -- Improvement idea
-  'Improvement plan for Ticket 3', -- Source issue
+  'Source issue for Ticket 3', -- Source issue
   1, -- is_from_patient_family
   0, -- is_from_community
   0, -- is_from_other
@@ -258,7 +258,7 @@ VALUES
   4 -- Category ID
 ),
 (
-  1, -- Department ID
+  2, -- Department ID
   'Adaya Edison', -- Ticket name
   '2024-03-26', -- Date
   0, -- isArchived
@@ -278,7 +278,7 @@ VALUES
   5 -- Category ID
 ),
 (
-  3, -- Department ID
+  1, -- Department ID
   'Belen Sheldon', -- Ticket name
   '2024-03-27', -- Date
   0, -- isArchived
