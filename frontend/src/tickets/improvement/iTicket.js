@@ -44,58 +44,58 @@ document.addEventListener('DOMContentLoaded', async function () {
         const ticketDate = document.getElementById('ticketDate').value;
         const selectedDepartmentId = parseInt(departmentSelect.value);
         const ticketName = document.getElementById('ticketName').value;
-        const problemDescription =
-          document.getElementById('problemDescription').value;
-        const sourceIssue = document.getElementById('sourceIssue').value;
-        const proposedSolution =
-          document.getElementById('proposedSolution').value;
-        // Get the value from the checkboxes for input needed from
-        let inputNeededFromValue = [];
-        const inputNeededCheckboxes = document.querySelectorAll(
-          'input[name="inputNeededFrom"]:checked'
-        );
-        inputNeededCheckboxes.forEach((checkbox) => {
-          inputNeededFromValue.push(checkbox.value);
-        });
-        const inputNeededFromValueString = inputNeededFromValue.join(', ');
-
-        // Get the value from the checkboxes for safety issue
-        let safetyIssueValue = [];
-        const safetyIssueCheckboxes = document.querySelectorAll(
-          'input[name="safetyIssue"]:checked'
-        );
-        safetyIssueCheckboxes.forEach((checkbox) => {
-          safetyIssueValue.push(checkbox.value);
-        });
-        const safetyIssueValueString = safetyIssueValue.join(', ');
-
-        // Get the index of the selected checkboxes in the quadrupleAim section
-        let quadrupleAimIndex = [];
-        const quadrupleAimCheckboxes = document.querySelectorAll(
-          'input[name="quadrupleAim"]:checked'
-        );
-        quadrupleAimCheckboxes.forEach((checkbox) => {
-          quadrupleAimIndex.push(parseInt(checkbox.value));
-        });
-
-        const selectedCategoryId = parseInt(categorySelect.value);
         const isArchived =
           document.querySelector('input[name="isArchived"]:checked').value ===
           'true'; // Convert to boolean
+        const problemDescription =
+          document.getElementById('problemDescription').value;
+        const source_issue = document.getElementById('sourceIssue').value;
+        const improve_idea = document.getElementById('proposedSolution').value;
+        const is_from_patient_family =
+          document.getElementById('patientFamily').checked;
+        const is_from_community =
+          document.getElementById('communityPartner').checked;
+        const is_from_other =
+          document.getElementById('otherDepartments').checked;
+        const is_occupational_heath_safety = document.getElementById(
+          'occupationalHealthSafety'
+        ).checked;
+        const is_patient_safety =
+          document.getElementById('patientSafety').checked;
+        const is_patient_family_quadAim =
+          document.getElementById('patientExperience').checked;
+        const is_health_outcome_quaAim =
+          document.getElementById('bestHealthOutcome').checked;
+        const is_provider_experience_quadAim =
+          document.getElementById('providerExperience').checked;
+        const is_value_efficiency_quadAim =
+          document.getElementById('valueEfficiency').checked;
+
+        const solution_outcome = document.getElementById(
+          'groupDiscussionOutcome'
+        ).value;
+        const selectedCategoryId = parseInt(categorySelect.value);
+
         // Prepare improvement ticket data object
         const improvementTicketData = {
-          date: ticketDate, // Add the date to the ticket data
-          name: ticketName, // Use the value from the ticket name textarea
-          problem: problemDescription,
-          source_issue: sourceIssue,
-          improve_idea: proposedSolution,
-          input_needed_from: inputNeededFromValueString,
-          safety_issue: safetyIssueValueString,
-          quadruple_aim_id: quadrupleAimIndex,
-          solution_outcome: proposedSolution,
-          category_id: selectedCategoryId, // Assign the selected category ID
           department_id: selectedDepartmentId,
+          name: ticketName, // Use the value from the ticket name textarea
+          date: ticketDate, // Add the date to the ticket data
           isArchived: isArchived,
+          problem: problemDescription,
+          improve_idea,
+          source_issue,
+          is_from_patient_family,
+          is_from_community,
+          is_from_other,
+          is_occupational_heath_safety,
+          is_patient_safety,
+          is_patient_family_quadAim,
+          is_health_outcome_quaAim,
+          is_provider_experience_quadAim,
+          is_value_efficiency_quadAim,
+          solution_outcome,
+          category_id: selectedCategoryId, // Assign the selected category ID
         };
 
         // Create the improvement ticket
