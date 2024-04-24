@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.alert('Department created successfully!');
 
       // Navigate back to the previous page
-      window.location.href = './index.html'; // Replace './index.html' with the desired URL
+      window.location.replace(document.referrer);
     } catch (error) {
       // Handle error
       console.error('Error creating department:', error);

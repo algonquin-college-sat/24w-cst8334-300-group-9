@@ -102,7 +102,6 @@ const populateTicketInfo = async (ticketId) => {
       `input[name="isArchived"][value="${ticket.isArchived.toString()}"]`
     );
 
-
     date.value = ticket.date;
     who_what.value = ticket.who_what;
     department_id.value = ticket.department_id;
@@ -144,7 +143,9 @@ const populateTicketInfo = async (ticketId) => {
         };
         await updateCelebrationTicket(ticketId, updatedTicketData);
         alert('Ticket updated successfully');
-        window.history.back();
+        // Redirect the user to the ticket list page after updating
+        // and REFRESH the page, ensure the updated content is displayed
+        window.location.replace(document.referrer);
       });
   } catch (error) {
     console.error('Frontend: Error populating data:', error);
