@@ -183,7 +183,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         await updateImprovementTicket(ticketId, updatedTicketData);
         alert('Ticket updated successfully.');
         // Redirect the user to the ticket list page after updating
-        window.history.back();
+        // and REFRESH the page, ensure the updated content is displayed
+        window.location.replace(document.referrer);
       } catch (error) {
         console.error('Error updating ticket:', error);
         alert('Failed to update ticket.');
