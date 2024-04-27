@@ -7,18 +7,16 @@ Byte Busters
 ### Purpose of the Project
 PRH utilizes the Lean Daily Management System as a framework for Continuous Quality Improvement, 
 and its departments use the “huddle-board” tool to organize their ideas and progress on making improvements.
+
+The current virtual huddle-board was created within OneNote, but unfortunately only managers had access to the file. A workaround was created where ticket templates were saved as signaturetemplates in Microsoft Outlook. Department members could download these templates and use them in emails sent to their managers to request a ticket be added or updated. Then during their virtual huddle meetings, the manager can share their screen to show the status of the huddle-board and make any changes that need to be made because 
+of the discussions in that meeting.
+
 **The creation of a proper virtual huddle-board** is required because some departments at PRH are not 
 gathered at a single location and so a physical huddle-board cannot be used by the entire team. Unfortunately, the 
 current virtual huddle-board system is held in a OneNote that is only accessible by managers. This means members 
 of the department must submit ticket to their managers for their managers to add to the board, instead of simply 
 adding it themselves. Similarly, whenever a ticket needs to be updated or moved, a manager must complete that 
 task. It divorces the team members from the process and adds additional tasks to the workload of the managers.
-The current virtual huddle-board system started when PRH gained access to the Microsoft 365 suite 
-through TOH’s license for the product. A huddle-board was created within OneNote, but unfortunately only 
-managers had access to the file. A workaround was created where ticket templates were saved as signaturetemplates in Microsoft Outlook. Department members could download these templates and use them in emails sent 
-to their managers to request a ticket be added or updated. Then during their virtual huddle meetings, the manager 
-can share their screen to show the status of the huddle-board and make any changes that need to be made because 
-of the discussions in that meeting.
 ### Users of the Project
 The users of the new virtual huddle-board are the Department managers and members of the three 
 departments that are currently using their unofficial virtual huddle-boards. All users should be able to create new 
