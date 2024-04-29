@@ -41,10 +41,9 @@ npm i mssql msnodesqlv8 dotenv express cors
 
 npm i -D nodemon
 ```
-## Setting up the local environment (Still in development)
+## Setting up the local environment
 ### Set up Environment Variables:
-Under `backend` folder, create a .env file in the project root directory.
-Add the following environment variables to the .env file:
+Modify the following environment variables to the .env file under `backend` folder:
 
 ```
 DB_DATABASE=PRHDatabank
