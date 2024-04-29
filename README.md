@@ -8,7 +8,7 @@ Byte Busters
 PRH utilizes the Lean Daily Management System as a framework for Continuous Quality Improvement, 
 and its departments use the “huddle-board” tool to organize their ideas and progress on making improvements.
 
-The current virtual huddle-board was created within OneNote, but unfortunately only managers had access to the file. A workaround was created where ticket templates were saved as signaturetemplates in Microsoft Outlook. Department members could download these templates and use them in emails sent to their managers to request a ticket be added or updated. Then during their virtual huddle meetings, the manager can share their screen to show the status of the huddle-board and make any changes that need to be made because 
+The current virtual huddle-board was created within OneNote, but unfortunately only managers had access to the file. A workaround was created where ticket templates were saved as signature templates in Microsoft Outlook. Department members could download these templates and use them in emails sent to their managers to request a ticket be added or updated. Then during their virtual huddle meetings, the manager can share their screen to show the status of the huddle-board and make any changes that need to be made because 
 of the discussions in that meeting.
 
 **The creation of a proper virtual huddle-board** is required because some departments at PRH are not 
@@ -43,7 +43,7 @@ npm i -D nodemon
 ```
 ## Setting up the local environment
 ### Set up Environment Variables:
-Modify the following environment variables to the .env file under `backend` folder:
+Modify the following environment variables in the `.env` file under `backend` folder:
 
 ```
 DB_DATABASE=PRHDatabank
